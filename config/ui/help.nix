@@ -8,7 +8,6 @@
       "[" = "+prev";
       "]" = "+next";
       "g" = "+goto";
-      "gs" = "+surround";
       "z" = "+fold";
     };
   };
