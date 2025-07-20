@@ -1,8 +1,7 @@
-{pkgs, ...}:
-with pkgs.vimPlugins; {
+{pkgs, ...}: {
   vim.lazy.plugins = {
     "colorful-winsep.nvim" = {
-      package = colorful-winsep-nvim;
+      package = pkgs.vimPlugins.colorful-winsep-nvim;
       setupModule = "colorful-winsep";
       setupOpts = {};
       lazy = true;
