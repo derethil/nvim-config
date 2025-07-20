@@ -12,6 +12,10 @@
       url = "github:kazhala/close-buffers.nvim";
       flake = false;
     };
+    root-nvim = {
+      url = "github:flashios09/root.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

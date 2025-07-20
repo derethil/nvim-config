@@ -151,7 +151,24 @@
         "close-buffers-nvim": "close-buffers-nvim",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
-        "nvf": "nvf"
+        "nvf": "nvf",
+        "root-nvim": "root-nvim"
+      }
+    },
+    "root-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752618136,
+        "narHash": "sha256-L5OTVQ1gG38mMveyV6ToCJ0ja36Yu6v9l8rTsGCO0g0=",
+        "owner": "flashios09",
+        "repo": "root.nvim",
+        "rev": "57a7874c3bc711e3a13044e265c6cb32472eb9a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "flashios09",
+        "repo": "root.nvim",
+        "type": "github"
       }
     },
     "systems": {

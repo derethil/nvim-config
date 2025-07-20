@@ -21,7 +21,7 @@
     {
       key = "<leader>E";
       mode = ["n"];
-      action = "<CMD>lua MiniFiles.open(vim.fn.getcwd())<CR>";
+      action = "<CMD>lua MiniFiles.open(require('root').get())<CR>";
       silent = true;
       desc = "Open Mini Files (root directory)";
     }
@@ -46,6 +46,16 @@
               vim.fn.bufadd(to)
             end
           end
+        end
+      '';
+    }
+    {
+      event = ["User"];
+      pattern = ["MiniFilesActionRename"];
+      desc = "Attach rename file event to LSP";
+      callback = lib.generators.mkLuaInline ''
+        function(event)
+            require("snacks.rename").on_rename_file(event.data.from, event.data.to)
         end
       '';
     }
