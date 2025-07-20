@@ -8,6 +8,10 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    close-buffers-nvim = {
+      url = "github:kazhala/close-buffers.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
@@ -25,12 +29,20 @@
         lib,
         ...
       }: let
-        myLib = (import ./lib) {inherit lib;};
+        extendedLib = lib // (import ./lib {inherit lib;}) // inputs.nvf.lib;
+
+        extendedPkgs = pkgs.extend (final: prev: {
+          internal = import ./packages {inherit lib pkgs inputs;};
+        });
 
         nvim =
           (inputs.nvf.lib.neovimConfiguration {
-            inherit pkgs;
-            modules = myLib.importAllNix ./config;
+            pkgs = extendedPkgs;
+            modules = extendedLib.util.importAllNix ./config;
+            extraSpecialArgs = {
+              lib = extendedLib;
+              pkgs = extendedPkgs;
+            };
           }).neovim;
       in {
         packages.default = nvim;

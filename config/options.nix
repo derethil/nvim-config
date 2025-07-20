@@ -1,0 +1,3 @@
+{
+  vim.options.mousemoveevent = true;
+}
