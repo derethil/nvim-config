@@ -1,7 +1,7 @@
 {
   vim.globals = {
     mapleader = " ";
-    maplocalleader = "//";
+    maplocalleader = "\\";
   };
 
   vim.options = {
