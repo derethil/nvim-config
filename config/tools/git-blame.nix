@@ -1,0 +1,35 @@
+{pkgs, ...}: {
+  vim.lazy.plugins = {
+    "git-blame.nvim" = {
+      package = pkgs.vimPlugins.git-blame-nvim;
+      event = [
+        {
+          event = "User";
+          pattern = "LazyFile";
+        }
+      ];
+      setupModule = "gitblame";
+      setupOpts = {
+        display_virtual_text = false;
+        message_template = "<author> • <date> • <summary>";
+        date_format = "%r";
+        message_when_not_committed = "Not Committed";
+        delay = 0;
+      };
+      keys = [
+        {
+          key = "<leader>uo";
+          mode = "n";
+          action = "<cmd>GitBlameToggle<CR>";
+          desc = "Toggle Git Blame in Statusline";
+        }
+        {
+          key = "<leader>gC";
+          mode = "n";
+          action = "<cmd>GitBlameOpenCommitURL<CR>";
+          desc = "Open Git Commit URL";
+        }
+      ];
+    };
+  };
+}
