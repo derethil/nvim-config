@@ -26,7 +26,6 @@
     pumblend = 10; # Popup menu transparency
     pumheight = 10; # Limit popup menu height
     ruler = false; # Disable the ruler
-    scrolloff = 8; # Lines to keep above and below the cursor
     sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,folds"; # Save all session options
     shiftwidth = 2; # Indent size
     shiftround = true; # Round indent to shiftwidth
