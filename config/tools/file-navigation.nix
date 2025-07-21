@@ -21,7 +21,7 @@
     {
       key = "<leader>E";
       mode = ["n"];
-      action = "<CMD>lua MiniFiles.open(require('root').get())<CR>";
+      action = "<CMD>lua MiniFiles.open(require('snacks.git').get_root())<CR>";
       silent = true;
       desc = "Open Mini Files (root directory)";
     }

@@ -2,8 +2,10 @@
   vim.utility.snacks-nvim = {
     enable = true;
     setupOpts = {
+      animate = {enabled = false;};
       rename = {enabled = true;};
-      bigfile = {enabled = false;};
+      bigfile = {enabled = true;};
+      git = {enabled = true;};
       dashboard = {enabled = false;};
       explorer = {enabled = false;};
       indent = {enabled = false;};
@@ -17,4 +19,13 @@
       words = {enabled = false;};
     };
   };
+
+  vim.keymaps = [
+    {
+      key = "<leader>ghb";
+      mode = ["n"];
+      action = "<CMD>lua require('snacks.git').blame_line()<CR>";
+      desc = "Open Git Blame Context";
+    }
+  ];
 }
