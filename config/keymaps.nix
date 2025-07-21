@@ -43,5 +43,11 @@
       action = "<ESC>ggVGy";
       desc = "Yank all";
     }
+    {
+      key = "<space>yd";
+      mode = ["n" "v"];
+      action = "<cmd>CopyCodeBlock<cr>";
+      desc = "Copy code block with filetype";
+    }
   ];
 }
