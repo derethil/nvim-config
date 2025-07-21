@@ -14,14 +14,18 @@
     {
       key = "<leader>e";
       mode = ["n"];
-      action = "<CMD>lua MiniFiles.open()<CR>";
+      action = "<CMD>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>";
       silent = true;
       desc = "Open Mini Files (current buffer)";
     }
+  ];
+
+  # Lazy-load root-nvim plugin
+  vim.lazy.plugins.root-nvim.keys = [
     {
       key = "<leader>E";
       mode = ["n"];
-      action = "<CMD>lua MiniFiles.open(require('snacks.git').get_root())<CR>";
+      action = "<CMD>lua MiniFiles.open(require('root').get(), false)<CR>";
       silent = true;
       desc = "Open Mini Files (root directory)";
     }
