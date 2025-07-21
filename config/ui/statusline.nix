@@ -7,6 +7,14 @@
           left = "|";
           right = "";
         };
+        disabled_filetypes = [
+          # Git
+          "gitcommit"
+          "gitrebase"
+          # Neogit
+          "NeogitStatus"
+          "NeogitLogView"
+        ];
       };
     };
     activeSection = {
