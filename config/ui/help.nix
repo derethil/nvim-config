@@ -5,6 +5,8 @@
       preset = "helix";
     };
     register = {
+      "<leader>s" = "+search";
+      "<leader>u" = "+ui";
       "[" = "+prev";
       "]" = "+next";
       "g" = "+goto";

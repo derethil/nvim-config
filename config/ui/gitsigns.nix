@@ -1,5 +1,8 @@
 {
-  # TODO: test
+  vim.binds.whichKey.register = {
+    "<leader>gh" = "+hunks";
+  };
+
   vim.git.gitsigns = {
     enable = true;
     codeActions.enable = true;
@@ -15,6 +18,7 @@
       stageHunk = "<leader>ghs";
       stageBuffer = "<leader>ghS";
       undoStageHunk = "<leader>ghu";
+      toggleDeleted = "<leader>ght";
     };
     setupOpts = let
       signs = {
