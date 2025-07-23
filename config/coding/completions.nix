@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   vim.autocomplete.blink-cmp = {
     enable = true;
 
@@ -21,27 +21,21 @@
     };
 
     setupOpts = {
+      signature.enabled = true;
       completion = {
-        accept = {
-          auto_brackets = {
-            enabled = true;
-          };
-        };
-
-        menu = {
+        accept.auto_brackets.enabled = true;
+        ghost_text.enabled = true;
+        documentation = {
           auto_show = true;
-          draw = {
-            treesitter = ["lsp"];
-          };
+          auto_show_delay_ms = 0;
         };
-
-        documentation.auto_show = true;
-        ghost_text. enabled = true;
       };
 
       sources = {
         default = [
+          "copilot"
           "lsp"
+          "ripgrep"
           "snippets"
           "spell"
           "path"
@@ -49,12 +43,23 @@
         ];
 
         providers = {
+          copilot = {
+            name = "copilot";
+            module = lib.mkForce "blink-cmp-copilot";
+            score_offset = 7;
+            min_keyword_length = 2;
+            async = true;
+          };
           lsp = {
             min_keyword_length = 3;
-            score_offset = 5;
+            score_offset = 6;
           };
           snippets = {
             min_keyword_length = 2;
+            score_offset = 5;
+          };
+          ripgrep = {
+            min_keyword_length = 3;
             score_offset = 4;
           };
           spell = {
