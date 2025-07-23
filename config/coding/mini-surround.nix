@@ -1,5 +1,5 @@
 {
-  vim.binds.whichKey.register = {"gs" = "+surround";};
+  vim.binds.whichKey.register = {"gs" = "+Surround";};
   vim.mini.surround = {
     enable = true;
     setupOpts = {

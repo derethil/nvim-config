@@ -35,6 +35,6 @@
   };
 
   vim.binds.whichKey.register = {
-    "<leader>c" = "+code";
+    "<leader>c" = "+Code";
   };
 }

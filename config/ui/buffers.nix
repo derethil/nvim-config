@@ -4,7 +4,7 @@
   ...
 }: {
   vim.binds.whichKey.register = {
-    "<leader>b" = "+buffers";
+    "<leader>b" = "+Buffers";
   };
 
   vim.tabline.nvimBufferline = {

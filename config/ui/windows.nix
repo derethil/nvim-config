@@ -97,6 +97,6 @@
   ];
 
   vim.binds.whichKey.register = {
-    "<leader>w" = "+windows";
+    "<leader>w" = "+Windows";
   };
 }

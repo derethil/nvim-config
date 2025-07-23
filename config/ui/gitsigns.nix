@@ -1,6 +1,6 @@
 {lib, ...}: {
   vim.binds.whichKey.register = {
-    "<leader>gh" = "+hunks";
+    "<leader>gh" = "+Hunks";
   };
 
   vim.git.gitsigns = {

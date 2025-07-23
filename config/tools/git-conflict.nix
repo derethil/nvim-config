@@ -1,6 +1,6 @@
 {
   vim.binds.whichKey.register = {
-    "<leader>m" = "+Git Conflict";
+    "<leader>gm" = "+Conflicts";
   };
 
   vim.git.git-conflict = {
@@ -9,10 +9,10 @@
       default_commands = true;
     };
     mappings = {
-      both = "<leader>mb";
-      none = "<leader>m0";
-      ours = "<leader>mo";
-      theirs = "<leader>mt";
+      both = "<leader>gmb";
+      none = "<leader>gm0";
+      ours = "<leader>gmo";
+      theirs = "<leader>gmt";
       nextConflict = "]m";
       prevConflict = "[m";
     };

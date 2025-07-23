@@ -5,13 +5,13 @@
       preset = "helix";
     };
     register = {
-      "<leader>s" = "+search";
-      "<leader>f" = "+files";
-      "<leader>u" = "+ui";
-      "[" = "+prev";
-      "]" = "+next";
-      "g" = "+goto";
-      "z" = "+fold";
+      "<leader>s" = "+Search";
+      "<leader>f" = "+Files";
+      "<leader>u" = "+UI";
+      "[" = "+Previous";
+      "]" = "+Next";
+      "g" = "+Goto";
+      "z" = "+Fold";
     };
   };
 
