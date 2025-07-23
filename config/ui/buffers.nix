@@ -77,7 +77,14 @@
         mode = ["n"];
         action = "<CMD>lua require('close_buffers').delete({ type = 'hidden' })<CR>";
         silent = true;
-        desc = "Close Hidden Buffers";
+        desc = "Close Buffers (hidden)";
+      }
+      {
+        key = "<leader>bO";
+        mode = ["n"];
+        action = "<CMD>lua require('close_buffers').delete({ type = 'other' })<CR>";
+        silent = true;
+        desc = "Close Buffers";
       }
     ];
   };
