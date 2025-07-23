@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+  vim.extraPackages = with pkgs; [
+    chafa
+    diff-so-fancy
+  ];
+
   vim.lazy.plugins.import-nvim = {
     package = pkgs.internal.import-nvim;
     setupModule = "import";
