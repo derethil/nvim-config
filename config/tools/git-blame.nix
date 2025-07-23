@@ -1,13 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   vim.lazy.plugins = {
     "git-blame.nvim" = {
       package = pkgs.vimPlugins.git-blame-nvim;
-      event = [
-        {
-          event = "User";
-          pattern = "LazyFile";
-        }
-      ];
+      event = [lib.events.VeryLazy];
       setupModule = "gitblame";
       setupOpts = {
         display_virtual_text = false;

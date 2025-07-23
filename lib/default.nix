@@ -14,4 +14,5 @@
   };
 
   icons = import ./icons.nix;
+  events = import ./events.nix;
 }
