@@ -186,7 +186,8 @@
         "import-nvim": "import-nvim",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf",
-        "root-nvim": "root-nvim"
+        "root-nvim": "root-nvim",
+        "sonarlint-nvim": "sonarlint-nvim"
       }
     },
     "root-nvim": {
@@ -203,6 +204,22 @@
         "owner": "flashios09",
         "repo": "root.nvim",
         "type": "github"
+      }
+    },
+    "sonarlint-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747678127,
+        "narHash": "sha256-ZfMUkIFu6nQN0XaOHIzQKJZRIaWzIaV8fsjYDbwGXBg=",
+        "owner": "Alfaixx",
+        "repo": "sonarlint.nvim",
+        "rev": "ff15e709b51d856f12c3684c150f130d4b1becd8",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "Alfaixx",
+        "repo": "sonarlint.nvim",
+        "type": "gitlab"
       }
     },
     "systems": {

@@ -1,13 +1,16 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     close-buffers-nvim = {
       url = "github:kazhala/close-buffers.nvim";
       flake = false;
@@ -18,6 +21,10 @@
     };
     import-nvim = {
       url = "github:piersolenski/import.nvim";
+      flake = false;
+    };
+    sonarlint-nvim = {
+      url = "gitlab:Alfaixx/sonarlint.nvim";
       flake = false;
     };
   };
