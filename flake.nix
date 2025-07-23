@@ -27,6 +27,10 @@
       url = "gitlab:Alfaixx/sonarlint.nvim";
       flake = false;
     };
+    blink-cmp-yanky = {
+      url = "github:marcoSven/blink-cmp-yanky";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

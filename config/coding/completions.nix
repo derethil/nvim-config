@@ -1,9 +1,12 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   vim.autocomplete.blink-cmp = {
     enable = true;
 
     friendly-snippets.enable = true;
-
     mappings = {
       close = "<C-e>";
       complete = null;
@@ -40,6 +43,7 @@
           "spell"
           "path"
           "buffer"
+          "yank"
         ];
 
         per_filetype = {
@@ -82,10 +86,25 @@
             min_keyword_length = 5;
             score_offset = 1;
           };
+          yank = {
+            name = "yank";
+            module = "blink-yanky";
+            score_offset = 4;
+            opts = {
+              minLength = 5;
+              onlyCurrentFiletype = true;
+              trigger_characters = [];
+            };
+          };
         };
       };
 
       cmdline.keymap.preset = "none";
     };
+  };
+
+  vim.lazy.plugins."blink-cmp-yanky" = {
+    priority = 100; # load before blink-cmp
+    package = pkgs.internal.blink-cmp-yanky;
   };
 }
