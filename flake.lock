@@ -92,6 +92,22 @@
         "type": "github"
       }
     },
+    "import-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752528124,
+        "narHash": "sha256-hrZX5Zq6N5b/K7QTc/SSMzRpz8eKpLMdWSQ/5sJ4+u8=",
+        "owner": "piersolenski",
+        "repo": "import.nvim",
+        "rev": "c2af4568c6aaa9521ccb4eb86c6aa9afc2245890",
+        "type": "github"
+      },
+      "original": {
+        "owner": "piersolenski",
+        "repo": "import.nvim",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1748710831,
@@ -167,6 +183,7 @@
       "inputs": {
         "close-buffers-nvim": "close-buffers-nvim",
         "flake-parts": "flake-parts",
+        "import-nvim": "import-nvim",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf",
         "root-nvim": "root-nvim"

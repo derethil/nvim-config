@@ -16,6 +16,10 @@
       url = "github:flashios09/root.nvim";
       flake = false;
     };
+    import-nvim = {
+      url = "github:piersolenski/import.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
