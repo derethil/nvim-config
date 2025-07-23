@@ -3,6 +3,7 @@
     package = pkgs.internal.import-nvim;
     setupModule = "import";
     setupOpts.picker = "fzf-lua";
+    priority = 10; # load after fzf-lua
     keys = [
       {
         key = "<leader>si";
@@ -87,12 +88,6 @@
     }
     # Files
     {
-      key = "<leader>fb";
-      mode = ["n"];
-      action = "<CMD>FzfLua builtin<CR>";
-      desc = "Find Builtins";
-    }
-    {
       key = "<leader>ff";
       mode = ["n"];
       action = "function() require('fzf-lua').files({ cwd = require('root').get() }) end";
@@ -139,6 +134,12 @@
       desc = "Git Status";
     }
     # Miscellaneous
+    {
+      key = "<leader>sb";
+      mode = ["n"];
+      action = "<CMD>FzfLua builtin<CR>";
+      desc = "Search Builtins";
+    }
     {
       key = "<leader>sb";
       mode = ["n"];
