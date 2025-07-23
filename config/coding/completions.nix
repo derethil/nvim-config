@@ -42,7 +42,15 @@
           "buffer"
         ];
 
+        per_filetype = {
+          sql = ["copilot" "lsp" "dadbod" "snippets" "buffer"];
+        };
+
         providers = {
+          dadbod = {
+            name = "Dadbod";
+            module = "vim_dadbod_completion.blink";
+          };
           copilot = {
             name = "copilot";
             module = lib.mkForce "blink-cmp-copilot";
