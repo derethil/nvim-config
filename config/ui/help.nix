@@ -6,6 +6,7 @@
     };
     register = {
       "<leader>s" = "+search";
+      "<leader>f" = "+files";
       "<leader>u" = "+ui";
       "[" = "+prev";
       "]" = "+next";
