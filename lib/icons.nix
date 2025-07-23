@@ -9,6 +9,10 @@
     added = " ";
     modified = " ";
     removed = " ";
+    signs = {
+      added = "▎";
+      modified = "▎";
+      removed = "";
+    };
   };
 }
-

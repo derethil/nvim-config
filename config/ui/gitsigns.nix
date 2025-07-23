@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   vim.binds.whichKey.register = {
     "<leader>gh" = "+hunks";
   };
@@ -21,13 +21,13 @@
       toggleDeleted = "<leader>ght";
     };
     setupOpts = let
-      signs = {
-        add = {text = "▎";};
-        change = {text = "▎";};
-        delete = {text = "";};
-        topdelete = {text = "";};
-        changedelete = {text = "▎";};
-        untracked = {text = "▎";};
+      signs = with lib.icons.git.signs; {
+        add = {text = added;};
+        change = {text = modified;};
+        delete = {text = removed;};
+        topdelete = {text = removed;};
+        changedelete = {text = modified;};
+        untracked = {text = added;};
       };
     in {
       signs = signs;
