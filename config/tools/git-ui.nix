@@ -1,4 +1,6 @@
 {
+  vim.utility.diffview-nvim.enable = true;
+
   vim.git.neogit = {
     enable = true;
     mappings = {
@@ -12,7 +14,9 @@
         staged_diff_split_kind = "auto";
       };
       integrations = {
-        telescope = false; # TODO: enable when telescope is configured
+        fzf_lua = true;
+        telescope = false;
+        diffview = true;
       };
       graph_style = "unicode";
       git_services = {
