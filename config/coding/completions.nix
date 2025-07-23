@@ -5,8 +5,8 @@
     friendly-snippets.enable = true;
 
     mappings = {
-      close = "<Esc>";
-      complete = "<C-e>";
+      close = "<C-e>";
+      complete = null;
       confirm = "<C-y>";
       next = "<C-n>";
       previous = "<C-p>";
