@@ -1,7 +1,7 @@
 {
   vim.languages.go = {
     dap.enable = false;
-    enable = false;
+    enable = true;
     lsp.enable = true;
     treesitter.enable = true;
     format = {
