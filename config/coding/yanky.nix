@@ -34,6 +34,10 @@
               flip_columns = 150;
             };
           };
+          mappings = {
+            i = {"<esc>" = "close";};
+            n = {"<esc>" = "close";};
+          };
         };
       };
       keys = [
