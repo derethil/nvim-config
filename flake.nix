@@ -65,6 +65,15 @@
           }).neovim;
       in {
         packages.default = nvim;
+
+        devShells.default = pkgs.mkShell {
+          packages = [
+            nvim
+          ];
+          shellHook = ''
+            echo "nvf utilities available: nvf-print-config, nvf-print-config-path"
+          '';
+        };
       };
     };
 
