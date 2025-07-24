@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   vim.lsp = {
     enable = true;
     formatOnSave = true;
@@ -39,13 +39,25 @@
     "<leader>c" = "+Code";
   };
 
-  vim.keymaps = [
+  vim.autocmds = [
     {
-      key = "<leader>co";
-      mode = ["n"];
-      action = "function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end";
-      lua = true;
-      desc = "Organize Imports";
+      event = ["LspAttach"];
+      desc = "LSP Keymaps";
+      callback = lib.generators.mkLuaInline ''
+        function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client == nil then
+            return
+          end
+
+          local bufnr = args.buf
+
+          -- Organize Imports
+          vim.keymap.set("n", "<leader>co", function()
+            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+          end, { buffer = bufnr, desc = "Organize Imports" })
+        end
+      '';
     }
   ];
 }
