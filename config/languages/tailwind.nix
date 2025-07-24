@@ -1,5 +1,5 @@
 {
-  vim.languages.python = {
+  vim.languages.tailwind = {
     enable = true;
     lsp.enable = true;
   };
