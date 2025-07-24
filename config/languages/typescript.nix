@@ -3,6 +3,14 @@
   lib,
   ...
 }: {
+  vim.extraPackages = [
+    pkgs.typescript-language-server
+
+    # Keep these available for projects that override deno as formatter
+    pkgs.prettierd
+    pkgs.eslint_d
+  ];
+
   vim.languages.ts = {
     enable = true;
     lsp.enable = true;
@@ -10,13 +18,13 @@
     extraDiagnostics.enable = true;
     format = {
       enable = true;
-      type = "prettierd";
     };
     extensions = {
       ts-error-translator.enable = true;
     };
   };
 
+  # Icons
   vim.mini.icons.setupOpts = {
     file = {
       ".eslintrc.js" = {
@@ -58,10 +66,7 @@
     };
   };
 
-  vim.extraPackages = [
-    pkgs.typescript-language-server
-  ];
-
+  # Typescript Specific Code Actions
   vim.autocmds = [
     (lib.util.mkLspCodeAction [
       {
