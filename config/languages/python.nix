@@ -70,20 +70,14 @@
   };
 
   vim.autocmds = [
-    {
-      event = ["LspAttach"];
-      desc = "LSP: Disable hover capability from Ruff";
-      callback = lib.generators.mkLuaInline ''
-        function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client == nil then
-            return
-          end
-          if client.name == 'ruff' then
-            client.server_capabilities.hoverProvider = false
-          end
-        end
-      '';
-    }
+    (lib.util.mkLspAttachCallback [
+      {
+        clientName = "ruff";
+        desc = "Disable Ruff hoverProvider";
+        code = lib.generators.mkLuaInline ''
+          client.server_capabilities.hoverProvider = false
+        '';
+      }
+    ])
   ];
 }
