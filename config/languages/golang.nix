@@ -8,4 +8,19 @@
       enable = true;
     };
   };
+
+  vim.mini.icons.setupOpts = {
+    file = {
+      ".go-version" = {
+        glyph = "";
+        hl = "MiniIconsBlue";
+      };
+    };
+    filetype = {
+      gotmpl = {
+        glyph = "󰟓";
+        hl = "MiniIconsGrey";
+      };
+    };
+  };
 }
