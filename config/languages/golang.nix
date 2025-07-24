@@ -1,8 +1,8 @@
 {
-  vim.languages.sql = {
-    enable = true;
+  vim.languages.go = {
+    dap.enable = false;
+    enable = false;
     lsp.enable = true;
-    lsp.server = "sqls";
     treesitter.enable = true;
     format = {
       enable = true;
