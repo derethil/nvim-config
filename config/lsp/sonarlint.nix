@@ -4,12 +4,12 @@
   ...
 }: let
   filetypes = ["javascript" "typescript" "javascriptreact" "typescriptreact" "go"];
-  analyzers = ["sonarjs" "sonarpython" "sonarhtml" "sonargo" "sonartext"];
 
-  analyzerPaths = map (analyzer: "${pkgs.sonarlint-ls}/share/sonarlint-analyzers/${analyzer}.jar") analyzers;
+  analyzers = ["sonarjs" "sonarpython" "sonarhtml" "sonargo" "sonartext"];
+  analyzerPaths = map (analyzer: "${pkgs.sonarlint-ls}/share/plugins/${analyzer}.jar") analyzers;
 
   cmd = lib.flatten [
-    "${pkgs.sonarlint-ls}/bin/sonarlint-language-server"
+    "${pkgs.sonarlint-ls}/bin/sonarlint-ls"
     "-stdio"
     "-analyzers"
     analyzerPaths
@@ -22,6 +22,9 @@ in {
   vim.lazy.plugins.sonarlint-nvim = {
     # TODO: update package when connected mode is merged: https://gitlab.com/schrieveslaach/sonarlint.nvim
     package = pkgs.internal.sonarlint-nvim;
+    before = ''
+      local lspconfig = require("lspconfig")
+    '';
     enabled = ''
       function()
         local current_dir = vim.fn.getcwd()
@@ -29,6 +32,7 @@ in {
       end
     '';
     ft = filetypes;
+    setupModule = "sonarlint";
     setupOpts = {
       filetypes = filetypes;
       connected.get_credentials = ''

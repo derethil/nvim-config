@@ -29,7 +29,7 @@
     setupModule = "fzf-lua";
     event = [lib.events.VeryLazy];
     setupOpts =
-      {"@1" = "default-title";}
+      {"@1" = "default-title";} # first argument is the default profile, not a table
       // {
         fzf_colors = true;
         fzf_opts = {"--no-scrollbar" = true;};
