@@ -50,5 +50,9 @@
     winminwidth = 5; # Minimum width for windows
     wrap = false; # Line wrapping
     smoothscroll = true; # Smooth scrolling when line wrapped
+
+    # Allow project-specific configurations
+    exrc = true;
+    secure = true;
   };
 }
