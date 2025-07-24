@@ -3,6 +3,7 @@
     enable = true;
     formatOnSave = true;
     inlayHints.enable = false;
+    lspkind.enable = true;
     mappings = {
       # LSP Specific Mappings
       goToDefinition = "gd";
@@ -37,4 +38,14 @@
   vim.binds.whichKey.register = {
     "<leader>c" = "+Code";
   };
+
+  vim.keymaps = [
+    {
+      key = "<leader>co";
+      mode = ["n"];
+      action = "function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end";
+      lua = true;
+      desc = "Organize Imports";
+    }
+  ];
 }
