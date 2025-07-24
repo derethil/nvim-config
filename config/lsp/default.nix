@@ -40,24 +40,12 @@
   };
 
   vim.autocmds = [
-    {
-      event = ["LspAttach"];
-      desc = "LSP Keymaps";
-      callback = lib.generators.mkLuaInline ''
-        function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client == nil then
-            return
-          end
-
-          local bufnr = args.buf
-
-          -- Organize Imports
-          vim.keymap.set("n", "<leader>co", function()
-            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-          end, { buffer = bufnr, desc = "Organize Imports" })
-        end
-      '';
-    }
+    (lib.util.mkLspCodeAction [
+      {
+        key = "<leader>co";
+        action = "source.organizeImports";
+        desc = "Organize Imports";
+      }
+    ])
   ];
 }
