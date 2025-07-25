@@ -7,21 +7,23 @@
     vim-dadbod = {
       package = pkgs.vimPlugins.vim-dadbod;
       lazy = true;
-      priority = 100;
     };
 
     vim-dadbod-completion = {
       package = pkgs.vimPlugins.vim-dadbod-completion;
       ft = ["sql" "mysql" "plsql"];
       lazy = true;
-      priority = 90;
     };
 
     vim-dadbod-ui = {
       package = pkgs.vimPlugins.vim-dadbod-ui;
       cmd = ["DBUI" "DBUIToggle" "DBUIAddConnection" "DBUIFindBuffer"];
-      priority = 80;
       before = ''
+        -- Load dependencies first
+        require("lz.n").trigger_load("vim-dadbod")
+        require("lz.n").trigger_load("vim-dadbod-completion")
+
+        -- Configuration
         local data_path = vim.fn.stdpath("data")
 
         vim.g.db_ui_auto_execute_table_helpers = 1
