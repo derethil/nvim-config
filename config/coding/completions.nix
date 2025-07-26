@@ -33,8 +33,7 @@
         menu.draw = {
           columns = lib.generators.mkLuaInline ''
             {
-              { "kind_icon", "label",  "label_description", gap = 1 },
-              { "kind" }
+              { "kind_icon", "label", gap = 1 },
             }
           '';
           components = {
@@ -49,6 +48,18 @@
                 function(ctx)
                   local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                   return hl
+                end
+              '';
+            };
+            label = {
+              text = lib.generators.mkLuaInline ''
+                function(ctx)
+                  return require("colorful-menu").blink_components_text(ctx)
+                end
+              '';
+              highlight = lib.generators.mkLuaInline ''
+                function(ctx)
+                  return require("colorful-menu").blink_components_highlight(ctx)
                 end
               '';
             };
@@ -151,8 +162,16 @@
     };
   };
 
-  vim.lazy.plugins."blink-cmp-yanky" = {
-    priority = 100; # load before blink-cmp
-    package = pkgs.internal.blink-cmp-yanky;
+  vim.lazy.plugins = {
+    "blink-cmp-yanky" = {
+      priority = 100; # load before blink-cmp
+      package = pkgs.internal.blink-cmp-yanky;
+    };
+    "colorful-menu.nvim" = {
+      package = pkgs.vimPlugins.colorful-menu-nvim;
+      setupModule = "colorful-menu";
+      setupOpts = {};
+      event = [lib.events.VeryLazy];
+    };
   };
 }
