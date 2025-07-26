@@ -32,18 +32,43 @@
           auto_show = true;
           auto_show_delay_ms = 0;
         };
+        menu.draw = {
+          components = {
+            kind_icon = {
+              text = lib.generators.mkLuaInline ''
+                function(ctx)
+                  local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return kind_icon
+                end
+              '';
+              highlight = lib.generators.mkLuaInline ''
+                function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end
+              '';
+            };
+            kind = {
+              highlight = lib.generators.mkLuaInline ''
+                function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end
+              '';
+            };
+          };
+        };
       };
 
       sources = {
         default = [
           "copilot"
           "lsp"
-          "ripgrep"
-          "snippets"
-          "spell"
-          "path"
           "buffer"
           "yank"
+          "ripgrep"
+          "snippets"
+          "path"
         ];
 
         per_filetype = {
@@ -58,43 +83,30 @@
           copilot = {
             name = "copilot";
             module = lib.mkForce "blink-cmp-copilot";
-            score_offset = 7;
-            min_keyword_length = 2;
+            score_offset = 10000;
             async = true;
+            opts = {
+              kind = "copilot";
+            };
           };
           lsp = {
-            min_keyword_length = 3;
-            score_offset = 6;
-          };
-          snippets = {
-            min_keyword_length = 2;
-            score_offset = 5;
-          };
-          ripgrep = {
-            min_keyword_length = 3;
-            score_offset = 4;
-          };
-          spell = {
-            min_keyword_length = 3;
-            score_offset = 3;
-          };
-          path = {
-            min_keyword_length = 3;
-            score_offset = 2;
+            score_offset = 10;
           };
           buffer = {
-            min_keyword_length = 5;
-            score_offset = 1;
+            score_offset = 9;
           };
           yank = {
             name = "yank";
             module = "blink-yanky";
-            score_offset = 4;
+            score_offset = 8;
             opts = {
-              minLength = 5;
+              minLength = 4;
               onlyCurrentFiletype = true;
-              trigger_characters = [];
+              kind = "yank";
             };
+          };
+          ripgrep = {
+            score_offset = 7;
           };
         };
       };
