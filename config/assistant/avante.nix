@@ -7,13 +7,16 @@
     enable = true;
     setupOpts = {
       provider = "copilot";
-      auto_suggestions_provider = "copilot";
       web_search_engine = {
         provider = "tavily"; # won't work until TAVILY_API_KEY is set
       };
       providers = {
         copilot = {
         };
+      };
+      auto_suggestions_provider = "copilot";
+      auto_suggestions = {
+        enabled = false;
       };
     };
   };
