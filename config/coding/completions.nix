@@ -93,7 +93,7 @@
           copilot = {
             name = "copilot";
             module = lib.mkForce "blink-cmp-copilot";
-            score_offset = 100;
+            score_offset = 1000000;
             async = true;
             opts = {
               kind = "copilot";
@@ -139,7 +139,7 @@
             score_offset = 85;
           };
           emoji = {
-            score_offset = 105;
+            score_offset = 10000000;
             min_keyword_length = 2;
             opts = {insert = true;};
           };
