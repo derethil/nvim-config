@@ -1,26 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.lazy.plugins.vim-swap = {
     package = pkgs.vimPlugins.vim-swap;
     lazy = true;
     keys = [
-      {
-        key = "<leader>c<";
-        mode = ["n"];
-        action = "<Plug>(swap-prev)";
-        desc = "Swap with Prev";
-      }
-      {
-        key = "<leader>c>";
-        mode = ["n"];
-        action = "<Plug>(swap-next)";
-        desc = "Swap with Next";
-      }
-      {
-        key = "<leader>ci";
-        mode = ["n"];
-        action = "<Plug>(swap-interactive)";
-        desc = "Interactive Swap";
-      }
+      (mkKeymap "n" "<leader>c<" "<Plug>(swap-prev)" {desc = "Swap with Prev";})
+      (mkKeymap "n" "<leader>c>" "<Plug>(swap-next)" {desc = "Swap with Next";})
+      (mkKeymap "n" "<leader>ci" "<Plug>(swap-interactive)" {desc = "Interactive Swap";})
     ];
   };
 }

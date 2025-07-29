@@ -1,4 +1,6 @@
-{
+{lib, ...}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.binds.whichKey = {
     enable = true;
     setupOpts = {
@@ -16,12 +18,9 @@
   };
 
   vim.keymaps = [
-    {
-      key = "<leader>?";
-      mode = ["n"];
-      action = "<CMD>lua require('which-key').show({ global = false })<CR>";
-      silent = true;
+    (mkKeymap "n" "<leader>?" "<CMD>lua require('which-key').show({ global = false })<CR>" {
       desc = "Buffer Keymaps";
-    }
+      silent = true;
+    })
   ];
 }

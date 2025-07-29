@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.binds.whichKey.register = {
     "<leader>t" = "Database";
   };
@@ -82,18 +88,8 @@
           lua = true;
           desc = "Toggle Dadbod UI";
         }
-        {
-          key = "<leader>tf";
-          mode = ["n"];
-          action = "<cmd>DBUIFindBuffer<cr>";
-          desc = "Find Dadbod Buffer";
-        }
-        {
-          key = "<leader>ta";
-          mode = ["n"];
-          action = "<cmd>DBUIAddConnection<cr>";
-          desc = "Add Dadbod Connection";
-        }
+        (mkKeymap "n" "<leader>tf" "<cmd>DBUIFindBuffer<cr>" {desc = "Find Dadbod Buffer";})
+        (mkKeymap "n" "<leader>ta" "<cmd>DBUIAddConnection<cr>" {desc = "Add Dadbod Connection";})
       ];
     };
   };

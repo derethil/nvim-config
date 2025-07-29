@@ -1,4 +1,6 @@
-{
+{lib, ...}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.utility.yanky-nvim = {
     enable = true;
     setupOpts = {
@@ -10,107 +12,22 @@
   };
 
   vim.keymaps = [
-    {
-      key = "y";
-      mode = ["n" "x"];
-      action = "<Plug>(YankyYank)";
-      desc = "Yank Text";
-    }
-    {
-      key = "p";
-      mode = ["n" "x"];
-      action = "<Plug>(YankyPutAfter)";
-      desc = "Put Text After Cursor";
-    }
-    {
-      key = "P";
-      mode = ["n" "x"];
-      action = "<Plug>(YankyPutBefore)";
-      desc = "Put Text Before Cursor";
-    }
-    {
-      key = "gp";
-      mode = ["n" "x"];
-      action = "<Plug>(YankyGPutAfter)";
-      desc = "Put Text After Selection";
-    }
-    {
-      key = "gP";
-      mode = ["n" "x"];
-      action = "<Plug>(YankyGPutBefore)";
-      desc = "Put Text Before Selection";
-    }
-    {
-      key = "[y";
-      mode = ["n"];
-      action = "<Plug>(YankyCycleForward)";
-      desc = "Cycle Forward Through Yank History";
-    }
-    {
-      key = "]y";
-      mode = ["n"];
-      action = "<Plug>(YankyCycleBackward)";
-      desc = "Cycle Backward Through Yank History";
-    }
-    {
-      key = "]p";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentAfterLinewise)";
-      desc = "Put Indented After Cursor (Linewise)";
-    }
-    {
-      key = "[p";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentBeforeLinewise)";
-      desc = "Put Indented Before Cursor (Linewise)";
-    }
-    {
-      key = "]P";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentAfterLinewise)";
-      desc = "Put Indented After Cursor (Linewise)";
-    }
-    {
-      key = "[P";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentBeforeLinewise)";
-      desc = "Put Indented Before Cursor (Linewise)";
-    }
-    {
-      key = ">p";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentAfterShiftRight)";
-      desc = "Put and Indent Right";
-    }
-    {
-      key = "<p";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentAfterShiftLeft)";
-      desc = "Put and Indent Left";
-    }
-    {
-      key = ">P";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentBeforeShiftRight)";
-      desc = "Put Before and Indent Right";
-    }
-    {
-      key = "<P";
-      mode = ["n"];
-      action = "<Plug>(YankyPutIndentBeforeShiftLeft)";
-      desc = "Put Before and Indent Left";
-    }
-    {
-      key = "=p";
-      mode = ["n"];
-      action = "<Plug>(YankyPutAfterFilter)";
-      desc = "Put After Applying a Filter";
-    }
-    {
-      key = "=P";
-      mode = ["n"];
-      action = "<Plug>(YankyPutBeforeFilter)";
-      desc = "Put Before Applying a Filter";
-    }
+    (mkKeymap ["n" "x"] "y" "<Plug>(YankyYank)" {desc = "Yank Text";})
+    (mkKeymap ["n" "x"] "p" "<Plug>(YankyPutAfter)" {desc = "Put Text After Cursor";})
+    (mkKeymap ["n" "x"] "P" "<Plug>(YankyPutBefore)" {desc = "Put Text Before Cursor";})
+    (mkKeymap ["n" "x"] "gp" "<Plug>(YankyGPutAfter)" {desc = "Put Text After Selection";})
+    (mkKeymap ["n" "x"] "gP" "<Plug>(YankyGPutBefore)" {desc = "Put Text Before Selection";})
+    (mkKeymap "n" "[y" "<Plug>(YankyCycleForward)" {desc = "Cycle Forward Through Yank History";})
+    (mkKeymap "n" "]y" "<Plug>(YankyCycleBackward)" {desc = "Cycle Backward Through Yank History";})
+    (mkKeymap "n" "]p" "<Plug>(YankyPutIndentAfterLinewise)" {desc = "Put Indented After Cursor (Linewise)";})
+    (mkKeymap "n" "[p" "<Plug>(YankyPutIndentBeforeLinewise)" {desc = "Put Indented Before Cursor (Linewise)";})
+    (mkKeymap "n" "]P" "<Plug>(YankyPutIndentAfterLinewise)" {desc = "Put Indented After Cursor (Linewise)";})
+    (mkKeymap "n" "[P" "<Plug>(YankyPutIndentBeforeLinewise)" {desc = "Put Indented Before Cursor (Linewise)";})
+    (mkKeymap "n" ">p" "<Plug>(YankyPutIndentAfterShiftRight)" {desc = "Put and Indent Right";})
+    (mkKeymap "n" "<p" "<Plug>(YankyPutIndentAfterShiftLeft)" {desc = "Put and Indent Left";})
+    (mkKeymap "n" ">P" "<Plug>(YankyPutIndentBeforeShiftRight)" {desc = "Put Before and Indent Right";})
+    (mkKeymap "n" "<P" "<Plug>(YankyPutIndentBeforeShiftLeft)" {desc = "Put Before and Indent Left";})
+    (mkKeymap "n" "=p" "<Plug>(YankyPutAfterFilter)" {desc = "Put After Applying a Filter";})
+    (mkKeymap "n" "=P" "<Plug>(YankyPutBeforeFilter)" {desc = "Put Before Applying a Filter";})
   ];
 }

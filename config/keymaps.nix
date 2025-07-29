@@ -1,53 +1,17 @@
-{
+{lib, ...}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.keymaps = [
-    {
-      key = "<Esc>";
-      mode = ["n"];
-      action = "<CMD>nohlsearch<CR>";
-      silent = true;
+    (mkKeymap "n" "<Esc>" "<CMD>nohlsearch<CR>" {
       desc = "Clear search highlights";
-    }
-    {
-      key = "<leader>qq";
-      mode = ["n"];
-      action = "<CMD>qa<CR>";
-      desc = "Quit All";
-    }
-    {
-      key = "<leader>q";
-      mode = ["n"];
-      action = "<CMD>q<CR>";
-      desc = "Quit";
-    }
-    {
-      key = "x";
-      mode = ["n"];
-      action = "\"_x";
-      desc = "Delete without yanking";
-    }
-    {
-      key = "p";
-      mode = ["v"];
-      action = "\"_dP";
-      desc = "Paste without yanking";
-    }
-    {
-      key = "<leader>j";
-      mode = ["n"];
-      action = "*``cgn";
-      desc = "Replace word under cursor";
-    }
-    {
-      key = "<C-c>";
-      mode = ["n" "v" "i"];
-      action = "<ESC>ggVGy";
-      desc = "Yank all";
-    }
-    {
-      key = "<space>yd";
-      mode = ["n" "v"];
-      action = "<cmd>CopyCodeBlock<cr>";
-      desc = "Copy code block with filetype";
-    }
+      silent = true;
+    })
+    (mkKeymap "n" "<leader>qq" "<CMD>qa<CR>" {desc = "Quit All";})
+    (mkKeymap "n" "<leader>q" "<CMD>q<CR>" {desc = "Quit";})
+    (mkKeymap "n" "x" "\"_x" {desc = "Delete without yanking";})
+    (mkKeymap "v" "p" "\"_dP" {desc = "Paste without yanking";})
+    (mkKeymap "n" "<leader>j" "*``cgn" {desc = "Replace word under cursor";})
+    (mkKeymap ["n" "v" "i"] "<C-c>" "<ESC>ggVGy" {desc = "Yank all";})
+    (mkKeymap ["n" "v"] "<space>yd" "<cmd>CopyCodeBlock<cr>" {desc = "Copy code block with filetype";})
   ];
 }

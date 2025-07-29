@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.binds.whichKey.register = {
     "<leader>o" = "Overseer";
   };
@@ -59,51 +61,17 @@
       };
     };
     keys = [
-      {
-        key = "<leader>ow";
-        mode = ["n"];
-        action = "<cmd>OverseerToggle<cr>";
-        desc = "Task list";
-      }
-      {
-        key = "<leader>oo";
-        mode = ["n"];
-        action = "<cmd>OverseerRun<cr>";
-        desc = "Run task";
-      }
-      {
-        key = "<leader>oq";
-        mode = ["n"];
-        action = "<cmd>OverseerQuickAction<cr>";
-        desc = "Action recent task";
-      }
-      {
-        key = "<leader>oi";
-        mode = ["n"];
-        action = "<cmd>OverseerInfo<cr>";
-        desc = "Overseer Info";
-      }
-      {
-        key = "<leader>ob";
-        mode = ["n"];
-        action = "<cmd>OverseerBuild<cr>";
-        desc = "Task builder";
-      }
-      {
-        key = "<leader>ot";
-        mode = ["n"];
-        action = "<cmd>OverseerTaskAction<cr>";
-        desc = "Task action";
-      }
-      {
-        key = "<leader>oc";
-        mode = ["n"];
-        action = "<cmd>OverseerClearCache<cr>";
-        desc = "Clear cache";
-      }
+      (mkKeymap "n" "<leader>ow" "<cmd>OverseerToggle<cr>" {desc = "Task list";})
+      (mkKeymap "n" "<leader>oo" "<cmd>OverseerRun<cr>" {desc = "Run task";})
+      (mkKeymap "n" "<leader>oq" "<cmd>OverseerQuickAction<cr>" {desc = "Action recent task";})
+      (mkKeymap "n" "<leader>oi" "<cmd>OverseerInfo<cr>" {desc = "Overseer Info";})
+      (mkKeymap "n" "<leader>ob" "<cmd>OverseerBuild<cr>" {desc = "Task builder";})
+      (mkKeymap "n" "<leader>ot" "<cmd>OverseerTaskAction<cr>" {desc = "Task action";})
+      (mkKeymap "n" "<leader>oc" "<cmd>OverseerClearCache<cr>" {desc = "Clear cache";})
       {
         key = "<space>or";
         mode = ["n" "x" "v"];
+        desc = "Restart Last Task";
         lua = true;
         action = ''
           function()
@@ -120,7 +88,6 @@
             vim.notify("Restarted last Overseer task: " .. most_recent.name, vim.log.levels.INFO, { title = "Overseer" })
           end
         '';
-        desc = "Restart Last Task";
       }
     ];
   };

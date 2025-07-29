@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.lazy.plugins = {
     "colorful-winsep.nvim" = {
       package = pkgs.vimPlugins.colorful-winsep-nvim;
@@ -11,89 +17,56 @@
 
   vim.keymaps = [
     # Window Navigation
-    {
-      key = "<C-h>";
-      mode = ["n"];
-      action = "<C-w>h";
-      silent = true;
+    (mkKeymap "n" "<C-h>" "<C-w>h" {
       desc = "Go to Left Window";
-    }
-    {
-      key = "<C-j>";
-      mode = ["n"];
-      action = "<C-w>j";
       silent = true;
+    })
+    (mkKeymap "n" "<C-j>" "<C-w>j" {
       desc = "Go to Lower Window";
-    }
-    {
-      key = "<C-k>";
-      mode = ["n"];
-      action = "<C-w>k";
       silent = true;
+    })
+    (mkKeymap "n" "<C-k>" "<C-w>k" {
       desc = "Go to Upper Window";
-    }
-    {
-      key = "<C-l>";
-      mode = ["n"];
-      action = "<C-w>l";
       silent = true;
+    })
+    (mkKeymap "n" "<C-l>" "<C-w>l" {
       desc = "Go to Right Window";
-    }
+      silent = true;
+    })
 
     # Window Resizing
-    {
-      key = "<C-Up>";
-      mode = ["n"];
-      action = "<CMD>resize +2<CR>";
-      silent = true;
+    (mkKeymap "n" "<C-Up>" "<CMD>resize +2<CR>" {
       desc = "Increase Window Height";
-    }
-    {
-      key = "<C-Down>";
-      mode = ["n"];
-      action = "<CMD>resize -2<CR>";
       silent = true;
+    })
+    (mkKeymap "n" "<C-Down>" "<CMD>resize -2<CR>" {
       desc = "Decrease Window Height";
-    }
-    {
-      key = "<C-Left>";
-      mode = ["n"];
-      action = "<CMD>vertical resize -2<CR>";
       silent = true;
+    })
+    (mkKeymap "n" "<C-Left>" "<CMD>vertical resize -2<CR>" {
       desc = "Decrease Window Width";
-    }
-    {
-      key = "<C-Right>";
-      mode = ["n"];
-      action = "<CMD>vertical resize +2<CR>";
       silent = true;
+    })
+    (mkKeymap "n" "<C-Right>" "<CMD>vertical resize +2<CR>" {
       desc = "Increase Window Width";
-    }
+      silent = true;
+    })
 
     # Window Splitting
-    {
-      key = "<leader>-";
-      mode = ["n"];
-      action = "<C-w>s";
-      silent = true;
+    (mkKeymap "n" "<leader>-" "<C-w>s" {
       desc = "Split Window Below";
-    }
-    {
-      key = "<leader>|";
-      mode = ["n"];
-      action = "<C-w>v";
       silent = true;
+    })
+    (mkKeymap "n" "<leader>|" "<C-w>v" {
       desc = "Split Window Right";
-    }
+      silent = true;
+    })
 
     # Window Management
-    {
-      key = "<leader>wd";
-      mode = ["n"];
-      action = "<C-w>c";
-      silent = true;
+    (mkKeymap "n" "<leader>wd" "<C-w>c" {
       desc = "Delete Window";
-    }
+      silent = true;
+    })
   ];
 
   vim.binds.whichKey.register = {

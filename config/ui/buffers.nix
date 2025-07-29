@@ -2,7 +2,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.binds.whichKey.register = {
     "<leader>b" = "+Buffers";
   };
@@ -50,20 +52,14 @@
   ];
 
   vim.keymaps = [
-    {
-      key = "<leader>br";
-      mode = ["n"];
-      action = "<CMD>BufferLineCloseRight<CR>";
-      silent = true;
+    (mkKeymap "n" "<leader>br" "<CMD>BufferLineCloseRight<CR>" {
       desc = "Delete Buffers to the Right";
-    }
-    {
-      key = "<leader>bl";
-      mode = ["n"];
-      action = "<CMD>BufferLineCloseLeft<CR>";
       silent = true;
+    })
+    (mkKeymap "n" "<leader>bl" "<CMD>BufferLineCloseLeft<CR>" {
       desc = "Delete Buffers to the Left";
-    }
+      silent = true;
+    })
   ];
 
   vim.lazy.plugins.close-buffers-nvim = {
@@ -72,20 +68,14 @@
     setupOpts = {};
     lazy = true;
     keys = [
-      {
-        key = "<leader>bo";
-        mode = ["n"];
-        action = "<CMD>lua require('close_buffers').delete({ type = 'hidden' })<CR>";
-        silent = true;
+      (mkKeymap "n" "<leader>bo" "<CMD>lua require('close_buffers').delete({ type = 'hidden' })<CR>" {
         desc = "Close Buffers (hidden)";
-      }
-      {
-        key = "<leader>bO";
-        mode = ["n"];
-        action = "<CMD>lua require('close_buffers').delete({ type = 'other' })<CR>";
         silent = true;
+      })
+      (mkKeymap "n" "<leader>bO" "<CMD>lua require('close_buffers').delete({ type = 'other' })<CR>" {
         desc = "Close Buffers";
-      }
+        silent = true;
+      })
     ];
   };
 }

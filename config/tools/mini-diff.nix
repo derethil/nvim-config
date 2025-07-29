@@ -28,7 +28,6 @@
       {
         key = "<leader>gd";
         mode = ["n"];
-        # Defer the action a bit to give time for mini.diff to initialize
         action = ''
           function()
             vim.defer_fn(function()

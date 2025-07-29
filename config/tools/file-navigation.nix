@@ -1,4 +1,6 @@
-{lib, ...}: {
+{lib, ...}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.mini = {
     bufremove.enable = true;
     files = {
@@ -11,24 +13,18 @@
   };
 
   vim.keymaps = [
-    {
-      key = "<leader>e";
-      mode = ["n"];
-      action = "<CMD>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>";
-      silent = true;
+    (mkKeymap "n" "<leader>e" "<CMD>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>" {
       desc = "Open Mini Files (current buffer)";
-    }
+      silent = true;
+    })
   ];
 
   # Lazy-load root-nvim plugin
   vim.lazy.plugins.root-nvim.keys = [
-    {
-      key = "<leader>E";
-      mode = ["n"];
-      action = "<CMD>lua MiniFiles.open(require('root').get(), false)<CR>";
-      silent = true;
+    (mkKeymap "n" "<leader>E" "<CMD>lua MiniFiles.open(require('root').get(), false)<CR>" {
       desc = "Open Mini Files (root directory)";
-    }
+      silent = true;
+    })
   ];
 
   vim.autocmds = [

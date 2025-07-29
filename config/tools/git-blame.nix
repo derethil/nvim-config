@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.lazy.plugins = {
     "git-blame.nvim" = {
       package = pkgs.vimPlugins.git-blame-nvim;
@@ -16,18 +18,8 @@
         delay = 0;
       };
       keys = [
-        {
-          key = "<leader>uo";
-          mode = "n";
-          action = "<cmd>GitBlameToggle<CR>";
-          desc = "Toggle Git Blame in Statusline";
-        }
-        {
-          key = "<leader>gC";
-          mode = "n";
-          action = "<cmd>GitBlameOpenCommitURL<CR>";
-          desc = "Open Git Commit URL";
-        }
+        (mkKeymap "n" "<leader>uo" "<cmd>GitBlameToggle<CR>" {desc = "Toggle Git Blame in Statusline";})
+        (mkKeymap "n" "<leader>gC" "<cmd>GitBlameOpenCommitURL<CR>" {desc = "Open Git Commit URL";})
       ];
     };
   };

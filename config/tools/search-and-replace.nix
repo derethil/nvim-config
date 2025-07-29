@@ -9,8 +9,6 @@
         {
           key = "<leader>sr";
           mode = ["n" "v"];
-          desc = "Search and Replace";
-          lua = true;
           action = ''
             function()
               local grug = require("grug-far")
@@ -23,6 +21,8 @@
               })
             end
           '';
+          lua = true;
+          desc = "Search and Replace";
         }
       ];
     };

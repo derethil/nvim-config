@@ -1,4 +1,6 @@
-{
+{lib, ...}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.languages.markdown = {
     enable = true;
     lsp.enable = true;
@@ -17,11 +19,6 @@
   };
 
   vim.keymaps = [
-    {
-      key = "<leader>cp";
-      mode = ["n"];
-      action = "<CMD>MarkdownPreviewToggle<CR>";
-      desc = "Toggle Markdown Preview";
-    }
+    (mkKeymap "n" "<leader>cp" "<CMD>MarkdownPreviewToggle<CR>" {desc = "Toggle Markdown Preview";})
   ];
 }

@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.extraPackages = with pkgs; [
     chafa
     diff-so-fancy
@@ -132,200 +134,39 @@
     '';
     keys = [
       # Shortcuts
-      {
-        key = "<leader>,";
-        mode = ["n"];
-        action = "<CMD>FzfLua buffers sort_mru=true sort_lastused=true<CR>";
-        desc = "Switch Buffer";
-      }
-      {
-        key = "<leader>/";
-        mode = ["n"];
-        action = "function() require('fzf-lua').live_grep({ cwd = require('root').get() }) end";
-        lua = true;
-        desc = "Grep (root directory)";
-      }
-      {
-        key = "<leader>:";
-        mode = ["n"];
-        action = "<CMD>FzfLua command_history<CR>";
-        desc = "Command History";
-      }
-      {
-        key = "<leader><space>";
-        mode = ["n"];
-        action = "function() require('fzf-lua').files({ cwd = require('root').get() }) end";
-        lua = true;
-        desc = "Files (root directory)";
-      }
+      (mkKeymap "n" "<leader>," "<CMD>FzfLua buffers sort_mru=true sort_lastused=true<CR>" {desc = "Switch Buffer";})
+      (mkKeymap "n" "<leader>/" ''<CMD>FzfLua live_grep cwd=<C-R>=luaeval("require('root').get()")<CR><CR>'' {desc = "Grep (root directory)";})
+      (mkKeymap "n" "<leader>:" "<CMD>FzfLua command_history<CR>" {desc = "Command History";})
+      (mkKeymap "n" "<leader><space>" ''<CMD>FzfLua files cwd=<C-R>=luaeval("require('root').get()")<CR><CR>'' {desc = "Files (root directory)";})
       # Files
-      {
-        key = "<leader>ff";
-        mode = ["n"];
-        action = "function() require('fzf-lua').files({ cwd = require('root').get() }) end";
-        lua = true;
-        desc = "Files (root directory)";
-      }
-      {
-        key = "<leader>fF";
-        mode = ["n"];
-        action = "function() require('fzf-lua').files({ cwd = vim.fn.expand('%:p:h') }) end";
-        lua = true;
-        desc = "Files (buffer directory)";
-      }
-      {
-        key = "<leader>fg";
-        mode = ["n"];
-        action = "<CMD>FzfLua git_files<cr>";
-        desc = "Find Files (git)";
-      }
-      {
-        key = "<leader>fr";
-        mode = ["n"];
-        action = "<CMD>FzfLua oldfiles<cr>";
-        desc = "Find Recent Files";
-      }
-      {
-        key = "<leader>fR";
-        mode = ["n"];
-        action = "function() require('fzf-lua').files({ cwd = vim.fn.expand('%:p:h') }) end";
-        lua = true;
-        desc = "Find Recent Files (buffer directory)";
-      }
+      (mkKeymap "n" "<leader>ff" ''<CMD>FzfLua files cwd=<C-R>=luaeval("require('root').get()")<CR><CR>'' {desc = "Files (root directory)";})
+      (mkKeymap "n" "<leader>fF" ''<CMD>FzfLua files cwd=<C-R>=expand("%:p:h")<CR><CR>'' {desc = "Files (buffer directory)";})
+      (mkKeymap "n" "<leader>fg" "<CMD>FzfLua git_files<cr>" {desc = "Find Files (git)";})
+      (mkKeymap "n" "<leader>fr" "<CMD>FzfLua oldfiles<cr>" {desc = "Find Recent Files";})
+      (mkKeymap "n" "<leader>fR" ''<CMD>FzfLua oldfiles cwd=<C-R>=expand("%:p:h")<CR><CR>'' {desc = "Find Recent Files (buffer directory)";})
       # Git
-      {
-        key = "<leader>gc";
-        mode = ["n"];
-        action = "<CMD>FzfLua git_commits<CR>";
-        desc = "Git Commits";
-      }
-      {
-        key = "<leader>gs";
-        mode = ["n"];
-        action = "<CMD>FzfLua git_status<CR>";
-        desc = "Git Status";
-      }
+      (mkKeymap "n" "<leader>gc" "<CMD>FzfLua git_commits<CR>" {desc = "Git Commits";})
+      (mkKeymap "n" "<leader>gs" "<CMD>FzfLua git_status<CR>" {desc = "Git Status";})
       # Miscellaneous
-      {
-        key = "<leader>sb";
-        mode = ["n"];
-        action = "<CMD>FzfLua builtin<CR>";
-        desc = "Search Builtins";
-      }
-      {
-        key = "<leader>sb";
-        mode = ["n"];
-        action = "<CMD>FzfLua grep_curbuf<CR>";
-        desc = "Search Buffer";
-      }
-      {
-        key = "<leader>sC";
-        mode = ["n"];
-        action = "<CMD>FzfLua commands<CR>";
-        desc = "Search Commands";
-      }
-      {
-        key = "<leader>sd";
-        mode = ["n"];
-        action = "<CMD>FzfLua diagnostics_document<CR>";
-        desc = "Search Diagnostics (document)";
-      }
-      {
-        key = "<leader>sD";
-        mode = ["n"];
-        action = "<CMD>FzfLua diagnostics_workspace<CR>";
-        desc = "Search Diagnostics (workspace)";
-      }
-      {
-        key = "<leader>sg";
-        mode = ["n"];
-        action = "function() require('fzf-lua').live_grep({ cwd = require('root').get() }) end";
-        lua = true;
-        desc = "Search Grep (root directory)";
-      }
-      {
-        key = "<leader>sG";
-        mode = ["n"];
-        action = "function() require('fzf-lua').live_grep({ cwd = vim.fn.expand('%:p:h') }) end";
-        lua = true;
-        desc = "Search Grep (buffer directory)";
-      }
-      {
-        key = "<leader>sh";
-        mode = ["n"];
-        action = "<CMD>FzfLua help_tags<CR>";
-        desc = "Search Help Pages";
-      }
-      {
-        key = "<leader>sH";
-        mode = ["n"];
-        action = "<CMD>FzfLua highlights<CR>";
-        desc = "Search Highlight Groups";
-      }
-      {
-        key = "<leader>sk";
-        mode = ["n"];
-        action = "<CMD>FzfLua keymaps<CR>";
-        desc = "Search Keymaps";
-      }
-      {
-        key = "<leader>sm";
-        mode = ["n"];
-        action = "<CMD>FzfLua marks<CR>";
-        desc = "Search Marks";
-      }
-      {
-        key = "<leader>sR";
-        mode = ["n"];
-        action = "<CMD>FzfLua resume<CR>";
-        desc = "Resume Search";
-      }
-      {
-        key = "<leader>sq";
-        mode = ["n"];
-        action = "<CMD>FzfLua quickfix<CR>";
-        desc = "Search Quickfix List";
-      }
-      {
-        key = "<leader>sw";
-        mode = ["n"];
-        action = "function() require('fzf-lua').grep_cword({ cwd = require('root').get() }) end";
-        lua = true;
-        desc = "Search Word (root directory)";
-      }
-      {
-        key = "<leader>sW";
-        mode = ["n"];
-        action = "function() require('fzf-lua').grep_cword({ cwd = vim.fn.expand('%:p:h') }) end";
-        lua = true;
-        desc = "Search Word (buffer directory)";
-      }
-      {
-        key = "<leader>sw";
-        mode = ["v"];
-        action = "function() require('fzf-lua').grep_visual({ cwd = require('root').get() }) end";
-        lua = true;
-        desc = "Search Visual Selection (root directory)";
-      }
-      {
-        key = "<leader>sW";
-        mode = ["v"];
-        action = "function() require('fzf-lua').grep_visual({ cwd = vim.fn.expand('%:p:h') }) end";
-        lua = true;
-        desc = "Search Visual Selection (buffer directory)";
-      }
-      {
-        key = "<leader>ss";
-        mode = ["n"];
-        action = "<CMD>FzfLua lsp_document_symbols<CR>";
-        desc = "Search Symbols";
-      }
-      {
-        key = "<leader>sS";
-        mode = ["n"];
-        action = "<CMD>FzfLua lsp_workspace_symbols<CR>";
-        desc = "Search Symbols (workspace)";
-      }
+      (mkKeymap "n" "<leader>sb" "<CMD>FzfLua builtin<CR>" {desc = "Search Builtins";})
+      (mkKeymap "n" "<leader>sB" "<CMD>FzfLua grep_curbuf<CR>" {desc = "Search Buffer";})
+      (mkKeymap "n" "<leader>sC" "<CMD>FzfLua commands<CR>" {desc = "Search Commands";})
+      (mkKeymap "n" "<leader>sd" "<CMD>FzfLua diagnostics_document<CR>" {desc = "Search Diagnostics (document)";})
+      (mkKeymap "n" "<leader>sD" "<CMD>FzfLua diagnostics_workspace<CR>" {desc = "Search Diagnostics (workspace)";})
+      (mkKeymap "n" "<leader>sg" ''<CMD>FzfLua live_grep cwd=<C-R>=luaeval("require('root').get()")<CR><CR>'' {desc = "Search Grep (root directory)";})
+      (mkKeymap "n" "<leader>sG" ''<CMD>FzfLua live_grep cwd=<C-R>=expand("%:p:h")<CR><CR>'' {desc = "Search Grep (buffer directory)";})
+      (mkKeymap "n" "<leader>sh" "<CMD>FzfLua help_tags<CR>" {desc = "Search Help Pages";})
+      (mkKeymap "n" "<leader>sH" "<CMD>FzfLua highlights<CR>" {desc = "Search Highlight Groups";})
+      (mkKeymap "n" "<leader>sk" "<CMD>FzfLua keymaps<CR>" {desc = "Search Keymaps";})
+      (mkKeymap "n" "<leader>sm" "<CMD>FzfLua marks<CR>" {desc = "Search Marks";})
+      (mkKeymap "n" "<leader>sR" "<CMD>FzfLua resume<CR>" {desc = "Resume Search";})
+      (mkKeymap "n" "<leader>sq" "<CMD>FzfLua quickfix<CR>" {desc = "Search Quickfix List";})
+      (mkKeymap "n" "<leader>sw" ''<CMD>FzfLua grep_cword cwd=<C-R>=luaeval("require('root').get()")<CR><CR>'' {desc = "Search Word (root directory)";})
+      (mkKeymap "n" "<leader>sW" ''<CMD>FzfLua grep_cword cwd=<C-R>=expand("%:p:h")<CR><CR>'' {desc = "Search Word (buffer directory)";})
+      (mkKeymap "v" "<leader>sw" ''<CMD>FzfLua grep_visual cwd=<C-R>=luaeval("require('root').get()")<CR><CR>'' {desc = "Search Visual Selection (root directory)";})
+      (mkKeymap "v" "<leader>sW" ''<CMD>FzfLua grep_visual cwd=<C-R>=expand("%:p:h")<CR><CR>'' {desc = "Search Visual Selection (buffer directory)";})
+      (mkKeymap "n" "<leader>ss" "<CMD>FzfLua lsp_document_symbols<CR>" {desc = "Search Symbols";})
+      (mkKeymap "n" "<leader>sS" "<CMD>FzfLua lsp_workspace_symbols<CR>" {desc = "Search Symbols (workspace)";})
     ];
   };
 }

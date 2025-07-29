@@ -1,4 +1,6 @@
-{
+{lib, ...}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.utility.snacks-nvim = {
     enable = true;
     setupOpts = {
@@ -21,11 +23,6 @@
   };
 
   vim.keymaps = [
-    {
-      key = "<leader>ghb";
-      mode = ["n"];
-      action = "<CMD>lua require('snacks.git').blame_line()<CR>";
-      desc = "Open Git Blame Context";
-    }
+    (mkKeymap "n" "<leader>ghb" "<CMD>lua require('snacks.git').blame_line()<CR>" {desc = "Open Git Blame Context";})
   ];
 }
