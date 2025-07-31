@@ -1,4 +1,6 @@
-{
+{lib, ...}: let
+  inherit (lib.nvim.binds) mkKeymap;
+in {
   vim.utility.diffview-nvim.enable = true;
 
   vim.git.neogit = {
@@ -26,60 +28,10 @@
   };
 
   vim.keymaps = [
-    {
-      key = "<leader>gG";
-      mode = ["n"];
-      lua = true;
-      action = ''
-        function()
-          require("neogit").open({ cwd = vim.fn.expand("%:p:h") })
-        end
-      '';
-      desc = "Neogit (cwd)";
-    }
-    {
-      key = "<leader>gl";
-      mode = ["n"];
-      lua = true;
-      action = ''
-        function()
-          require("neogit").action("log", "log_current", { "--graph", "--decorate" })()
-        end
-      '';
-      desc = "Neogit Log (root directory)";
-    }
-    {
-      key = "<leader>gL";
-      mode = ["n"];
-      lua = true;
-      action = ''
-        function()
-          require("neogit").action("log", "log_current", { "--", vim.fn.expand("%:p:h"), "--decorate" })()
-        end
-      '';
-      desc = "Neogit Log (cwd)";
-    }
-    {
-      key = "<leader>gf";
-      mode = ["n"];
-      lua = true;
-      action = ''
-        function()
-          require("neogit").action("log", "log_current", { "--", vim.fn.expand("%:p"), "--decorate" })()
-        end
-      '';
-      desc = "Neogit Log (buffer)";
-    }
-    {
-      key = "<leader>gw";
-      mode = ["n"];
-      lua = true;
-      action = ''
-        function()
-          require("neogit").action("branch", "checkout_create_branch")()
-        end
-      '';
-      desc = "Switch to New Branch";
-    }
+    (mkKeymap "n" "<leader>gG" "<CMD>lua require('neogit').open({ cwd = vim.fn.expand('%:p:h') })<CR>" {desc = "Neogit (cwd)";})
+    (mkKeymap "n" "<leader>gl" "<CMD>lua require('neogit').action('log', 'log_current', { '--graph', '--decorate' })()<CR>" {desc = "Neogit Log (root directory)";})
+    (mkKeymap "n" "<leader>gL" "<CMD>lua require('neogit').action('log', 'log_current', { '--', vim.fn.expand('%:p:h'), '--decorate' })()<CR>" {desc = "Neogit Log (cwd)";})
+    (mkKeymap "n" "<leader>gf" "<CMD>lua require('neogit').action('log', 'log_current', { '--', vim.fn.expand('%:p'), '--decorate' })()<CR>" {desc = "Neogit Log (buffer)";})
+    (mkKeymap "n" "<leader>gw" "<CMD>lua require('neogit').action('branch', 'checkout_create_branch')()<CR>" {desc = "Switch to New Branch";})
   ];
 }
