@@ -56,17 +56,22 @@ in {
             };
           };
         };
+        keymap = {
+          fzf = {
+            "alt-a" = "select-all+accept";
+          };
+        };
         files = {
           cwd_prompt = false;
           actions = {
-            "alt-i" = ["require('fzf-lua').actions.toggle_ignore"];
-            "alt-h" = ["require('fzf-lua').actions.toggle_hidden"];
+            "alt-i" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_ignore";
+            "alt-h" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_hidden";
           };
         };
         grep = {
           actions = {
-            "alt-i" = ["require('fzf-lua').actions.toggle_ignore"];
-            "alt-h" = ["require('fzf-lua').actions.toggle_hidden"];
+            "alt-i" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_ignore";
+            "alt-h" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_hidden";
           };
         };
         lsp = {
