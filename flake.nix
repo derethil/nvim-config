@@ -31,6 +31,10 @@
       url = "github:marcoSven/blink-cmp-yanky";
       flake = false;
     };
+    kulala-nvim = {
+      url = "github:mistweaverco/kulala.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
