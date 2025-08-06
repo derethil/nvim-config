@@ -1,7 +1,13 @@
 {
+  pkgs,
+  lib,
+  ...
+}: {
   vim.clipboard = {
     enable = true;
-    providers.wl-copy.enable = true;
+    providers = lib.mkIf (!pkgs.stdenv.isDarwin) {
+      wl-copy.enable = true;
+    };
     registers = "unnamedplus";
   };
 }
