@@ -20,7 +20,21 @@ in {
       # Select Model
       (mkKeymap "n" "<leader>am" "<CMD>ClaudeCodeSelectModel<CR>" {desc = "Select Claude Model";})
       # Sending Context
-      (mkKeymap "v" "<leader>as" "<CMD>ClaudeCodeSend<CR>" {desc = "Send Selected to Claude";})
+      {
+        mode = "x";
+        key = "<leader>af";
+        desc = "Focus and Send Selected to Claude";
+        lua = true;
+        action = ''
+          function()
+            vim.cmd('ClaudeCodeSend')
+            vim.defer_fn(function()
+               vim.cmd('ClaudeCodeFocus')
+            end, 0)
+          end
+        '';
+      }
+      (mkKeymap "x" "<leader>as" "<CMD>ClaudeCodeSend<CR>" {desc = "Send Selection to Claude";})
       (mkKeymap "n" "<leader>ab" "<CMD>ClaudeCodeAdd %<CR>" {desc = "Send Current Buffer to Claude";})
       (mkKeymap "n" "<leader>as" "<CMD>ClaudeCodeTreeAdd<CR>" {
         desc = "Send Buffer to Claude";
@@ -53,12 +67,6 @@ in {
                 opts.buffer = buffer
                 vim.keymap.set('t', lhs, rhs, opts)
               end
-
-              -- Switch to normal mode when pressing Escape in terminal mode
-              tnoremap('<Esc>', '<C-\\\\><C-n>')
-
-              -- Send Escape when pressing Ctrl-X in terminal mode
-              tnoremap('<C-x>', '<Esc>')
 
               -- Map Ctrl+h/j/k/l to navigate between tmux panes
               tnoremap('<C-h>', '<CMD>TmuxNavigateLeft<CR>')
