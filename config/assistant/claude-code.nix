@@ -7,6 +7,10 @@
 in {
   vim.binds.whichKey.register = {"<leader>a" = "+AI";};
 
+  vim.extraPackages = with pkgs; [
+    claude-code
+  ];
+
   vim.lazy.plugins.claudecode-nvim = {
     package = pkgs.internal.claudecode-nvim;
     setupModule = "claudecode";
