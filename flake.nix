@@ -35,6 +35,10 @@
       url = "github:mistweaverco/kulala.nvim";
       flake = false;
     };
+    claudecode-nvim = {
+      url = "github:coder/claudecode.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

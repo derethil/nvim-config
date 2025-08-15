@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "claudecode-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754661792,
+        "narHash": "sha256-b4jCKIqowkVuWhI9jxthluZISBOnIc8eOIgkw5++HRY=",
+        "owner": "coder",
+        "repo": "claudecode.nvim",
+        "rev": "985b4b117ea13ec85c92830ecac8f63543dd5ead",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coder",
+        "repo": "claudecode.nvim",
+        "type": "github"
+      }
+    },
     "close-buffers-nvim": {
       "flake": false,
       "locked": {
@@ -192,6 +208,7 @@
     "root": {
       "inputs": {
         "blink-cmp-yanky": "blink-cmp-yanky",
+        "claudecode-nvim": "claudecode-nvim",
         "close-buffers-nvim": "close-buffers-nvim",
         "flake-parts": "flake-parts",
         "import-nvim": "import-nvim",
