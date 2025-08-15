@@ -74,6 +74,7 @@ in {
               tnoremap('<C-j>', '<CMD>TmuxNavigateDown<CR>')
               tnoremap('<C-k>', '<CMD>TmuxNavigateUp<CR>')
               tnoremap('<C-l>', '<CMD>TmuxNavigateRight<CR>')
+              tnoremap('<leader>aa', '<CMD>ClaudeCode<CR>', {desc = "Claude: Toggle"})
             end
           end
         '';
