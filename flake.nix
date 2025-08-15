@@ -39,6 +39,10 @@
       url = "github:coder/claudecode.nvim";
       flake = false;
     };
+    claude-fzf-nvim = {
+      url = "github:pittcat/claude-fzf.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
