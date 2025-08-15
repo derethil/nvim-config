@@ -11,6 +11,13 @@ in {
     setupOpts = {
       auto_context = true;
       batch_size = 10;
+      fzf_opts = {
+        winopts = {
+          height = 0.85;
+          width = 0.8;
+          backdrop = 60;
+        };
+      };
     };
     keys = [
       (mkKeymap "n" "<leader>aF" "<CMD>ClaudeFzfFiles<CR>" {desc = "Claude: Find Files";})
