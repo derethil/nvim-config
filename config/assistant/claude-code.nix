@@ -13,17 +13,17 @@ in {
     setupOpts = {};
     keys = [
       # Interaction / Focus
-      (mkKeymap "n" "<leader>aa" "<CMD>ClaudeCode<CR>" {desc = "Toggle Claude";})
-      (mkKeymap "n" "<leader>ac" "<CMD>ClaudeCode --continue<CR>" {desc = "Continue Claude";})
-      (mkKeymap "n" "<leader>ar" "<CMD>ClaudeCode --resume<CR>" {desc = "Resume Old Claude";})
-      (mkKeymap "n" "<leader>af" "<CMD>ClaudeCodeFocus<CR>" {desc = "Focus Claude";})
+      (mkKeymap "n" "<leader>aa" "<CMD>ClaudeCode<CR>" {desc = "Claude: Toggle";})
+      (mkKeymap "n" "<leader>ac" "<CMD>ClaudeCode --continue<CR>" {desc = "Claude: Continue";})
+      (mkKeymap "n" "<leader>ar" "<CMD>ClaudeCode --resume<CR>" {desc = "Claude: Resume";})
+      (mkKeymap "n" "<leader>at" "<CMD>ClaudeCodeFocus<CR>" {desc = "Claude: Focus";})
       # Select Model
-      (mkKeymap "n" "<leader>am" "<CMD>ClaudeCodeSelectModel<CR>" {desc = "Select Claude Model";})
+      (mkKeymap "n" "<leader>am" "<CMD>ClaudeCodeSelectModel<CR>" {desc = "Claude: Select Model";})
       # Sending Context
       {
         mode = "x";
-        key = "<leader>af";
-        desc = "Focus and Send Selected to Claude";
+        key = "<leader>at";
+        desc = "Claude: Send Selection";
         lua = true;
         action = ''
           function()
@@ -34,15 +34,15 @@ in {
           end
         '';
       }
-      (mkKeymap "x" "<leader>as" "<CMD>ClaudeCodeSend<CR>" {desc = "Send Selection to Claude";})
-      (mkKeymap "n" "<leader>ab" "<CMD>ClaudeCodeAdd %<CR>" {desc = "Send Current Buffer to Claude";})
+      (mkKeymap "x" "<leader>as" "<CMD>ClaudeCodeSend<CR>" {desc = "Claude: Send Selection";})
+      (mkKeymap "n" "<leader>ab" "<CMD>ClaudeCodeAdd %<CR>" {desc = "Claude: Send Current Buffer";})
       (mkKeymap "n" "<leader>as" "<CMD>ClaudeCodeTreeAdd<CR>" {
-        desc = "Send Buffer to Claude";
+        desc = "Claude: Send Selected Buffer";
         ft = ["minifiles"];
       })
       # Diff Management
-      (mkKeymap "n" "<C-n>" "<CMD>ClaudeCodeDiffDeny<CR>" {desc = "Deny Claude Diff";})
-      (mkKeymap "n" "<C-y>" "<CMD>ClaudeCodeDiffAccept<CR>" {desc = "Accept Claude Diff";})
+      (mkKeymap "n" "<C-n>" "<CMD>ClaudeCodeDiffDeny<CR>" {desc = "Claude: Deny Diff";})
+      (mkKeymap "n" "<C-y>" "<CMD>ClaudeCodeDiffAccept<CR>" {desc = "Claude: Accept Diff";})
     ];
   };
 
@@ -61,7 +61,8 @@ in {
             local buffer = vim.api.nvim_get_current_buf()
             local name = vim.api.nvim_buf_get_name(buffer)
 
-            if name:match('claude') then
+            -- Only apply to actual claude terminal buffers, not fzf popups
+            if name:match('claude') and not name:match('fzf') then
               local function tnoremap(lhs, rhs, opts)
                 opts = opts or {}
                 opts.buffer = buffer
