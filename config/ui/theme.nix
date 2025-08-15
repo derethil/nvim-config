@@ -33,6 +33,9 @@
           set_hl("GitConflictCurrent", palette.none, palette.bg_diff_blue)
           set_hl("GitConflictCurrentLabel", palette.blue, palette.bg_visual_blue, "bold")
           set_hl("GitConflictIncomingLabel", palette.green, palette.bg_visual_green, "bold")
+
+          -- Make sidebars use same background as main windows
+          set_hl("NormalFloat", palette.fg1, palette.bg0)
         end
 
         -- Create autocmd for custom highlights
