@@ -9,7 +9,14 @@ in {
   options.programs.nvim-config = {
     enable = mkEnableOption "My custom Neovim configuration";
 
-    claude.enable = mkEnableOption "Enable Claude Code integration";
+    claude = {
+      enable = mkEnableOption "Enable Claude Code integration";
+      package = mkOption {
+        type = types.package;
+        default = pkgs.claude-code;
+        description = "Nvim plugin package for Claude Code integration";
+      };
+    };
 
     defaultEditor = mkOption {
       type = types.bool;
@@ -33,4 +40,3 @@ in {
     };
   };
 }
-
