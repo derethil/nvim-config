@@ -60,31 +60,28 @@
         lib,
         ...
       }: let
-        extendedLib = lib // (import ./lib {inherit lib;}) // inputs.nvf.lib;
-
-        extendedPkgs = pkgs.extend (final: prev: {
-          internal = import ./packages {inherit lib pkgs inputs;};
-        });
-
         nvim =
-          (inputs.nvf.lib.neovimConfiguration {
-            pkgs = extendedPkgs;
-            modules = extendedLib.util.importAllNix ./config;
-            extraSpecialArgs = {
-              lib = extendedLib;
-              pkgs = extendedPkgs;
-            };
+          (import ./flake/package.nix {
+            inherit lib pkgs inputs;
+            moduleConfig = {};
           }).neovim;
       in {
         packages.default = nvim;
-
         devShells.default = pkgs.mkShell {
-          packages = [
-            nvim
-          ];
+          packages = [nvim];
           shellHook = ''
             echo "nvf utilities available: nvf-print-config, nvf-print-config-path"
           '';
+        };
+      };
+
+      flake = {lib, ...}: {
+        nixosModules = {
+          nvim-config = import ./flake/modules/nixos.nix {inherit lib inputs;};
+        };
+
+        homeManagerModules = {
+          nvim-config = import ./flake/modules/home-manager.nix {inherit lib inputs;};
         };
       };
     };

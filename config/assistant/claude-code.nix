@@ -1,14 +1,15 @@
 {
   pkgs,
   lib,
+  module ? {},
   ...
 }: let
   inherit (lib.nvim.binds) mkKeymap;
 in {
   vim.binds.whichKey.register = {"<leader>a" = "+AI";};
 
-  vim.extraPackages = with pkgs; [
-    claude-code
+  vim.extraPackages = lib.optionals (module.config.claude.enable or false) [
+    pkgs.claude-code
   ];
 
   vim.lazy.plugins.claudecode-nvim = {
