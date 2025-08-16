@@ -24,13 +24,13 @@ in {
         (mkKeymap "n" "<leader>aa" "<CMD>ClaudeCode<CR>" {desc = "Claude: Toggle";})
         (mkKeymap "n" "<leader>ac" "<CMD>ClaudeCode --continue<CR>" {desc = "Claude: Continue";})
         (mkKeymap "n" "<leader>ar" "<CMD>ClaudeCode --resume<CR>" {desc = "Claude: Resume";})
-        (mkKeymap "n" "<leader>at" "<CMD>ClaudeCodeFocus<CR>" {desc = "Claude: Focus";})
+        (mkKeymap "n" "<leader>af" "<CMD>ClaudeCodeFocus<CR>" {desc = "Claude: Focus";})
         # Select Model
         (mkKeymap "n" "<leader>am" "<CMD>ClaudeCodeSelectModel<CR>" {desc = "Claude: Select Model";})
         # Sending Context
         {
           mode = "x";
-          key = "<leader>at";
+          key = "<leader>af";
           desc = "Claude: Send Selection";
           lua = true;
           action = ''
