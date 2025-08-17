@@ -38,20 +38,7 @@ in {
       setupModule = "sonarlint";
       setupOpts = {
         filetypes = filetypes;
-        connected = lib.mkIf (cfg.connectedMode.enable or false) {
-          get_credentials = lib.generators.mkLuaInline ''
-            function()
-              local token_file = "${cfg.connectedMode.tokenFile}"
-              local file = io.open(token_file, "r")
-              if file then
-                local token = file:read("*line")
-                file:close()
-                return token
-              end
-              return nil
-            end
-          '';
-        };
+        connected = lib.mkIf (cfg.connectedMode.enable or false) {};
         server = {
           cmd = cmd;
           before_init =
