@@ -38,7 +38,13 @@ in {
       setupModule = "sonarlint";
       setupOpts = {
         filetypes = filetypes;
-        connected = lib.mkIf (cfg.connectedMode.enable or false) {};
+        connected = lib.mkIf (cfg.connectedMode.enable or false) {
+          get_credentials = lib.generators.mkLuaInline ''
+            function()
+              return vim.fn.getenv("SONAR_TOKEN")
+            end
+          '';
+        };
         server = {
           cmd = cmd;
           before_init =
