@@ -20,6 +20,18 @@ in {
     sonarlint = {
       enable = mkEnableOption "Enable SonarLint integration";
 
+      enabledPaths = mkOption {
+        type = types.listOf types.path;
+        default = [];
+        description = "List of directory paths where SonarLint should be enabled. If empty, SonarLint is enabled globally.";
+        example = literalExpression ''
+          [
+            "~/development/project1"
+            "~/work/project2"
+          ]
+        '';
+      };
+
       languageServerPackage = mkOption {
         type = types.package;
         default = pkgs.sonarlint-ls;

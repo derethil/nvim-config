@@ -31,7 +31,20 @@ in {
       enabled = ''
         function()
           local current_dir = vim.fn.getcwd()
-          return vim.startswith(current_dir, vim.fn.expand("~/development/dragonarmy/"))
+          local enabled_paths = ${lib.generators.toLua {} (cfg.enabledPaths or [])}
+
+          if #enabled_paths == 0 then
+            return true
+          end
+
+          for _, path in ipairs(enabled_paths) do
+            local expanded_path = vim.fn.expand(path)
+            if vim.startswith(current_dir, expanded_path) then
+              return true
+            end
+          end
+
+          return false
         end
       '';
       ft = filetypes;
