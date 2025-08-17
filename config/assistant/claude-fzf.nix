@@ -20,10 +20,10 @@ in {
       };
     };
     keys = [
-      (mkKeymap "n" "<leader>aF" "<CMD>ClaudeFzfFiles<CR>" {desc = "Claude: Find Files";})
-      (mkKeymap "n" "<leader>ag" "<CMD>ClaudeFzfGrep<CR>" {desc = "Claude: Grep Files";})
-      (mkKeymap "n" "<leader>aB" "<CMD>ClaudeFzfBuffers<CR>" {desc = "Claude: Find Buffers";})
-      (mkKeymap "n" "<leader>aG" "<CMD>ClaudeFzfGitFiles<CR>" {desc = "Claude: Find Git Files";})
+      (mkKeymap "n" "<leader>aF" "<CMD>silent! ClaudeFzfFiles<CR>" {desc = "Claude: Find Files";})
+      (mkKeymap "n" "<leader>ag" "<CMD>silent! ClaudeFzfGrep<CR>" {desc = "Claude: Grep Files";})
+      (mkKeymap "n" "<leader>aB" "<CMD>silent! ClaudeFzfBuffers<CR>" {desc = "Claude: Find Buffers";})
+      (mkKeymap "n" "<leader>aG" "<CMD>silent! ClaudeFzfGitFiles<CR>" {desc = "Claude: Find Git Files";})
     ];
   };
 }
