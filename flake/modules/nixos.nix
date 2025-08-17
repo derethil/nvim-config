@@ -20,9 +20,14 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = [nvimPackage.neovim];
-    environment.variables = mkIf cfg.defaultEditor {
-      EDITOR = "${nvimPackage.neovim}/bin/nvim";
-      VISUAL = "${nvimPackage.neovim}/bin/nvim";
-    };
+    environment.variables = mkMerge [
+      (mkIf cfg.defaultEditor {
+        EDITOR = "${nvimPackage.neovim}/bin/nvim";
+        VISUAL = "${nvimPackage.neovim}/bin/nvim";
+      })
+      (mkIf (cfg.sonarlint.connectedMode.enable && cfg.sonarlint.connectedMode.tokenFile != "") {
+        SONAR_TOKEN = "$(cat ${cfg.sonarlint.connectedMode.tokenFile})";
+      })
+    ];
   };
 }
