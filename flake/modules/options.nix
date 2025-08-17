@@ -24,7 +24,7 @@ in {
       description = "Use Neovim as the default editor.";
     };
 
-    settings = mkOption {
+    extraSettings = mkOption {
       type = nvfModule;
       default = {};
       description = "Attribute set of nvf preferences";

@@ -10,7 +10,7 @@ inputs.nvf.lib.neovimConfiguration {
     extendedLib = lib // (import ../lib {inherit lib;}) // inputs.nvf.lib;
     configModules = extendedLib.util.importAllNix ../config;
   in
-    configModules;
+    configModules ++ lib.optional (moduleConfig ? extraSettings) moduleConfig.extraSettings;
   extraSpecialArgs = {
     lib = lib // (import ../lib {inherit lib;}) // inputs.nvf.lib;
     pkgs = pkgs.extend (final: prev: {
