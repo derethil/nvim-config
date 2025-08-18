@@ -4,7 +4,6 @@
   pkgs,
 }: let
   inherit (lib) mkEnableOption mkOption types literalExpression;
-  nvfModule = inputs.nvf.lib.nvfTypes.createModuleSystem pkgs;
 in {
   options.programs.nvim-config = {
     enable = mkEnableOption "My custom Neovim configuration";
@@ -25,7 +24,7 @@ in {
     };
 
     extraSettings = mkOption {
-      type = nvfModule;
+      type = types.attrs;
       default = {};
       description = "Attribute set of nvf preferences";
       example = literalExpression ''
