@@ -1,0 +1,29 @@
+name: Validate
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  checks:
+    name: Check expressions
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          install_url: https://nixos.org/nix/install
+          extra_nix_config: |
+            auto-optimise-store = true
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            experimental-features = nix-command flakes
+
+      - name: "Validate Flake"
+        run: nix flake check --all-systems
+
+      - name: "Check Flake Health"
+        uses: DeterminateSystems/flake-checker-action@v2
+        with:
+          ignore-missing-flake-lock: false
+          fail-mode: true
