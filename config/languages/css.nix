@@ -1,6 +1,6 @@
 {
   vim.languages.css = {
-    enable = false;
+    enable = true;
     lsp.enable = true;
     treesitter.enable = true;
     format = {

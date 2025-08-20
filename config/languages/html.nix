@@ -1,6 +1,6 @@
 {
   vim.languages.html = {
-    enable = false;
+    enable = true;
     treesitter.enable = true;
   };
 }
