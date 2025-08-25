@@ -10,22 +10,6 @@ in {
     diff-so-fancy
   ];
 
-  vim.lazy.plugins.import-nvim = {
-    package = pkgs.internal.import-nvim;
-    setupModule = "import";
-    setupOpts.picker = "fzf-lua";
-    priority = 10; # load after fzf-lua
-    keys = [
-      {
-        key = "<leader>si";
-        mode = ["n"];
-        action = "function() require('import').pick() end";
-        lua = true;
-        desc = "Search Imports";
-      }
-    ];
-  };
-
   vim.lazy.plugins.fzf-lua = {
     package = pkgs.vimPlugins.fzf-lua;
     setupModule = "fzf-lua";
