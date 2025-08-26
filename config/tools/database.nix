@@ -12,7 +12,10 @@ in {
   vim.lazy.plugins = {
     vim-dadbod = {
       package = pkgs.vimPlugins.vim-dadbod;
-      lazy = true;
+      keys = [
+        (mkKeymap "n" "<leader>tq" "<CMD>DB<CR>" {desc = "Execute Query";})
+        (mkKeymap "x" "<leader>tq" "<CMD>'<,'>DB<CR>" {desc = "Execute Query";})
+      ];
     };
 
     vim-dadbod-completion = {
