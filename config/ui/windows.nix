@@ -9,7 +9,11 @@ in {
     "colorful-winsep.nvim" = {
       package = pkgs.vimPlugins.colorful-winsep-nvim;
       setupModule = "colorful-winsep";
-      setupOpts = {};
+      setupOpts = {
+        animate = {
+          enabled = false;
+        };
+      };
       lazy = true;
       event = ["WinNew"];
     };
