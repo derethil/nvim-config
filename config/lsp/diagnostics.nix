@@ -4,7 +4,13 @@
     config = {
       update_in_insert = true;
       underline = true;
-      virtual_text = true;
+      virtual_text = {
+        format = lib.generators.mkLuaInline ''
+          function(diagnostic)
+            return string.format("%s [%s]", diagnostic.message, diagnostic.source)
+          end
+        '';
+      };
       signs = {
         text = lib.generators.mkLuaInline ''
           {
