@@ -8,12 +8,10 @@
     builtins.filter (name: name != "default.nix")
     (builtins.attrNames (builtins.readDir ./.));
 
-  names = map (name: lib.removeSuffix ".nix" name) files;
-
-  packages = builtins.listToAttrs (map (name: {
-      name = name;
-      value = pkgs.callPackage (./. + "/${name}.nix") {inherit inputs;};
+  packages = builtins.listToAttrs (map (file: {
+      name = lib.removeSuffix ".nix" file;
+      value = pkgs.callPackage (./. + "/${file}") {inherit inputs;};
     })
-    names);
+    files);
 in
   packages
