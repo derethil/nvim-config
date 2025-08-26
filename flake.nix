@@ -6,6 +6,10 @@
       url = "github:hercules-ci/flake-parts";
     };
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
+
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,7 +66,7 @@
       }: let
         nvim =
           (import ./flake/package.nix {
-            inherit lib pkgs inputs;
+            inherit lib pkgs inputs system;
             moduleConfig = {};
           }).neovim;
       in {
