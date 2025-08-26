@@ -4,6 +4,7 @@
     config = {
       update_in_insert = true;
       underline = true;
+      severity_sort = true;
       virtual_text = {
         format = lib.generators.mkLuaInline ''
           function(diagnostic)
@@ -20,6 +21,10 @@
             [vim.diagnostic.severity.INFO] = "${lib.icons.diagnostics.Info}",
           }
         '';
+      };
+      float = {
+        close_events = ["CursorMoved" "BufHidden" "LspDetach"];
+        focusable = true;
       };
     };
   };
