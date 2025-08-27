@@ -18,7 +18,7 @@ inputs.nvf.lib.neovimConfiguration {
       vim.package = inputs.neovim-nightly-overlay.packages.${system}.neovim;
     };
   in
-    configModules ++ [neovimPackageModule] ++ lib.optional (moduleConfig ? extraSettings) moduleConfig.extraSettings;
+    configModules ++ [neovimPackageModule];
   extraSpecialArgs = {
     lib = lib // (import ../lib {inherit lib;}) // inputs.nvf.lib;
     pkgs = pkgs.extend (final: prev: {

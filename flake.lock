@@ -453,17 +453,14 @@
     "sonarlint-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1747678127,
-        "narHash": "sha256-ZfMUkIFu6nQN0XaOHIzQKJZRIaWzIaV8fsjYDbwGXBg=",
-        "owner": "Alfaixx",
-        "repo": "sonarlint.nvim",
-        "rev": "ff15e709b51d856f12c3684c150f130d4b1becd8",
-        "type": "gitlab"
+        "lastModified": 1756794420,
+        "narHash": "sha256-5WF9Koy3MP2IxIUYAHHZ1Ap/CqXcdHwEiLcR/SR1g9o=",
+        "path": "/Users/derethil/development/personal/sonarlint.nvim",
+        "type": "path"
       },
       "original": {
-        "owner": "Alfaixx",
-        "repo": "sonarlint.nvim",
-        "type": "gitlab"
+        "path": "/Users/derethil/development/personal/sonarlint.nvim",
+        "type": "path"
       }
     },
     "systems": {

@@ -28,7 +28,7 @@
       flake = false;
     };
     sonarlint-nvim = {
-      url = "gitlab:Alfaixx/sonarlint.nvim";
+      url = "/Users/derethil/development/personal/sonarlint.nvim";
       flake = false;
     };
     blink-cmp-yanky = {
@@ -69,12 +69,20 @@
             inherit lib pkgs inputs system;
             moduleConfig = {};
           }).neovim;
+
+        nvimWithTestModule =
+          (import ./flake/package.nix {
+            inherit lib pkgs inputs system;
+            moduleConfig = import ./test-module.nix;
+          }).neovim;
       in {
         packages.default = nvim;
+        packages.test = nvimWithTestModule;
         devShells.default = pkgs.mkShell {
-          packages = [nvim];
+          packages = [nvimWithTestModule];
           shellHook = ''
             echo "nvf utilities available: nvf-print-config, nvf-print-config-path"
+            echo "Using nvim with test-module.nix configuration"
           '';
         };
       };
