@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "beam-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1756577172,
+        "narHash": "sha256-wMSB9nUvgzep8xdEONO3HXxp8ozqrldK4wIi1sqtWV4=",
+        "owner": "Piotr1215",
+        "repo": "beam.nvim",
+        "rev": "a37feb828398426f1ee0e6c7ea31ae9b282a1703",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Piotr1215",
+        "repo": "beam.nvim",
+        "type": "github"
+      }
+    },
     "blink-cmp-yanky": {
       "flake": false,
       "locked": {
@@ -420,6 +436,7 @@
     },
     "root": {
       "inputs": {
+        "beam-nvim": "beam-nvim",
         "blink-cmp-yanky": "blink-cmp-yanky",
         "claude-fzf-nvim": "claude-fzf-nvim",
         "claudecode-nvim": "claudecode-nvim",

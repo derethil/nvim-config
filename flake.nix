@@ -47,6 +47,10 @@
       url = "github:pittcat/claude-fzf.nvim";
       flake = false;
     };
+    beam-nvim = {
+      url = "github:Piotr1215/beam.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
