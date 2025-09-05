@@ -28,6 +28,9 @@
       ];
       b = [];
       c = [
+        /*
+        lua
+        */
         ''
           {
             "diagnostics",
@@ -43,6 +46,9 @@
             }
           }
         ''
+        /*
+        lua
+        */
         ''
           {
             "filetype",
@@ -61,6 +67,9 @@
             "filename"
           }
         ''
+        /*
+        lua
+        */
         ''
           {
             "diff",
@@ -83,21 +92,25 @@
             end
           }
         ''
+        /*
+        lua
+        */
         ''
           {
             require("gitblame").get_current_blame_text,
             cond = require("gitblame").is_blame_text_available,
-            fmt = function(blame)
-              local truncate_at = 80
-              if #blame > truncate_at then
-                blame = blame:sub(1, truncate_at) .. "..."
-              end
-              return blame
-            end
           }
         ''
       ];
       x = [
+        ''
+          {
+            "overseer"
+          }
+        ''
+        /*
+        lua
+        */
         ''
           {
             -- Lsp server name
@@ -141,6 +154,9 @@
             separator = { left = nil, right = nil }
           }
         ''
+        /*
+        lua
+        */
         ''
           {
             function() return vim.fn.wordcount()["words"] .. " words" end,
