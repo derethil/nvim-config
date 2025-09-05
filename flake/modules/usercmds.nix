@@ -172,9 +172,7 @@ in {
             if usercmd.callback then
               vim.api.nvim_create_user_command(usercmd.name, usercmd.callback, opts)
             elseif usercmd.command then
-              vim.api.nvim_create_user_command(usercmd.name, function()
-                vim.cmd(usercmd.command)
-              end, opts)
+              vim.api.nvim_create_user_command(usercmd.name, usercmd.command, opts)
             end
           end
         '');
