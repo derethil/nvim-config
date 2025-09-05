@@ -12,4 +12,3 @@
     opts = {range = true;};
   };
 }
-
