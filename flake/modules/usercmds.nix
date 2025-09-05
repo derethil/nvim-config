@@ -26,8 +26,8 @@
         description = "The name of the user command.";
       };
 
-      callback = mkOption {
-        type = nullOr luaInline;
+      command = mkOption {
+        type = nullOr (either str luaInline);
         default = null;
         example = literalExpression ''
           mkLuaInline '''
@@ -36,17 +36,7 @@
             end
           ''''
         '';
-        description = "Lua function to be called when the command is executed.";
-      };
-
-      command = mkOption {
-        type = nullOr str;
-        default = null;
-        example = "lua vim.lsp.buf.format({ async = true })";
-        description = ''
-          Vim command to be executed when the user command is invoked.
-          Cannot be defined if the `callback` option is already defined.
-        '';
+        description = "Command to be executed when the user command is invoked.";
       };
 
       desc = mkOption {
@@ -156,24 +146,22 @@ in {
         usercmds = entryAfter ["pluginConfigs"] (optionalString (enabledUsercommands != []) ''
           local nvf_usercommands = ${toLuaObject enabledUsercommands}
           for _, usercmd in ipairs(nvf_usercommands) do
-            local opts = {
-              desc      = usercmd.desc,
-              nargs     = usercmd.nargs,
-              range     = usercmd.range,
-              count     = usercmd.count,
-              addr      = usercmd.addr,
-              bang      = usercmd.bang,
-              bar       = usercmd.bar,
-              complete  = usercmd.complete,
-              preview   = usercmd.preview,
-              force     = usercmd.force
-            }
-
-            if usercmd.callback then
-              vim.api.nvim_create_user_command(usercmd.name, usercmd.callback, opts)
-            elseif usercmd.command then
-              vim.api.nvim_create_user_command(usercmd.name, usercmd.command, opts)
-            end
+            vim.api.nvim_create_user_command(
+              usercmd.name,
+              usercmd.command,
+              {
+                desc      = usercmd.desc,
+                nargs     = usercmd.nargs,
+                range     = usercmd.range,
+                count     = usercmd.count,
+                addr      = usercmd.addr,
+                bang      = usercmd.bang,
+                bar       = usercmd.bar,
+                complete  = usercmd.complete,
+                preview   = usercmd.preview,
+                force     = usercmd.force
+              }
+            )
           end
         '');
       };
@@ -181,8 +169,8 @@ in {
 
     assertions = [
       {
-        assertion = builtins.all (cmd: (cmd.command == null || cmd.callback == null)) cfg.usercmds;
-        message = "A user command cannot have both 'command' and 'callback' defined at the same time.";
+        assertion = builtins.all (cmd: cmd.command != null) cfg.usercmds;
+        message = "All user commands must have a 'command' defined.";
       }
       {
         assertion = builtins.all (cmd: cmd.name != null && cmd.name != "") cfg.usercmds;

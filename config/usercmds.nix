@@ -2,7 +2,7 @@
   vim.usercmds = [
     {
       name = "CopyCodeBlock";
-      callback =
+      command =
         lib.generators.mkLuaInline
         /*
         lua

@@ -99,17 +99,22 @@ in {
   vim.usercmds = [
     {
       name = "OverseerRestartLast";
-      callback = lib.generators.mkLuaInline ''
-        function()
-          local overseer = require("overseer")
-          local tasks = overseer.list_tasks({ recent_first = true })
-          if vim.tbl_isempty(tasks) then
-            vim.notify("No tasks found", vim.log.levels.WARN)
-          else
-            overseer.run_action(tasks[1], "restart")
+      command =
+        lib.generators.mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function()
+            local overseer = require("overseer")
+            local tasks = overseer.list_tasks({ recent_first = true })
+            if vim.tbl_isempty(tasks) then
+              vim.notify("No tasks found", vim.log.levels.WARN)
+            else
+              overseer.run_action(tasks[1], "restart")
+            end
           end
-        end
-      '';
+        '';
       desc = "Restart the most recent Overseer task";
     }
   ];
