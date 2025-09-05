@@ -85,11 +85,11 @@
 
       flake = {lib, ...}: {
         nixosModules = {
-          nvim-config = import ./flake/modules/nixos.nix {inherit lib inputs;};
+          nvim-config = import ./flake/modules/external/nixos.nix {inherit lib inputs;};
         };
 
         homeManagerModules = {
-          nvim-config = import ./flake/modules/home-manager.nix {inherit lib inputs;};
+          nvim-config = import ./flake/modules/external/home-manager.nix {inherit lib inputs;};
         };
       };
     };

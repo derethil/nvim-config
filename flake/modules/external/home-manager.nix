@@ -8,7 +8,7 @@
 }:
 with lib; let
   cfg = config.programs.nvim-config;
-  nvimPackage = import ../package.nix {
+  nvimPackage = import ../../package.nix {
     inherit lib pkgs inputs;
     system = pkgs.system;
     moduleConfig = cfg;
