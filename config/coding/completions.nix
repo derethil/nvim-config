@@ -78,6 +78,7 @@
       sources = {
         default = [
           "copilot"
+          "conventional_commits"
           "lsp"
           "path"
           "buffer"
@@ -98,6 +99,16 @@
             opts = {
               kind = "copilot";
             };
+          };
+          conventional_commits = {
+            name = "Conventional Commits";
+            module = "blink-cmp-conventional-commits";
+            score_offset = 100000;
+            enabled = lib.generators.mkLuaInline ''
+              function()
+                return vim.bo.filetype == "gitcommit"
+              end
+            '';
           };
           lsp = {
             score_offset = 90;
@@ -166,6 +177,10 @@
     "blink-cmp-yanky" = {
       priority = 100; # load before blink-cmp
       package = pkgs.internal.blink-cmp-yanky;
+    };
+    "blink-cmp-conventional-commits" = {
+      priority = 100; # load before blink-cmp
+      package = pkgs.vimPlugins.blink-cmp-conventional-commits;
     };
     "colorful-menu.nvim" = {
       package = pkgs.vimPlugins.colorful-menu-nvim;
