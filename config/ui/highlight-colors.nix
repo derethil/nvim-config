@@ -3,6 +3,8 @@
   lib,
   ...
 }: {
+  # TODO:: v0.8 has nvim-highlight-color options included by default, migrate to that
+
   vim.lazy.plugins."nvim-highlight-colors" = {
     package = pkgs.vimPlugins.nvim-highlight-colors;
     event = [lib.events.VeryLazy];
