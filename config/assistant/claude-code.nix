@@ -30,6 +30,20 @@ in {
         # Sending Context
         {
           mode = "x";
+          key = "<leader>aa";
+          desc = "Claude: Send Selection";
+          lua = true;
+          action = ''
+            function()
+              vim.cmd('ClaudeCodeSend')
+              vim.defer_fn(function()
+                 vim.cmd('ClaudeCodeFocus')
+              end, 0)
+            end
+          '';
+        }
+        {
+          mode = "x";
           key = "<leader>af";
           desc = "Claude: Send Selection";
           lua = true;
