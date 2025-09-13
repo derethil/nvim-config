@@ -18,7 +18,9 @@ in {
     vim.lazy.plugins.claudecode-nvim = {
       package = pkgs.internal.claudecode-nvim;
       setupModule = "claudecode";
-      setupOpts = {};
+      setupOpts = {
+        focus_after_send = true;
+      };
       keys = [
         # Interaction / Focus
         (mkKeymap "n" "<leader>aa" "<CMD>ClaudeCode<CR>" {desc = "Claude: Toggle";})
@@ -28,35 +30,8 @@ in {
         # Select Model
         (mkKeymap "n" "<leader>am" "<CMD>ClaudeCodeSelectModel<CR>" {desc = "Claude: Select Model";})
         # Sending Context
-        {
-          mode = "x";
-          key = "<leader>aa";
-          desc = "Claude: Send Selection";
-          lua = true;
-          action = ''
-            function()
-              vim.cmd('ClaudeCodeSend')
-              vim.defer_fn(function()
-                 vim.cmd('ClaudeCodeFocus')
-              end, 0)
-            end
-          '';
-        }
-        {
-          mode = "x";
-          key = "<leader>af";
-          desc = "Claude: Send Selection";
-          lua = true;
-          action = ''
-            function()
-              vim.cmd('ClaudeCodeSend')
-              vim.defer_fn(function()
-                 vim.cmd('ClaudeCodeFocus')
-              end, 0)
-            end
-          '';
-        }
-        (mkKeymap "x" "<leader>as" "<CMD>ClaudeCodeSend<CR>" {desc = "Claude: Send Selection";})
+        (mkKeymap "x" "<leader>aa" "<CMD>ClaudeCodeSend<CR>" {desc = "Claude: Send Selection";})
+        (mkKeymap "x" "<leader>af" "<CMD>ClaudeCodeSend<CR>" {desc = "Claude: Send Selection";})
         (mkKeymap "n" "<leader>ab" "<CMD>ClaudeCodeAdd %<CR>" {desc = "Claude: Send Current Buffer";})
         (mkKeymap "n" "<leader>as" "<CMD>ClaudeCodeTreeAdd<CR>" {
           desc = "Claude: Send Selected Buffer";
