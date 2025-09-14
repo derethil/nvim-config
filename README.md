@@ -43,4 +43,5 @@ imports = [ inputs.nvim-config.nixosModules.default ];
 programs.nvim-config.enable = true;
 ```
 
-More options can be found in [the options file](./flake/modules/options.nix).
+More options can be found in
+[the options file](./flake/modules/external/options.nix).
