@@ -87,7 +87,7 @@
         packages.default = package.neovim;
         packages.dev = packageDev.neovim;
         devShells.default = pkgs.mkShell {
-          packages = [packageDev];
+          packages = [packageDev.neovim];
           shellHook = ''
             echo "nvf utilities available: nvf-print-config, nvf-print-config-path"
           '';
