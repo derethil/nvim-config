@@ -8,6 +8,27 @@ in {
   options.programs.nvim-config = {
     enable = mkEnableOption "My custom Neovim configuration";
 
+    neovim = {
+      nightly = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Use neovim nightly package instead of stable";
+      };
+
+      package = mkOption {
+        type = types.nullOr types.package;
+        default = null;
+        description = "Custom neovim package to use. Overrides useNightly when set.";
+        example = literalExpression "pkgs.neovim-unwrapped";
+      };
+
+      defaultEditor = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Use Neovim as the default editor.";
+      };
+    };
+
     claude = {
       enable = mkEnableOption "Enable Claude Code integration";
       package = mkOption {
@@ -15,12 +36,6 @@ in {
         default = pkgs.claude-code;
         description = "Nvim plugin package for Claude Code integration";
       };
-    };
-
-    defaultEditor = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Use Neovim as the default editor.";
     };
 
     extraSettings = mkOption {

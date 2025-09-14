@@ -8,7 +8,7 @@
 }:
 with lib; let
   cfg = config.programs.nvim-config;
-  nvimPackage = import ../../package.nix {
+  package = import ../../package.nix {
     inherit lib pkgs inputs;
     system = pkgs.system;
     moduleConfig = cfg;
@@ -19,10 +19,17 @@ in {
   ];
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [nvimPackage.neovim];
-    environment.variables = mkIf cfg.defaultEditor {
-      EDITOR = "${nvimPackage.neovim}/bin/nvim";
-      VISUAL = "${nvimPackage.neovim}/bin/nvim";
+    environment.systemPackages = [package.neovim];
+    environment.variables = mkIf cfg.neovim.defaultEditor {
+      EDITOR = "${package.neovim}/bin/nvim";
+      VISUAL = "${package.neovim}/bin/nvim";
     };
+
+    assertions = [
+      {
+        assertion = !(cfg.neovim.nightly && cfg.neovim.package != null);
+        message = "Cannot enable both neovim.nightly and set a custom neovim.package. Choose one or the other.";
+      }
+    ];
   };
 }
