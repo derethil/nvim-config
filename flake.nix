@@ -68,15 +68,26 @@
         lib,
         ...
       }: let
-        nvim =
-          (import ./flake/package.nix {
-            inherit lib pkgs inputs system;
-            moduleConfig = {};
-          }).neovim;
+        package = import ./flake/package.nix {
+          inherit lib pkgs inputs;
+          moduleConfig = {};
+        };
+
+        packageDev = import ./flake/package.nix {
+          inherit lib inputs;
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          moduleConfig = import ./flake/development.nix {
+            inherit lib inputs system;
+          };
+        };
       in {
-        packages.default = nvim;
+        packages.default = package.neovim;
+        packages.dev = packageDev.neovim;
         devShells.default = pkgs.mkShell {
-          packages = [nvim];
+          packages = [packageDev];
           shellHook = ''
             echo "nvf utilities available: nvf-print-config, nvf-print-config-path"
           '';
