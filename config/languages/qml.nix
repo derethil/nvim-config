@@ -11,6 +11,6 @@
   };
 
   vim.treesitter.grammars = with pkgs; [
-    vimPlugins.nvim-treesitter-parsers.qmljs
+    vimPlugins.nvim-treesitter.builtGrammars.qmljs
   ];
 }
