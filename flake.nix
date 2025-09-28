@@ -102,6 +102,10 @@
         homeManagerModules = {
           nvim-config = import ./flake/modules/external/home-manager.nix {inherit lib inputs;};
         };
+
+        darwinModules = {
+          nvim-config = import ./flake/modules/external/darwin.nix {inherit lib inputs;};
+        };
       };
     };
 
