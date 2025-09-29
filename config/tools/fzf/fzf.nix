@@ -7,6 +7,7 @@
 in {
   vim.extraPackages = with pkgs; [
     chafa
+    fzf
     diff-so-fancy
   ];
 
