@@ -22,7 +22,11 @@ in {
       };
       graph_style = "unicode";
       git_services = {
-        "gitlab.dragonarmy.rocks" = "https://gitlab.dragonarmy.rocks/$${owner}/$${repository}/merge_requests/new?merge_request[source_branch]=$${branch_name}";
+        "gitlab.dragonarmy.rocks" = {
+          pull_request = "https://gitlab.dragonarmy.rocks/$${owner}/$${repository}/merge_requests/new?merge_request[source_branch]=$${branch_name}";
+          commit = "https://gitlab.dragonarmy.rocks/$${owner}/$${repository}/-/commit/$${commit_hash}";
+          tree = "https://gitlab.dragonarmy.rocks/$${owner}/$${repository}/-/tree/$${branch_name}";
+        };
       };
     };
   };
