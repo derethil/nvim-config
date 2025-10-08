@@ -78,4 +78,11 @@ in {
       })
     ];
   };
+
+  vim.lazy.plugins."scope.nvim" = {
+    package = pkgs.vimPlugins.scope-nvim;
+    setupModule = "scope";
+    setupOpts = {};
+    event = [lib.events.VeryLazy];
+  };
 }
