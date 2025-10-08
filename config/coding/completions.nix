@@ -94,7 +94,7 @@
           copilot = {
             name = "copilot";
             module = lib.mkForce "blink-cmp-copilot";
-            score_offset = 1000000;
+            score_offset = 1000;
             async = true;
             opts = {
               kind = "copilot";
@@ -103,7 +103,7 @@
           conventional_commits = {
             name = "Conventional Commits";
             module = "blink-cmp-conventional-commits";
-            score_offset = 100000;
+            score_offset = 1000;
             enabled = lib.generators.mkLuaInline ''
               function()
                 return vim.bo.filetype == "gitcommit"

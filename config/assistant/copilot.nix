@@ -1,7 +1,11 @@
 {pkgs, ...}: {
   vim.assistant.copilot = {
     enable = true;
-    cmp.enable = true;
+    cmp.enable = false;
+    setupOpts = {
+      panel.enabled = false;
+      suggestion.enabled = false;
+    };
   };
 
   vim.lazy.plugins = {
