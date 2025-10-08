@@ -9,7 +9,7 @@
     friendly-snippets.enable = true;
     mappings = {
       close = "<C-e>";
-      complete = null;
+      complete = "<C-j>";
       confirm = "<C-y>";
       next = "<C-n>";
       previous = "<C-p>";
@@ -25,51 +25,58 @@
       signature.enabled = true;
       completion = {
         accept.auto_brackets.enabled = true;
-        ghost_text.enabled = false;
+        ghost_text = {
+          enabled = true;
+          show_with_menu = true;
+        };
         documentation = {
           auto_show = true;
           auto_show_delay_ms = 0;
         };
-        menu.draw = {
-          columns = lib.generators.mkLuaInline ''
-            {
-              { "kind_icon", "label", gap = 1 },
-            }
-          '';
-          components = {
-            kind_icon = {
-              text = lib.generators.mkLuaInline ''
-                function(ctx)
-                  local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-                  return kind_icon
-                end
-              '';
-              highlight = lib.generators.mkLuaInline ''
-                function(ctx)
-                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                  return hl
-                end
-              '';
-            };
-            label = {
-              text = lib.generators.mkLuaInline ''
-                function(ctx)
-                  return require("colorful-menu").blink_components_text(ctx)
-                end
-              '';
-              highlight = lib.generators.mkLuaInline ''
-                function(ctx)
-                  return require("colorful-menu").blink_components_highlight(ctx)
-                end
-              '';
-            };
-            kind = {
-              highlight = lib.generators.mkLuaInline ''
-                function(ctx)
-                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                  return hl
-                end
-              '';
+        menu = {
+          auto_show = true;
+          direction_priority = ["n" "s"];
+          draw = {
+            columns = lib.generators.mkLuaInline ''
+              {
+                { "kind_icon", "label", gap = 1 },
+              }
+            '';
+            components = {
+              kind_icon = {
+                text = lib.generators.mkLuaInline ''
+                  function(ctx)
+                    local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                    return kind_icon
+                  end
+                '';
+                highlight = lib.generators.mkLuaInline ''
+                  function(ctx)
+                    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                    return hl
+                  end
+                '';
+              };
+              label = {
+                text = lib.generators.mkLuaInline ''
+                  function(ctx)
+                    return require("colorful-menu").blink_components_text(ctx)
+                  end
+                '';
+                highlight = lib.generators.mkLuaInline ''
+                  function(ctx)
+                    return require("colorful-menu").blink_components_highlight(ctx)
+                  end
+                '';
+              };
+              kind = {
+                highlight = lib.generators.mkLuaInline ''
+                  function(ctx)
+                    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                    return hl
+                  end
+                '';
+              };
             };
           };
         };
