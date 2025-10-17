@@ -51,6 +51,10 @@
       url = "github:Piotr1215/beam.nvim";
       flake = false;
     };
+    nvim-tcss = {
+      url = "github:cachebag/nvim-tcss";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

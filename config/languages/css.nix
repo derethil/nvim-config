@@ -5,6 +5,7 @@
     treesitter.enable = true;
     format = {
       enable = true;
+      type = "prettierd";
     };
   };
 }

@@ -416,6 +416,22 @@
         "type": "github"
       }
     },
+    "nvim-tcss": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738984127,
+        "narHash": "sha256-QHY+UzJrFir/gtj7KDzxvSgFfckG+xwGtd6YyDk81lc=",
+        "owner": "cachebag",
+        "repo": "nvim-tcss",
+        "rev": "bf9001416158f32fe7e92c42de94de3595aa13e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachebag",
+        "repo": "nvim-tcss",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "beam-nvim": "beam-nvim",
@@ -429,6 +445,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",
+        "nvim-tcss": "nvim-tcss",
         "root-nvim": "root-nvim",
         "sonarlint-nvim": "sonarlint-nvim"
       }

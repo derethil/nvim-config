@@ -3,6 +3,8 @@
   lib,
   ...
 }: {
+  # Basic configuration
+
   vim.languages.python = {
     enable = true;
     dap.enable = false;
@@ -17,7 +19,10 @@
   vim.extraPackages = [
     pkgs.basedpyright
     pkgs.ruff
+    pkgs.prettier
   ];
+
+  # Configure LSPs
 
   vim.lsp.servers = {
     "basedpyright" = {
@@ -69,6 +74,8 @@
     };
   };
 
+  # Fix conflict between BasedPyright and Ruff LSP servers for hover information
+
   vim.autocmds = [
     (lib.util.mkLspAttachCallback [
       {
@@ -80,4 +87,24 @@
       }
     ])
   ];
+
+  # Textual CSS (TCSS) support
+
+  vim.lazy.plugins.nvim-tcss = {
+    package = pkgs.internal.nvim-tcss;
+    setupModule = "tcss";
+    lazy = true;
+    event = ["BufReadPre *.tcss" "BufNewFile *.tcss"];
+  };
+
+  vim.formatter.conform-nvim = {
+    setupOpts = {
+      formatters_by_ft.tcss = ["prettier_tcss"];
+      formatters.prettier_tcss = {
+        command = "prettier";
+        args = ["--stdin-filepath" "$FILENAME" "--parser" "css"];
+        stdin = true;
+      };
+    };
+  };
 }
