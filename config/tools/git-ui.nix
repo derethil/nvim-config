@@ -1,8 +1,6 @@
 {lib, ...}: let
   inherit (lib.nvim.binds) mkKeymap;
 in {
-  vim.utility.diffview-nvim.enable = true;
-
   vim.git.neogit = {
     enable = true;
     mappings = {
