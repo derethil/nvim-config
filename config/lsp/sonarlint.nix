@@ -20,12 +20,11 @@ in {
   ];
 
   vim.lazy.plugins.sonarlint-nvim = {
-    # TODO: update package when connected mode is merged: https://gitlab.com/schrieveslaach/sonarlint.nvim
     package = pkgs.internal.sonarlint-nvim;
     before = ''
       local lspconfig = require("lspconfig")
     '';
-    enabled = ''
+    enabled = lib.generators.mkLuaInline ''
       function()
         local current_dir = vim.fn.getcwd()
         return vim.startswith(current_dir, vim.fn.expand("~/development/dragonarmy/"))
