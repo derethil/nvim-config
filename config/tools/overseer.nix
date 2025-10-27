@@ -15,16 +15,8 @@ in {
       "OverseerOpen"
       "OverseerClose"
       "OverseerToggle"
-      "OverseerSaveBundle"
-      "OverseerLoadBundle"
-      "OverseerDeleteBundle"
-      "OverseerRunCmd"
       "OverseerRun"
-      "OverseerInfo"
-      "OverseerBuild"
-      "OverseerQuickAction"
       "OverseerTaskAction"
-      "OverseerClearCache"
       "OverseerRestartLast"
     ];
     setupModule = "overseer";
@@ -64,10 +56,7 @@ in {
       (mkKeymap "n" "<leader>ow" "<cmd>OverseerToggle<cr>" {desc = "Task list";})
       (mkKeymap "n" "<leader>oo" "<cmd>OverseerRun<cr>" {desc = "Run task";})
       (mkKeymap "n" "<leader>oq" "<cmd>OverseerQuickAction<cr>" {desc = "Action recent task";})
-      (mkKeymap "n" "<leader>oi" "<cmd>OverseerInfo<cr>" {desc = "Overseer Info";})
-      (mkKeymap "n" "<leader>ob" "<cmd>OverseerBuild<cr>" {desc = "Task builder";})
       (mkKeymap "n" "<leader>ot" "<cmd>OverseerTaskAction<cr>" {desc = "Task action";})
-      (mkKeymap "n" "<leader>oc" "<cmd>OverseerClearCache<cr>" {desc = "Clear cache";})
       {
         key = "<space>or";
         mode = ["n" "x" "v"];
@@ -116,59 +105,6 @@ in {
           end
         '';
       desc = "Restart the most recent Overseer task";
-    }
-  ];
-
-  vim.autocmds = [
-    {
-      event = ["User"];
-      pattern = ["PersistenceSavePre"];
-      desc = "Save Overseer tasks during Persistence session save";
-      callback =
-        lib.generators.mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function()
-            local function get_cwd_as_name()
-              local dir = vim.fn.getcwd(0)
-              return dir:gsub("[^A-Za-z0-9]", "_")
-            end
-
-            local overseer = require("overseer")
-            overseer.save_task_bundle(get_cwd_as_name(), nil, { on_conflict = "overwrite" })
-          end
-        '';
-    }
-    {
-      event = ["User"];
-      pattern = ["PersistenceLoadPost"];
-      desc = "Load Overseer tasks during Persistence session load";
-      callback =
-        lib.generators.mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function()
-            local function get_cwd_as_name()
-              local dir = vim.fn.getcwd(0)
-              return dir:gsub("[^A-Za-z0-9]", "_")
-            end
-
-            local overseer = require("overseer")
-            overseer.load_task_bundle(get_cwd_as_name(), { ignore_missing = true })
-
-            -- List loaded tasks to notify user
-            local status = { overseer.STATUS.RUNNING, overseer.STATUS.PENDING }
-            local tasks = overseer.list_tasks({ status = status })
-            local message = "Restored " .. #tasks .. " Overseer task" .. (#tasks == 1 and "" or "s")
-            if #tasks > 0 then
-              vim.notify(message, vim.log.levels.INFO, { title = "Overseer" })
-            end
-          end
-        '';
     }
   ];
 }
