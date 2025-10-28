@@ -67,22 +67,31 @@
       ];
 
       perSystem = {
+        config,
         pkgs,
         system,
         lib,
         ...
       }: let
+        overlayedPkgs = import inputs.nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            # TODO: Remove this after https://github.com/NixOS/nixpkgs/pull/456453 is merged
+            # Zig is marked as broken on x86_64-darwin due to test failures, but it works fine
+            allowBroken = true;
+          };
+        };
+      in let
         package = import ./flake/package.nix {
-          inherit lib pkgs inputs;
+          inherit lib inputs;
+          pkgs = overlayedPkgs;
           moduleConfig = {};
         };
 
         packageDev = import ./flake/package.nix {
           inherit lib inputs;
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
+          pkgs = overlayedPkgs;
           moduleConfig = import ./flake/development.nix {
             inherit lib inputs system;
           };
