@@ -24,11 +24,6 @@
     };
   };
 
-  # can be removed after https://github.com/NotAShelf/nvf/pull/1078
-  vim.treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-    typescript
-  ];
-
   # Icons
   vim.mini.icons.setupOpts = {
     file = {
