@@ -15,39 +15,46 @@
   vim.extraPlugins = {
     gruvbox-material = {
       package = pkgs.vimPlugins.gruvbox-material;
-      setup = ''
-        local function get_palette()
-          local config = vim.fn["gruvbox_material#get_configuration"]()
-          local palette = vim.fn["gruvbox_material#get_palette"](config.background, config.foreground, config.colors_override)
-          return palette
-        end
+      setup =
+        /*
+        lua
+        */
+        ''
+          local function get_palette()
+            local config = vim.fn["gruvbox_material#get_configuration"]()
+            local palette = vim.fn["gruvbox_material#get_palette"](config.background, config.foreground, config.colors_override)
+            return palette
+          end
 
-        local function customize_gruvbox()
-          local palette = get_palette()
-          local set_hl = vim.fn["gruvbox_material#highlight"]
+          local function customize_gruvbox()
+            local palette = get_palette()
+            local set_hl = vim.fn["gruvbox_material#highlight"]
 
-          set_hl("MiniFilesNormal", palette.fg1, palette.none)
-          set_hl("FloatBorder", palette.grey1, palette.none)
-          set_hl("MiniFilesCursorLine", palette.none, palette.bg_diff_green, "bold")
-          set_hl("NvimSeparator", palette.green, palette.none)
-          set_hl("GitConflictCurrent", palette.none, palette.bg_diff_blue)
-          set_hl("GitConflictCurrentLabel", palette.blue, palette.bg_visual_blue, "bold")
-          set_hl("GitConflictIncomingLabel", palette.green, palette.bg_visual_green, "bold")
+            -- Fix mini files backgrounds
+            set_hl("MiniFilesNormal", palette.fg1, palette.none)
+            set_hl("MiniFilesCursorLine", palette.none, palette.bg_diff_green, "bold")
+            set_hl("MiniFilesTitle", palette.grey0, palette.none, "bold")
 
-          -- Make sidebars use same background as main windows
-          set_hl("NormalFloat", palette.fg1, palette.bg0)
-        end
+            -- Make git conflict highlights not unreadable
+            set_hl("GitConflictCurrent", palette.none, palette.bg_diff_blue)
+            set_hl("GitConflictCurrentLabel", palette.blue, palette.bg_visual_blue, "bold")
+            set_hl("GitConflictIncomingLabel", palette.green, palette.bg_visual_green, "bold")
 
-        -- Create autocmd for custom highlights
-        vim.api.nvim_create_autocmd("ColorScheme", {
-          group = vim.api.nvim_create_augroup("custom_highlights_gruvboxmaterial", {}),
-          pattern = "gruvbox-material",
-          callback = customize_gruvbox,
-        })
+            set_hl("NormalFloat", palette.fg1, palette.bg0) -- Make sidebars use same background as main windows
+            set_hl("FloatTitle", palette.orange, palette.none, "bold") -- Remove background from float titles
+            set_hl("FloatBorder", palette.grey1, palette.none) -- Make float borders consistent with normal borders
+          end
 
-        -- Set colorscheme
-        vim.cmd.colorscheme("gruvbox-material")
-      '';
+          -- Create autocmd for custom highlights
+          vim.api.nvim_create_autocmd("ColorScheme", {
+            group = vim.api.nvim_create_augroup("custom_highlights_gruvboxmaterial", {}),
+            pattern = "gruvbox-material",
+            callback = customize_gruvbox,
+          })
+
+          -- Set colorscheme
+          vim.cmd.colorscheme("gruvbox-material")
+        '';
     };
   };
 }
