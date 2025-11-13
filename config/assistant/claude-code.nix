@@ -33,7 +33,7 @@ in {
         (mkKeymap "x" "<leader>aa" "<CMD>ClaudeCodeSend<CR>" {desc = "Claude: Send Selection";})
         (mkKeymap "x" "<leader>af" "<CMD>ClaudeCodeSend<CR>" {desc = "Claude: Send Selection";})
         (mkKeymap "n" "<leader>ab" "<CMD>ClaudeCodeAdd %<CR>" {desc = "Claude: Send Current Buffer";})
-        (mkKeymap "n" "<leader>as" "<CMD>ClaudeCodeTreeAdd<CR>" {
+        (mkKeymap "n" "<leader>ab" "<CMD>ClaudeCodeTreeAdd<CR>" {
           desc = "Claude: Send Selected Buffer";
           ft = ["minifiles"];
         })
