@@ -364,15 +364,15 @@
     "sonarlint-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1747678127,
-        "narHash": "sha256-ZfMUkIFu6nQN0XaOHIzQKJZRIaWzIaV8fsjYDbwGXBg=",
-        "owner": "Alfaixx",
+        "lastModified": 1759572577,
+        "narHash": "sha256-1eUwgHvegULo33xVjvV3b90fSlJ8Ax10iDCZE4IPo58=",
+        "owner": "schrieveslaach",
         "repo": "sonarlint.nvim",
-        "rev": "ff15e709b51d856f12c3684c150f130d4b1becd8",
+        "rev": "1d49a469265e271f02b6efcf09c215e4560bd5fa",
         "type": "gitlab"
       },
       "original": {
-        "owner": "Alfaixx",
+        "owner": "schrieveslaach",
         "repo": "sonarlint.nvim",
         "type": "gitlab"
       }

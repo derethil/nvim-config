@@ -1,15 +1,18 @@
 {
   pkgs,
   lib,
+  module ? {},
   ...
 }: let
-  filetypes = ["javascript" "typescript" "javascriptreact" "typescriptreact" "go"];
+  cfg = module.config.sonarlint or {};
+
+  filetypes = ["javascript" "typescript" "javascriptreact" "typescriptreact" "go" "html"];
 
   analyzers = ["sonarjs" "sonarpython" "sonarhtml" "sonargo" "sonartext"];
   analyzerPaths = map (analyzer: "${pkgs.sonarlint-ls}/share/plugins/${analyzer}.jar") analyzers;
 
   cmd = lib.flatten [
-    "${pkgs.sonarlint-ls}/bin/sonarlint-ls"
+    (lib.getExe pkgs.sonarlint-ls)
     "-stdio"
     "-analyzers"
     analyzerPaths
@@ -17,6 +20,7 @@
 in {
   vim.extraPackages = with pkgs; [
     sonarlint-ls
+    nodejs_24
   ];
 
   vim.lazy.plugins.sonarlint-nvim = {
@@ -24,36 +28,52 @@ in {
     before = ''
       local lspconfig = require("lspconfig")
     '';
-    enabled = lib.generators.mkLuaInline ''
-      function()
-        local current_dir = vim.fn.getcwd()
-        return vim.startswith(current_dir, vim.fn.expand("~/development/dragonarmy/"))
-      end
-    '';
+    enabled = lib.mkIf (cfg.connectedMode.enable or false) (lib.generators.mkLuaInline
+      /*
+      lua
+      */
+      ''
+        function()
+          local current_dir = vim.fn.getcwd()
+          local projects = ${lib.generators.toLua {} cfg.connectedMode.projects}
+          local project = projects[current_dir]
+
+
+          for project_path, _ in pairs(projects) do
+            local expanded_path = vim.fn.expand(project_path)
+            if vim.startswith(current_dir, expanded_path) then
+              return true
+            end
+          end
+
+          return false
+        end
+      '');
     ft = filetypes;
     setupModule = "sonarlint";
     setupOpts = {
       filetypes = filetypes;
-      connected.get_credentials = ''
-        function()
-          return vim.fn.getenv("SONAR_TOKEN")
-        end
-      '';
       server = {
         cmd = cmd;
-        sonarlint.connectedMode = {
-          project = {
-            connectionId = "dragonarmy";
-            projectKey = ''vim.fn.getenv("SONAR_PROJECT_KEY") or ""'';
-          };
-          connections.sonarqube = [
-            {
-              connectionId = "dragonarmy";
-              serverUrl = "https://sonarqube.dragonarmy.com";
-              disableNotifications = false;
-            }
-          ];
+        settings.sonarlint.connectedMode.connections = {
+          sonarqube = cfg.connectedMode.connections.sonarqube or [];
         };
+        before_init =
+          lib.generators.mkLuaInline
+          /*
+          lua
+          */
+          ''
+            function(params, config)
+              local projects = ${lib.generators.toLua {} cfg.connectedMode.projects or {}}
+              local project = projects[params.rootPath]
+
+              config.settings.sonarlint.connectedMode.project = {
+                connectionId = project.connectionId,
+                projectKey = project.projectKey,
+              };
+            end
+          '';
       };
     };
   };

@@ -9,9 +9,10 @@ vimUtils.buildVimPlugin {
   src = inputs.sonarlint-nvim;
   meta = with lib; {
     description = "A wrapper for sonarlint-language-server with connected mode support";
-    homepage = "https://gitlab.com/Alfaixx/sonarlint.nvim";
+    homepage = "https://gitlab.com/schrieveslaach/sonarlint.nvim";
     license = licenses.mit;
     maintainers = [];
     platforms = platforms.all;
   };
 }
+

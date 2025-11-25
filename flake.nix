@@ -28,7 +28,7 @@
       flake = false;
     };
     sonarlint-nvim = {
-      url = "gitlab:Alfaixx/sonarlint.nvim";
+      url = "gitlab:schrieveslaach/sonarlint.nvim";
       flake = false;
     };
     blink-cmp-yanky = {
