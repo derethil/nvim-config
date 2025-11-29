@@ -60,7 +60,7 @@ in {
         };
 
         projects = mkOption {
-          default = [];
+          default = {};
           description = "Project configuration for SonarLint connected mode";
           type = types.attrsOf (
             types.submodule {
@@ -77,12 +77,10 @@ in {
             }
           );
           example = literalExpression ''
-            [
-              {
-                connectionId = "my_connection";
-                projectKey = "my_project_key";
-              };
-            ]
+            path_to_project = {
+              connectionId = "my_connection";
+              projectKey = "my_project_key";
+            };
           '';
         };
       };
