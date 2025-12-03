@@ -16,7 +16,7 @@ inputs.nvf.lib.neovimConfiguration {
         vim.package = moduleConfig.neovim.package;
       })
       (lib.mkIf (moduleConfig.neovim.nightly && (!(moduleConfig.neovim ? package) || moduleConfig.neovim.package == null)) {
-        vim.package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+        vim.package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
       })
     ];
 

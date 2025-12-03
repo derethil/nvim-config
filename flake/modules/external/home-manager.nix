@@ -9,11 +9,10 @@
 with lib; let
   cfg = config.programs.nvim-config;
   # Always use unstable nixpkgs from inputs, not the system's pkgs
-  unstablePkgs = inputs.nixpkgs.legacyPackages.${pkgs.system};
+  unstablePkgs = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   package = import ../../package.nix {
     inherit lib inputs;
     pkgs = unstablePkgs;
-    system = pkgs.system;
     moduleConfig = cfg;
   };
 in {
