@@ -18,13 +18,13 @@
     analyzerPaths
   ];
 in {
-  vim.extraPackages = with pkgs; [
-    sonarlint-ls
-    nodejs_24
+  vim.extraPackages = [
+    pkgs.sonarlint-ls
+    pkgs.nodejs_24
   ];
 
   vim.lazy.plugins.sonarlint-nvim = {
-    package = pkgs.internal.sonarlint-nvim;
+    package = pkgs.sonarlint-nvim;
     before = ''
       local lspconfig = require("lspconfig")
     '';
