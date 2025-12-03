@@ -12,7 +12,7 @@
     treesitter.enable = true;
     format = {
       enable = true;
-      type = "ruff";
+      type = ["ruff"];
     };
   };
 
