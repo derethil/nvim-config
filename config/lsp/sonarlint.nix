@@ -23,8 +23,8 @@ in {
     pkgs.nodejs_24
   ];
 
-  vim.lazy.plugins.sonarlint-nvim = {
-    package = pkgs.sonarlint-nvim;
+  vim.lazy.plugins."sonarlint.nvim" = {
+    package = pkgs.vimPlugins.sonarlint-nvim;
     before = ''
       local lspconfig = require("lspconfig")
     '';
