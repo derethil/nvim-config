@@ -9,7 +9,7 @@ in {
       enable = true;
     };
     extensions = {
-      render-markdown-nvim.enable = true;
+      markview-nvim.enable = true;
     };
     extraDiagnostics.enable = true;
   };
