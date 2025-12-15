@@ -28,7 +28,7 @@ in {
     before = ''
       local lspconfig = require("lspconfig")
     '';
-    enabled = lib.mkIf (cfg.connectedMode.enable or false) (lib.generators.mkLuaInline
+    enabled = lib.mkIf (cfg.enable or false) (lib.generators.mkLuaInline
       /*
       lua
       */
