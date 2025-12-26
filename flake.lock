@@ -32,6 +32,22 @@
         "type": "github"
       }
     },
+    "calcium": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766695232,
+        "narHash": "sha256-REybHIscXKTBm+36g9cRHEZL0Iu9agJtbtIMQsmNAQo=",
+        "owner": "Necrom4",
+        "repo": "calcium.nvim",
+        "rev": "e7c8e3757e2d6e44c7653d3b8891cbc0a916950a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Necrom4",
+        "repo": "calcium.nvim",
+        "type": "github"
+      }
+    },
     "claude-fzf-nvim": {
       "flake": false,
       "locked": {
@@ -365,6 +381,7 @@
       "inputs": {
         "beam-nvim": "beam-nvim",
         "blink-cmp-yanky": "blink-cmp-yanky",
+        "calcium": "calcium",
         "claude-fzf-nvim": "claude-fzf-nvim",
         "claudecode-nvim": "claudecode-nvim",
         "close-buffers-nvim": "close-buffers-nvim",

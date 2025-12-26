@@ -55,6 +55,10 @@
       url = "github:cachebag/nvim-tcss";
       flake = false;
     };
+    calcium = {
+      url = "github:Necrom4/calcium.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
