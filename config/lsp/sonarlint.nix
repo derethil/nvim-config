@@ -38,6 +38,9 @@ in {
           local projects = ${lib.generators.toLua {} cfg.connectedMode.projects}
           local project = projects[current_dir]
 
+          if not project then
+            return false
+          end
 
           for project_path, _ in pairs(projects) do
             local expanded_path = vim.fn.expand(project_path)
@@ -67,6 +70,10 @@ in {
             function(params, config)
               local projects = ${lib.generators.toLua {} cfg.connectedMode.projects or {}}
               local project = projects[params.rootPath]
+
+              if not project then
+                return
+              end
 
               config.settings.sonarlint.connectedMode.project = {
                 connectionId = project.connectionId,
