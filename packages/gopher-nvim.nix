@@ -9,7 +9,7 @@ vimUtils.buildVimPlugin {
   src = inputs.gopher-nvim;
   meta = with lib; {
     description = "Neovim plugin for make golang development easiest";
-    homepage = "https://github.com/olexsmir/gopher.nvim";
+    homepage = "https://github.com/derethil/gopher.nvim";
     license = licenses.asl20;
     maintainers = [];
     platforms = platforms.all;
