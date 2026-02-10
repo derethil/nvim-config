@@ -51,6 +51,14 @@
       url = "github:Piotr1215/beam.nvim";
       flake = false;
     };
+    gopher-nvim = {
+      url = "github:olexsmir/gopher.nvim";
+      flake = false;
+    };
+    json2go = {
+      url = "github:olexsmir/json2go";
+      flake = false;
+    };
     nvim-tcss = {
       url = "github:cachebag/nvim-tcss";
       flake = false;
