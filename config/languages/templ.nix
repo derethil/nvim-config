@@ -16,6 +16,5 @@ in {
     pkgs.vimPlugins.nvim-treesitter.builtGrammars.templ
   ];
 
-  # TODO: Enable HTML LSP for templ files when v0.8 is released
-  # vim.lsp.servers.superhtml.filetypes = ["templ"];
+  vim.lsp.servers.superhtml.filetypes = ["templ"];
 }

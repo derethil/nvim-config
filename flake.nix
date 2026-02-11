@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -81,11 +82,18 @@
         lib,
         ...
       }: let
+        pkgs-stable = import inputs.nixpkgs-stable {
+          inherit system;
+          config.allowUnfree = true;
+        };
         overlayedPkgs = import inputs.nixpkgs {
           inherit system;
           config = {
             allowUnfree = true;
           };
+          overlays =
+            [(final: prev: {stable = pkgs-stable;})]
+            ++ (import ./overlays);
         };
       in let
         package = import ./flake/package.nix {
