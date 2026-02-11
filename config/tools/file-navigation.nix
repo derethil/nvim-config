@@ -34,11 +34,7 @@ in {
       desc = "Open Mini Files (current buffer)";
       silent = true;
     })
-  ];
-
-  # Lazy-load root-nvim plugin
-  vim.lazy.plugins.root-nvim.keys = [
-    (mkKeymap "n" "<leader>E" "<CMD>lua MiniFiles.open(require('root').get(), false)<CR>" {
+    (mkKeymap "n" "<leader>E" "<CMD>lua MiniFiles.open(require('snacks').git.get_root(), false)<CR>" {
       desc = "Open Mini Files (root directory)";
       silent = true;
     })

@@ -19,10 +19,6 @@
       url = "github:kazhala/close-buffers.nvim";
       flake = false;
     };
-    root-nvim = {
-      url = "github:flashios09/root.nvim";
-      flake = false;
-    };
     import-nvim = {
       url = "github:piersolenski/import.nvim";
       flake = false;
