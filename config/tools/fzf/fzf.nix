@@ -101,43 +101,7 @@ in {
             };
           };
         };
-        # Custom ui_select configuration for better code actions
-        ui_select = lib.generators.mkLuaInline ''
-          function(fzf_opts, items)
-            return vim.tbl_deep_extend("force", fzf_opts, {
-              prompt = " ",
-              winopts = {
-                title = " " .. vim.trim((fzf_opts.prompt or "Select"):gsub("%s*:%s*$", "")) .. " ",
-                title_pos = "center",
-              },
-            }, fzf_opts.kind == "codeaction" and {
-              winopts = {
-                layout = "vertical",
-                -- height is number of items minus 15 lines for the preview, with a max of 80% screen height
-                height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
-                width = 0.5,
-                preview = not vim.tbl_isempty(vim.lsp.get_clients({ bufnr = 0, name = "ts_ls" })) and {
-                  layout = "vertical",
-                  vertical = "down:15,border-top",
-                  hidden = "hidden",
-                } or {
-                  layout = "vertical",
-                  vertical = "down:15,border-top",
-                },
-              },
-            } or {
-              winopts = {
-                width = 0.5,
-                -- height is number of items, with a max of 80% screen height
-                height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
-              },
-            })
-          end
-        '';
       };
-    after = ''
-      vim.cmd("FzfLua register_ui_select")
-    '';
     keys = [
       # Shortcuts
       (mkKeymap "n" "<leader>," "<CMD>lua require('fzf-lua').buffers({ sort_mru = true, sort_lastused = true })<CR>" {desc = "Switch Buffer";})
