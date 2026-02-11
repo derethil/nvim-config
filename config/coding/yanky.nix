@@ -29,5 +29,8 @@ in {
     (mkKeymap "n" "<P" "<Plug>(YankyPutIndentBeforeShiftLeft)" {desc = "Put Before and Indent Left";})
     (mkKeymap "n" "=p" "<Plug>(YankyPutAfterFilter)" {desc = "Put After Applying a Filter";})
     (mkKeymap "n" "=P" "<Plug>(YankyPutBeforeFilter)" {desc = "Put Before Applying a Filter";})
+
+    (mkKeymap "n" "<c-p>" "<Plug>(YankyPreviousEntry)" {desc = "Cycle to Previous Yank Entry";})
+    (mkKeymap "n" "<c-n>" "<Plug>(YankyNextEntry)" {desc = "Cycle to Next Yank Entry";})
   ];
 }
