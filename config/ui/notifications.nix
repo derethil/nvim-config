@@ -1,4 +1,4 @@
-{lib, ...}: {
+{
   vim.visuals.fidget-nvim = {
     enable = true;
     setupOpts = {
@@ -12,8 +12,8 @@
     };
   };
 
-  # HACK: the builtin option doesn't seem to work
-  # vim.luaConfigRC.fidget_notify = ''
-  #   vim.notify = require("fidget").notify
-  # '';
+  # HACK: No idea why, but the config option for this doesn't work
+  vim.luaConfigRC.fidget_notify = ''
+    vim.notify = require("fidget").notify
+  '';
 }
