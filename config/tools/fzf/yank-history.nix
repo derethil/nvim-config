@@ -1,9 +1,5 @@
 {
   vim.lazy.plugins = {
-    plenary-nvim = {
-      package = "plenary-nvim";
-      priority = 100;
-    };
     telescope = {
       package = "telescope";
       setupModule = "telescope";

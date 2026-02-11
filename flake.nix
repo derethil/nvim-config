@@ -89,9 +89,6 @@
           inherit system;
           config = {
             allowUnfree = true;
-            # TODO: Remove this after https://github.com/NixOS/nixpkgs/pull/456453 is merged
-            # Zig is marked as broken on x86_64-darwin due to test failures, but it works fine
-            allowBroken = true;
           };
         };
       in let

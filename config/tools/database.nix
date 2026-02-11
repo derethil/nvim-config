@@ -10,14 +10,6 @@ in {
   };
 
   vim.lazy.plugins = {
-    vim-dadbod = {
-      package = pkgs.vimPlugins.vim-dadbod;
-      keys = [
-        (mkKeymap "n" "<leader>tq" "<CMD>DB<CR>" {desc = "Execute Query";})
-        (mkKeymap "x" "<leader>tq" "<CMD>'<,'>DB<CR>" {desc = "Execute Query";})
-      ];
-    };
-
     vim-dadbod-completion = {
       package = pkgs.vimPlugins.vim-dadbod-completion;
       ft = ["sql" "mysql" "plsql"];
@@ -49,6 +41,8 @@ in {
         vim.g.db_ui_execute_on_save = false
       '';
       keys = [
+        (mkKeymap "n" "<leader>tq" "<CMD>DB<CR>" {desc = "Execute Query";})
+        (mkKeymap "x" "<leader>tq" "<CMD>'<,'>DB<CR>" {desc = "Execute Query";})
         {
           key = "<leader>td";
           mode = ["n"];

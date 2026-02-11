@@ -83,20 +83,6 @@
         '';
         desc = "Goto Source Definition";
       }
-      # TODO: vtsls only, enable once it's available
-      # {
-      #   key = "gR";
-      #   clientName = "ts_ls";
-      #   action = lib.generators.mkLuaInline ''
-      #     function()
-      #       vim.lsp.buf.execute_command({
-      #         command = "typescript.findAllFileReferences",
-      #         arguments = { vim.uri_from_bufnr(0) },
-      #       })
-      #     end
-      #   '';
-      #   desc = "File References";
-      # }
       {
         key = "<leader>cM";
         clientName = "ts_ls";
