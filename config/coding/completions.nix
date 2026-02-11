@@ -116,6 +116,20 @@
                 return vim.bo.filetype == "gitcommit"
               end
             '';
+            opts = {
+              completion = {
+                items = [
+                  {
+                    type = "build";
+                    doc = "Commits that only affect build-related components";
+                  }
+                  {
+                    type = "ops";
+                    doc = "Commits that only affect operational components";
+                  }
+                ];
+              };
+            };
           };
           lsp = {
             score_offset = 90;
