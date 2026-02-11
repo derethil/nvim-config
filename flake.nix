@@ -1,11 +1,15 @@
 {
   inputs = {
+    # Nix
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
+
+    # Neovim nix stuff
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -16,32 +20,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Plugins not in nixpkgs
+
     close-buffers-nvim = {
       url = "github:kazhala/close-buffers.nvim";
       flake = false;
     };
     import-nvim = {
       url = "github:piersolenski/import.nvim";
-      flake = false;
-    };
-    sonarlint-nvim = {
-      url = "gitlab:schrieveslaach/sonarlint.nvim";
-      flake = false;
-    };
-    blink-cmp-yanky = {
-      url = "github:marcoSven/blink-cmp-yanky";
-      flake = false;
-    };
-    kulala-nvim = {
-      url = "github:mistweaverco/kulala.nvim";
-      flake = false;
-    };
-    claudecode-nvim = {
-      url = "github:coder/claudecode.nvim";
-      flake = false;
-    };
-    claude-fzf-nvim = {
-      url = "github:pittcat/claude-fzf.nvim";
       flake = false;
     };
     beam-nvim = {

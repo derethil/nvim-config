@@ -5,9 +5,11 @@
 }: let
   inherit (lib.nvim.binds) mkKeymap;
 in {
-  vim.lazy.plugins.claude-fzf-nvim = {
+  vim.lazy.plugins."claude-fzf.nvim" = {
     setupModule = "claude-fzf";
-    package = pkgs.internal.claude-fzf-nvim;
+    package = pkgs.vimPlugins.claude-fzf-nvim.overrideAttrs (old: {
+      dependencies = [];
+    });
     setupOpts = {
       auto_context = true;
       batch_size = 10;

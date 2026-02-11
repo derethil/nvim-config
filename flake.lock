@@ -16,22 +16,6 @@
         "type": "github"
       }
     },
-    "blink-cmp-yanky": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1750745702,
-        "narHash": "sha256-DciQaX2lYQptpEd8wke3x67SK6zMm2UI34qxBe6eC9Q=",
-        "owner": "marcoSven",
-        "repo": "blink-cmp-yanky",
-        "rev": "473b987c2a7d80cca116f6faf087dba4dbfbb3c5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "marcoSven",
-        "repo": "blink-cmp-yanky",
-        "type": "github"
-      }
-    },
     "calcium": {
       "flake": false,
       "locked": {
@@ -45,38 +29,6 @@
       "original": {
         "owner": "Necrom4",
         "repo": "calcium.nvim",
-        "type": "github"
-      }
-    },
-    "claude-fzf-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1769323415,
-        "narHash": "sha256-OBpNT1rbjnfoDQ/L+NSDyAVtgN4Nyva1hw/E9FvqZSs=",
-        "owner": "pittcat",
-        "repo": "claude-fzf.nvim",
-        "rev": "47f0d05e109c241603d92620a381e04a16b5716d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pittcat",
-        "repo": "claude-fzf.nvim",
-        "type": "github"
-      }
-    },
-    "claudecode-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1769438551,
-        "narHash": "sha256-B6BA+3h7RLmk+zk6O365DmY06ALdbbkFBmOaRH9muog=",
-        "owner": "coder",
-        "repo": "claudecode.nvim",
-        "rev": "aa9a5cebebdbfa449c1c5ff229ba5d98e66bafed",
-        "type": "github"
-      },
-      "original": {
-        "owner": "coder",
-        "repo": "claudecode.nvim",
         "type": "github"
       }
     },
@@ -218,22 +170,6 @@
       "original": {
         "owner": "olexsmir",
         "repo": "json2go",
-        "type": "github"
-      }
-    },
-    "kulala-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1770586837,
-        "narHash": "sha256-e+6kEOW0lCFYgaju6DWeDHkX28wplR0H5O8T7nOWWjU=",
-        "owner": "mistweaverco",
-        "repo": "kulala.nvim",
-        "rev": "6656c9d332735ca6a27725e0fb45a1715c4372d9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mistweaverco",
-        "repo": "kulala.nvim",
         "type": "github"
       }
     },
@@ -417,38 +353,17 @@
     "root": {
       "inputs": {
         "beam-nvim": "beam-nvim",
-        "blink-cmp-yanky": "blink-cmp-yanky",
         "calcium": "calcium",
-        "claude-fzf-nvim": "claude-fzf-nvim",
-        "claudecode-nvim": "claudecode-nvim",
         "close-buffers-nvim": "close-buffers-nvim",
         "flake-parts": "flake-parts",
         "gopher-nvim": "gopher-nvim",
         "import-nvim": "import-nvim",
         "json2go": "json2go",
-        "kulala-nvim": "kulala-nvim",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvf": "nvf",
-        "nvim-tcss": "nvim-tcss",
-        "sonarlint-nvim": "sonarlint-nvim"
-      }
-    },
-    "sonarlint-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1768852714,
-        "narHash": "sha256-71emILbp291AZmh9Rc0S92mbkcZ88zjCvPTaumEM7Qg=",
-        "owner": "schrieveslaach",
-        "repo": "sonarlint.nvim",
-        "rev": "acd09b78969ddc965a7ddf59abb9d9eec5ecd94f",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "schrieveslaach",
-        "repo": "sonarlint.nvim",
-        "type": "gitlab"
+        "nvim-tcss": "nvim-tcss"
       }
     },
     "systems": {

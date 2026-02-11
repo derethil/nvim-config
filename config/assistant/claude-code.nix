@@ -15,8 +15,8 @@ in {
       cfg.package or pkgs.claude-code
     ];
 
-    vim.lazy.plugins.claudecode-nvim = {
-      package = pkgs.internal.claudecode-nvim;
+    vim.lazy.plugins."claudecode.nvim" = {
+      package = pkgs.vimPlugins.claudecode-nvim;
       setupModule = "claudecode";
       setupOpts = {
         focus_after_send = true;

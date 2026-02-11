@@ -197,7 +197,7 @@
   vim.lazy.plugins = {
     "blink-cmp-yanky" = {
       priority = 100; # load before blink-cmp
-      package = pkgs.internal.blink-cmp-yanky;
+      package = pkgs.vimPlugins.blink-cmp-yanky;
     };
     "blink-cmp-conventional-commits" = {
       priority = 100; # load before blink-cmp
