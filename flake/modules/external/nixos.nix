@@ -9,15 +9,28 @@
 with lib; let
   cfg = config.programs.nvim-config;
   # Always use unstable nixpkgs from inputs, not the system's pkgs
-  unstablePkgs = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-stable = import inputs.nixpkgs-stable {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+  pkgs-unstable = import inputs.nixpkgs {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+    overlays =
+      [(final: prev: {stable = pkgs-stable;})]
+      ++ (import ../../../overlays);
+  };
   package = import ../../package.nix {
     inherit lib inputs;
-    pkgs = unstablePkgs;
+    pkgs = pkgs-unstable;
     moduleConfig = cfg;
   };
 in {
   imports = [
-    (import ./options.nix {inherit lib inputs; pkgs = unstablePkgs;})
+    (import ./options.nix {
+      inherit lib inputs;
+      pkgs = pkgs-unstable;
+    })
   ];
 
   config = mkIf cfg.enable {
