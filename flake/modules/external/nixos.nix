@@ -8,18 +8,11 @@
 }:
 with lib; let
   cfg = config.programs.nvim-config;
+  system = pkgs.stdenv.hostPlatform.system;
+
+  inherit (import ./lib.nix {inherit inputs system;}) pkgs-unstable;
+
   # Always use unstable nixpkgs from inputs, not the system's pkgs
-  pkgs-stable = import inputs.nixpkgs-stable {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-  pkgs-unstable = import inputs.nixpkgs {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-    overlays =
-      [(final: prev: {stable = pkgs-stable;})]
-      ++ (import ../../../overlays);
-  };
   package = import ../../package.nix {
     inherit lib inputs;
     pkgs = pkgs-unstable;
