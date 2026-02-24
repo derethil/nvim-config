@@ -5,10 +5,10 @@
     inlayHints.enable = false;
     lspkind.enable = true;
     mappings = {
-      # LSP Specific Mappings
-      goToDefinition = "gd";
-      goToDeclaration = "gD";
-      goToType = "gt";
+      # LSP Specific Mappings (using fzf-lua instead, see fzf.nix)
+      goToDefinition = null;
+      goToDeclaration = null;
+      goToType = null;
       listImplementations = null;
       listReferences = null;
       # Diagnostics

@@ -137,6 +137,12 @@ in {
       (mkKeymap "v" "<leader>sW" "<CMD>lua require('fzf-lua').grep_visual({ cwd = vim.fn.expand('%:p:h') })<CR>" {desc = "Search Visual Selection (buffer directory)";})
       (mkKeymap "n" "<leader>ss" "<CMD>FzfLua lsp_document_symbols<CR>" {desc = "Search Symbols";})
       (mkKeymap "n" "<leader>sS" "<CMD>FzfLua lsp_workspace_symbols<CR>" {desc = "Search Symbols (workspace)";})
+      # LSP Navigation
+      (mkKeymap "n" "gd" "<CMD>FzfLua lsp_definitions<CR>" {desc = "Go to Definition";})
+      (mkKeymap "n" "gD" "<CMD>FzfLua lsp_declarations<CR>" {desc = "Go to Declaration";})
+      (mkKeymap "n" "gr" "<CMD>FzfLua lsp_references<CR>" {desc = "Go to References";})
+      (mkKeymap "n" "gI" "<CMD>FzfLua lsp_implementations<CR>" {desc = "Go to Implementations";})
+      (mkKeymap "n" "gt" "<CMD>FzfLua lsp_typedefs<CR>" {desc = "Go to Type Definition";})
     ];
   };
 }
