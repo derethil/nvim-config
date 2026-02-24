@@ -35,7 +35,7 @@
       flake = false;
     };
     gopher-nvim = {
-      url = "github:derethil/gopher.nvim/feat/iferr-message-arg";
+      url = "github:olexsmir/gopher.nvim";
       flake = false;
     };
     json2go = {

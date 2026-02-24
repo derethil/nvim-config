@@ -127,16 +127,15 @@
     "gopher-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1770701494,
-        "narHash": "sha256-okH6jfKbOTr6I5SIk8YwA6dtRINzRPPqMYjcqIlLbLw=",
-        "owner": "derethil",
+        "lastModified": 1771883944,
+        "narHash": "sha256-2dJqQWg1j7xXV4g95FJ5cZ3rxRQNNPULCKlOMP+bk5U=",
+        "owner": "olexsmir",
         "repo": "gopher.nvim",
-        "rev": "7626bc0ddacddb56c0e61042844f69f9490f7175",
+        "rev": "d5d4e214f322ede2adc628f09020b2663e266562",
         "type": "github"
       },
       "original": {
-        "owner": "derethil",
-        "ref": "feat/iferr-message-arg",
+        "owner": "olexsmir",
         "repo": "gopher.nvim",
         "type": "github"
       }
