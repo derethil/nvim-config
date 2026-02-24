@@ -4,8 +4,7 @@
   ...
 }: {
   vim.extraPackages = [
-    pkgs.typescript-language-server
-
+    pkgs.typescript-go
     # Keep these available for projects that override deno as formatter
     pkgs.prettierd
     pkgs.eslint_d
@@ -13,7 +12,7 @@
 
   vim.languages.ts = {
     enable = true;
-    lsp.enable = true;
+    lsp.enable = false;
     treesitter.enable = true;
     extraDiagnostics.enable = true;
     format = {
@@ -22,6 +21,12 @@
     extensions = {
       ts-error-translator.enable = true;
     };
+  };
+
+  vim.lsp.servers.tsgo = {
+    cmd = ["tsgo" "--lsp" "--stdio"];
+    filetypes = ["typescript" "typescriptreact" "javascript" "javascriptreact"];
+    root_markers = ["package.json" "tsconfig.json" "jsconfig.json"];
   };
 
   # Icons
