@@ -124,6 +124,22 @@
         "type": "github"
       }
     },
+    "garbage-day-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1758029670,
+        "narHash": "sha256-qTyc90xCKrhHpqKQTKzhgJ3UlACMqJDWiP1U6L+AsOM=",
+        "owner": "Zeioth",
+        "repo": "garbage-day.nvim",
+        "rev": "9c6abdedc0407ca517745a5c8e34214fc7dafaf4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Zeioth",
+        "repo": "garbage-day.nvim",
+        "type": "github"
+      }
+    },
     "gopher-nvim": {
       "flake": false,
       "locked": {
@@ -355,6 +371,7 @@
         "calcium": "calcium",
         "close-buffers-nvim": "close-buffers-nvim",
         "flake-parts": "flake-parts",
+        "garbage-day-nvim": "garbage-day-nvim",
         "gopher-nvim": "gopher-nvim",
         "import-nvim": "import-nvim",
         "json2go": "json2go",
