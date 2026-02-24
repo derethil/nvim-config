@@ -5,9 +5,7 @@
 }: {
   vim.extraPackages = [
     pkgs.typescript-go
-    # Keep these available for projects that override deno as formatter
-    pkgs.prettierd
-    pkgs.eslint_d
+    pkgs.eslint_d # keep this installed for projects that use it, even if it's not used globally
   ];
 
   vim.languages.ts = {
@@ -17,6 +15,7 @@
     extraDiagnostics.enable = true;
     format = {
       enable = true;
+      type = ["prettierd"];
     };
     extensions = {
       ts-error-translator.enable = true;
