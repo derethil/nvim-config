@@ -50,10 +50,6 @@
       url = "github:Necrom4/calcium.nvim";
       flake = false;
     };
-    garbage-day-nvim = {
-      url = "github:Zeioth/garbage-day.nvim";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
