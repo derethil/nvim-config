@@ -11,7 +11,7 @@ in {
     (mkKeymap "n" "x" "\"_x" {desc = "Delete without yanking";})
     (mkKeymap "v" "p" "\"_dP" {desc = "Paste without yanking";})
     (mkKeymap "n" "<leader>j" "*``cgn" {desc = "Replace word under cursor";})
-    (mkKeymap ["n" "v" "i"] "<C-c>" "<ESC>ggVGy" {desc = "Yank all";})
+    (mkKeymap ["n" "v" "i"] "<C-c>" "<ESC>ggVG" {desc = "Select all";})
     (mkKeymap ["v"] "<space>yb" ":'<,'>CopyCodeBlock<cr>" {desc = "Copy code block with filetype";})
   ];
 }
