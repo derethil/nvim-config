@@ -13,4 +13,8 @@
       package = pkgs.vimPlugins.blink-cmp-copilot;
     };
   };
+
+  vim.extraPackages = with pkgs; [
+    copilot-language-server
+  ];
 }
