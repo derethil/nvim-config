@@ -172,6 +172,22 @@
         "type": "github"
       }
     },
+    "lualine-pretty-path": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729823982,
+        "narHash": "sha256-Ieho+EruCPW4829+qQ3cdfc+wZQ2CFd16YtcTwUAnKg=",
+        "owner": "bwpge",
+        "repo": "lualine-pretty-path",
+        "rev": "852cb06f3562bced4776a924e56a9e44d0ce634f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bwpge",
+        "repo": "lualine-pretty-path",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1770419553,
@@ -358,6 +374,7 @@
         "gopher-nvim": "gopher-nvim",
         "import-nvim": "import-nvim",
         "json2go": "json2go",
+        "lualine-pretty-path": "lualine-pretty-path",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",

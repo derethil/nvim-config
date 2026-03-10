@@ -50,6 +50,10 @@
       url = "github:Necrom4/calcium.nvim";
       flake = false;
     };
+    lualine-pretty-path = {
+      url = "github:bwpge/lualine-pretty-path";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:
