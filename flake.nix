@@ -54,6 +54,10 @@
       url = "github:bwpge/lualine-pretty-path";
       flake = false;
     };
+    sort-nvim = {
+      url = "github:sQVe/sort.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

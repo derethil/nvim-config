@@ -379,7 +379,24 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvf": "nvf",
-        "nvim-tcss": "nvim-tcss"
+        "nvim-tcss": "nvim-tcss",
+        "sort-nvim": "sort-nvim"
+      }
+    },
+    "sort-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769588379,
+        "narHash": "sha256-h6m2Zh2u5r9EMRo4CbGCXqC1bG4bUfuCYWZo4T3MEtQ=",
+        "owner": "sQVe",
+        "repo": "sort.nvim",
+        "rev": "3365768ad75fb7aa2a74ebaf609b7c802354fd46",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sQVe",
+        "repo": "sort.nvim",
+        "type": "github"
       }
     },
     "systems": {
