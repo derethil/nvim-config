@@ -10,14 +10,22 @@ in {
     enable = true;
     lsp.enable = true;
     treesitter.enable = true;
-    extraDiagnostics.enable = true;
     format = {
       enable = true;
     };
   };
 
+  vim.lsp.servers = {
+    golangci_lint_ls = {
+      filetypes = ["go"];
+      rootPatterns = [".golangci.yml" ".golangci.toml"];
+    };
+  };
+
   vim.extraPackages = with pkgs; [
     golangci-lint
+    golangci-lint-langserver
+
     # packages for gopher-nvim
     gomodifytags
     impl
