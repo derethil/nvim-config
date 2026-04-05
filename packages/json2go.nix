@@ -16,4 +16,3 @@ buildGoModule {
     platforms = platforms.all;
   };
 }
-

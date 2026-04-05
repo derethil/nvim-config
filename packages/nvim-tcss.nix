@@ -15,4 +15,3 @@ vimUtils.buildVimPlugin {
     platforms = platforms.all;
   };
 }
-
