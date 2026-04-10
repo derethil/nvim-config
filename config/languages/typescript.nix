@@ -20,7 +20,7 @@
       type = ["prettierd"];
     };
     extensions = {
-      ts-error-translator.enable = true;
+      ts-error-translator.enable = false;
     };
   };
 
