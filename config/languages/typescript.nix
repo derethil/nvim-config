@@ -4,13 +4,15 @@
   ...
 }: {
   vim.extraPackages = [
-    # pkgs.typescript-go
     pkgs.eslint_d # keep this installed for projects that use it, even if it's not used globally
   ];
 
   vim.languages.ts = {
     enable = true;
-    lsp.enable = true;
+    lsp = {
+      enable = true;
+      servers = ["tsgo"];
+    };
     treesitter.enable = true;
     extraDiagnostics.enable = true;
     format = {
@@ -22,14 +24,6 @@
     };
   };
 
-  # why the fuck are you using 12GB of memory tsgo
-
-  # vim.lsp.servers.tsgo = {
-  #   cmd = ["tsgo" "--lsp" "--stdio"];
-  #   filetypes = ["typescript" "typescriptreact" "javascript" "javascriptreact"];
-  #   root_markers = ["package.json" "tsconfig.json" "jsconfig.json"];
-  # };
-  #
   # Icons
   vim.mini.icons.setupOpts = {
     file = {
