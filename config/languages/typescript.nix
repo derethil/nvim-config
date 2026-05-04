@@ -7,11 +7,11 @@
     pkgs.eslint_d # keep this installed for projects that use it, even if it's not used globally
   ];
 
-  vim.languages.ts = {
+  vim.languages.typescript = {
     enable = true;
     lsp = {
       enable = true;
-      servers = ["tsgo"];
+      servers = ["typescript-go"];
     };
     treesitter.enable = true;
     extraDiagnostics.enable = true;
