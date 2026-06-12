@@ -7,7 +7,7 @@ buildGoModule {
   pname = "json2go";
   version = "unstable";
   src = inputs.json2go;
-  vendorHash = null;
+  vendorHash = "sha256-0t5ul0FHBJw+xt9rBTcZeKa1wdHCNvbrUYZB8pACGvY=";
   meta = with lib; {
     description = "Convert JSON to Go struct";
     homepage = "https://github.com/olexsmir/json2go";

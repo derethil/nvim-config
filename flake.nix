@@ -4,6 +4,8 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # Pinned to the last nixpkgs commit before typescript-go became unstable (2026-04-24 build)
+    nixpkgs-tsgo.url = "github:NixOS/nixpkgs/6368eda62c9775c38ef7f714b2555a741c20c72d";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -80,13 +82,17 @@
           inherit system;
           config.allowUnfree = true;
         };
+        pkgs-tsgo = import inputs.nixpkgs-tsgo {
+          inherit system;
+          config.allowUnfree = true;
+        };
         overlayedPkgs = import inputs.nixpkgs {
           inherit system;
           config = {
             allowUnfree = true;
           };
           overlays =
-            [(final: prev: {stable = pkgs-stable;})]
+            [(final: prev: {stable = pkgs-stable; typescript-go = pkgs-tsgo.typescript-go;})]
             ++ (import ./overlays);
         };
       in let
