@@ -1,47 +1,57 @@
-# Personal Neovim Configuration
+<div align="center">
 
-This is my personal Neovim configuration built with
-[nvf](https://github.com/notashelf/nvf).
+<h3>
+  ❄️ derethil/nvim-config
+</h3>
+
+</div>
+
+# About
+
+My Neovim setup, packaged with [nvf](https://github.com/notashelf/nvf) and
+flake-parts, organized using the
+[dendritic pattern](https://github.com/Doc-Steve/dendritic-design-with-flake-parts).
+
+## Layout
+
+- `flake/` - flake-parts plumbing (nixpkgs, mk-nvim, flake-file, etc.)
+- `modules/` - nvf modules, organized by topic
+- `outputs/` - NixOS / home-manager / nix-darwin integration modules and the
+  `packages.{default,dev}` outputs
+- `overlays/` - flake-wide package overrides
 
 ## Features
 
-- **AI Assistant**: Claude Code integration and GitHub Copilot
-- **Language Support**: TypeScript, Python, Go, Nix, Lua, and more
-- **Git Integration**: Neogit, git status, conflict resolution, blame viewer
-- **Development**: Database interaction, HTTP client, task runner, session
-  persistence
+- **AI**: Claude Code integration, GitHub Copilot
+- **Languages**: TypeScript, Python, Go, Nix, Lua, and more
+- **Git**: Neogit, gitsigns, conflict resolution, blame, diffview
+- **Editor**: mini.* suite, snacks.nvim, flash, blink-cmp, fzf-lua
+- **Development**: database client, HTTP client, session restoration, SonarLint
 
-## Get Started
-
-You can test it with:
+# Try it
 
 ```bash
 nix run github:derethil/nvim-config
 ```
 
-You might see requests to allow Cachix substituters (`derethil.cachix.org`)
-during builds as I have set up a workflow to cache configuration builds on
-Cachix.
-
-## Installation
-
-Add to your flake inputs:
+# As a flake input
 
 ```nix
 nvim-config.url = "github:derethil/nvim-config";
 ```
 
-Then import and enable:
-
 ```nix
 # Home Manager
-imports = [ inputs.nvim-config.homeManagerModules.default ];
+imports = [ inputs.nvim-config.homeManagerModules.nvim-config ];
 programs.nvim-config.enable = true;
 
-# NixOS  
-imports = [ inputs.nvim-config.nixosModules.default ];
+# NixOS
+imports = [ inputs.nvim-config.nixosModules.nvim-config ];
+programs.nvim-config.enable = true;
+
+# nix-darwin
+imports = [ inputs.nvim-config.darwinModules.nvim-config ];
 programs.nvim-config.enable = true;
 ```
 
-More options can be found in
-[the options file](./flake/modules/external/options.nix).
+See [`outputs/options.nix`](./outputs/options.nix) for the full option set.
