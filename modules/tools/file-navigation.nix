@@ -68,16 +68,6 @@
             end
           '';
       }
-      {
-        event = ["User"];
-        pattern = ["MiniFilesActionRename"];
-        desc = "Attach rename file event to LSP";
-        callback = lib.generators.mkLuaInline ''
-          function(event)
-              require("snacks.rename").on_rename_file(event.data.from, event.data.to)
-          end
-        '';
-      }
     ];
   };
 }

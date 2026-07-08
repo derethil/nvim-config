@@ -6,8 +6,12 @@
       treesitter.enable = true;
       format = {
         enable = true;
-        type = ["prettierd"];
+        type = ["biome"];
       };
+    };
+
+    vim.lsp.presets.tailwindcss-language-server = {
+      enable = true;
     };
   };
 }

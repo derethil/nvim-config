@@ -18,7 +18,7 @@
       extraDiagnostics.enable = true;
       format = {
         enable = true;
-        type = ["prettierd"];
+        type = ["biome" "biome-organize-imports"];
       };
       extensions = {
         ts-error-translator.enable = false;
