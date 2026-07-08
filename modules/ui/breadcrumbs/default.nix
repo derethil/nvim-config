@@ -6,10 +6,18 @@
   }: let
     inherit (lib.nvim.binds) mkKeymap;
     inherit (lib.generators) mkLuaInline;
+    inherit (lib.whichkey) mkEntry;
   in {
     vim.startPlugins = [
       pkgs.internal.lualine-pretty-path
     ];
+
+    vim.luaConfigRC.whichkey-outline = lib.nvim.dag.entryAnywhere (mkEntry {
+      key = "<leader>o";
+      desc = "Open Outline";
+      icon = "󱒖";
+      color = "cyan";
+    });
 
     vim.keymaps = [
       (mkKeymap "n" "<leader>o" "<CMD>Navbuddy<CR>" {
@@ -35,6 +43,11 @@
         };
       };
     };
+
+    # TODO: open a PR to allow nvim-navic setupOpts
+    vim.luaConfigRC.navic-extra = lib.nvim.dag.entryAfter ["breadcrumbs"] ''
+      require("nvim-navic").setup { depth_limit = 5 }
+    '';
 
     vim.statusline.lualine.setupOpts = let
       prettyPath = ''

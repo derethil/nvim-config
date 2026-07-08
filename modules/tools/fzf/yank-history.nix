@@ -33,7 +33,7 @@
             mode = ["n" "x"];
             action = "function() require('yanky.telescope.yank_history').yank_history() end";
             lua = true;
-            desc = "Open Yank History";
+            desc = "Search Yank History";
           }
         ];
       };

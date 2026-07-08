@@ -7,12 +7,18 @@
     inherit (lib.nvim.binds) mkKeymap;
   in {
     vim.languages.go = {
-      dap.enable = false;
+      dap.enable = true;
       enable = true;
       lsp.enable = true;
+      extraDiagnostics.enable = true;
       treesitter.enable = true;
       format = {
         enable = true;
+      };
+      extensions = {
+        gopher-nvim = {
+          enable = true;
+        };
       };
     };
 
@@ -49,15 +55,6 @@
           hl = "MiniIconsGrey";
         };
       };
-    };
-
-    # gopher.nvim
-
-    vim.lazy.plugins.gopher-nvim = {
-      package = pkgs.internal.gopher-nvim;
-      setupModule = "gopher";
-      setupOpts = {};
-      ft = ["go" "gomod" "gotmpl"];
     };
 
     vim.binds.whichKey.register = {

@@ -37,6 +37,8 @@
           U = lib.generators.mkLuaInline ''
             require("mini.ai").gen_spec.function_call({ name_pattern = "[%w_]" })
           '';
+          # Nix double single-quoted strings
+          q = ["''().-()''"];
         };
       };
     };

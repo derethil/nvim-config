@@ -6,11 +6,13 @@
       enable = true;
       setupOpts = {
         preset = "helix";
+        sort = ["group" "desc"];
       };
+
       register = {
         "<leader>s" = "+Search";
         "<leader>f" = "+Files";
-        "<leader>u" = "+UI";
+        "<leader>d" = "+Debugger";
         "[" = "+Previous";
         "]" = "+Next";
         "g" = "+Goto";

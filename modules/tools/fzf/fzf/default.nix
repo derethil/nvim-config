@@ -65,12 +65,19 @@
           };
           files = {
             cwd_prompt = false;
+            file_ignore_patterns = ["vendor/"];
             actions = {
               "alt-i" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_ignore";
               "alt-h" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_hidden";
             };
           };
           grep = {
+            rg_glob_fn = lib.generators.mkLuaInline ''
+              function(query, opts)
+                return query, "--glob '!vendor'"
+              end
+            '';
+            silent = true;
             actions = {
               "alt-i" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_ignore";
               "alt-h" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_hidden";
@@ -106,9 +113,9 @@
       keys = [
         # Shortcuts
         (mkKeymap "n" "<leader>," "<CMD>lua require('fzf-lua').buffers({ sort_mru = true, sort_lastused = true })<CR>" {desc = "Switch Buffer";})
-        (mkKeymap "n" "<leader>/" "<CMD>lua require('fzf-lua').live_grep({ cwd = require('snacks').git.get_root() })<CR>" {desc = "Grep (root directory)";})
-        (mkKeymap "n" "<leader>:" "<CMD>FzfLua command_history<CR>" {desc = "Command History";})
-        (mkKeymap "n" "<leader><space>" "<CMD>lua require('fzf-lua').files({ cwd = require('snacks').git.get_root() })<CR>" {desc = "Files (root directory)";})
+        (mkKeymap "n" "<leader>/" "<CMD>lua require('fzf-lua').live_grep({ cwd = require('snacks').git.get_root() })<CR>" {desc = "Search Grep (root directory)";})
+        (mkKeymap "n" "<leader>:" "<CMD>FzfLua command_history<CR>" {desc = "Search Command History";})
+        (mkKeymap "n" "<leader><space>" "<CMD>lua require('fzf-lua').files({ cwd = require('snacks').git.get_root() })<CR>" {desc = "Search Files (root directory)";})
         # Files
         (mkKeymap "n" "<leader>ff" "<CMD>lua require('fzf-lua').files({ cwd = require('snacks').git.get_root() })<CR>" {desc = "Files (root directory)";})
         (mkKeymap "n" "<leader>fF" "<CMD>lua require('fzf-lua').files({ cwd = vim.fn.expand('%:p:h') })<CR>" {desc = "Files (buffer directory)";})

@@ -32,11 +32,11 @@
 
     vim.keymaps = [
       (mkKeymap "n" "<leader>e" "<CMD>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>" {
-        desc = "Open Mini Files (current buffer)";
+        desc = "Open Files (current buffer)";
         silent = true;
       })
       (mkKeymap "n" "<leader>E" "<CMD>lua MiniFiles.open(require('snacks').git.get_root(), false)<CR>" {
-        desc = "Open Mini Files (root directory)";
+        desc = "Open Files (root directory)";
         silent = true;
       })
     ];

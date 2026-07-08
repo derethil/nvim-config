@@ -1,7 +1,7 @@
 {...}: {
   flake.modules.nvf.coding-mini-autopairs = {
     vim.mini.pairs = {
-      enable = true;
+      enable = false;
       setupOpts = {
         modes = {
           insert = true;

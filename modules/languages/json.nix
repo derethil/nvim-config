@@ -1,10 +1,10 @@
 {...}: {
-  flake.modules.nvf.languages-yaml = {
-    vim.languages.yaml = {
+  flake.modules.nvf.languages-json = {
+    vim.languages.json = {
       enable = true;
+      format.enable = true;
       lsp.enable = true;
       treesitter.enable = true;
-      format.enable = true;
     };
   };
 }

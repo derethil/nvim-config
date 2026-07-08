@@ -1,8 +1,9 @@
 {...}: {
-  flake.modules.nvf.languages-yaml = {
-    vim.languages.yaml = {
+  flake.modules.nvf.languages-toml = {
+    vim.languages.toml = {
       enable = true;
       lsp.enable = true;
+      extraDiagnostics.enable = true;
       treesitter.enable = true;
       format.enable = true;
     };

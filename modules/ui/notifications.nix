@@ -1,5 +1,7 @@
 {...}: {
-  flake.modules.nvf.ui-notifications = {
+  flake.modules.nvf.ui-notifications = {lib, ...}: let
+    inherit (lib.nvim.binds) mkKeymap;
+  in {
     vim.visuals.fidget-nvim = {
       enable = true;
       setupOpts = {
@@ -13,9 +15,11 @@
       };
     };
 
-    # HACK: No idea why, but the config option for this doesn't work
-    vim.luaConfigRC.fidget_notify = ''
-      vim.notify = require("fidget").notify
-    '';
+    vim.keymaps = [
+      (mkKeymap "n" "<leader>n" "<CMD>Fidget history<CR>" {desc = "Notification History";})
+    ];
+
+    # this option in setupOpts doesn't work due to lazy loading
+    vim.luaConfigRC.fidget_notify = ''vim.notify = require("fidget").notify '';
   };
 }

@@ -37,10 +37,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    gopher-nvim = {
-      url = "github:olexsmir/gopher.nvim";
-      flake = false;
-    };
     import-nvim = {
       url = "github:piersolenski/import.nvim";
       flake = false;
