@@ -120,22 +120,6 @@
         "type": "github"
       }
     },
-    "gopher-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1772625381,
-        "narHash": "sha256-tfagWNHlfCRQ0BMihFCubKgMUpp5QtFl91ja4/Y2/gI=",
-        "owner": "olexsmir",
-        "repo": "gopher.nvim",
-        "rev": "27ba078f14dd39fcd5e8a57d7009cdd77450ebbb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "olexsmir",
-        "repo": "gopher.nvim",
-        "type": "github"
-      }
-    },
     "import-nvim": {
       "flake": false,
       "locked": {
@@ -359,7 +343,6 @@
         "close-buffers-nvim": "close-buffers-nvim",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts",
-        "gopher-nvim": "gopher-nvim",
         "import-nvim": "import-nvim",
         "import-tree": "import-tree",
         "json2go": "json2go",
