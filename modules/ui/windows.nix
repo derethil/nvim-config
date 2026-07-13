@@ -40,19 +40,19 @@
       })
 
       # Window Resizing
-      (mkKeymap "n" "<C-Up>" "<CMD>resize +2<CR>" {
+      (mkKeymap "n" "<C-Up>" "<CMD>resize +8<CR>" {
         desc = "Increase Window Height";
         silent = true;
       })
-      (mkKeymap "n" "<C-Down>" "<CMD>resize -2<CR>" {
+      (mkKeymap "n" "<C-Down>" "<CMD>resize -8<CR>" {
         desc = "Decrease Window Height";
         silent = true;
       })
-      (mkKeymap "n" "<C-Left>" "<CMD>vertical resize -2<CR>" {
+      (mkKeymap "n" "<C-Left>" "<CMD>vertical resize -8<CR>" {
         desc = "Decrease Window Width";
         silent = true;
       })
-      (mkKeymap "n" "<C-Right>" "<CMD>vertical resize +2<CR>" {
+      (mkKeymap "n" "<C-Right>" "<CMD>vertical resize +8<CR>" {
         desc = "Increase Window Width";
         silent = true;
       })
