@@ -72,11 +72,7 @@
             };
           };
           grep = {
-            rg_glob_fn = lib.generators.mkLuaInline ''
-              function(query, opts)
-                return query, "--glob '!vendor'"
-              end
-            '';
+            file_ignore_patterns = ["vendor/"];
             silent = true;
             actions = {
               "alt-i" = lib.generators.mkLuaInline "require('fzf-lua').actions.toggle_ignore";

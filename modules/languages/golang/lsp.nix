@@ -35,8 +35,10 @@
       };
     };
 
-    vim.colorschemeHighlights."@lsp.typemod.string.format.go" = {
-      link = "@string.special";
+    vim.colorschemeHighlights = {
+      "@lsp.typemod.string.format.go" = {link = "@string.special";};
+      "@lsp.type.string.go" = {};
+      "@markup.normal" = {link = "Normal";};
     };
 
     vim.autocmds = [

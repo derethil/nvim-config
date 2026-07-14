@@ -1,0 +1,16 @@
+--- a/runtime/queries/go/highlights.scm
++++ b/runtime/queries/go/highlights.scm
+@@ -169,9 +169,10 @@
+ ] @punctuation.bracket
+
+ ; Literals
+-(interpreted_string_literal) @string
+-
+-(raw_string_literal) @string
++([
++  (interpreted_string_literal)
++  (raw_string_literal)
++] (#set! priority 90)) @string
+
+ (rune_literal) @character
+
