@@ -1,10 +1,8 @@
-{...}: {
+{
   flake.modules.nvf.ui-biscuits = {
     vim.utility.nvim-biscuits = {
       enable = true;
-      setupOpts = {
-        cursor_line_only = true;
-      };
+      setupOpts.cursor_line_only = true;
     };
   };
 }

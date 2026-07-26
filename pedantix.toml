@@ -1,0 +1,39 @@
+formatter = "alejandra"
+
+[args]
+first = ["self", "config", "lib", "pkgs", "options", "modulesPath", "utils"]
+last  = ["<defaulted>", "..."]
+
+[attrs]
+merge = true
+flatten = true
+blank-lines = 1
+blank-lines-mode = "multiline"
+first = [
+  # Inputs / imports / meta stuff always appear at top
+  "flake-file",
+  "key",
+  "imports",
+
+  # Config
+  "options",
+  "config",
+  "enable",
+  "package",
+
+  # Nvim-specific
+  "languages",
+  "lazy",
+  "package",
+  "setupModule",
+  "setupOpts",
+
+  # Autocmds
+  "event",
+  "callback",
+]
+last = ["meta", "home.stateVersion", "assertions", "desc"]
+
+[[overrides]]
+path          = "flake.modules.*.*"
+attrs.flatten = false

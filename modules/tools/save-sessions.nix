@@ -1,10 +1,11 @@
-{...}: {
+{
   flake.modules.nvf.tools-save-sessions = {pkgs, ...}: {
     vim.lazy.plugins."persistence.nvim" = {
       package = pkgs.vimPlugins.persistence-nvim;
-      event = "VimEnter";
       setupModule = "persistence";
       setupOpts = {};
+      event = "VimEnter";
+
       after = ''
         local argv = vim.fn.argv()
         if type(argv) == "string" then

@@ -1,12 +1,17 @@
 {
-  inputs,
   lib,
+  inputs,
   ...
 }: {
-  imports = [inputs.flake-file.flakeModules.dendritic];
-
   flake-file = {
     description = "My custom Neovim configuration";
+
+    formatter = pkgs:
+      pkgs.writeShellApplication {
+        name = "pedantix";
+        runtimeInputs = [inputs.pedantix.packages.${pkgs.stdenv.hostPlatform.system}.pedantix-wrapped];
+        text = ''exec pedantix --config ${inputs.self}/pedantix.toml "$@"'';
+      };
 
     nixConfig = {
       extra-substituters = ["https://derethil.cachix.org"];
@@ -24,5 +29,20 @@
         ]
       )
     '';
+
+    write-hooks = [
+      {
+        index = 10;
+
+        program = pkgs:
+          pkgs.writeShellApplication {
+            name = "nix-flake-lock";
+            runtimeInputs = [pkgs.nix];
+            text = "nix flake lock";
+          };
+      }
+    ];
   };
+
+  imports = [inputs.flake-file.flakeModules.dendritic];
 }

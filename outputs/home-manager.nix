@@ -10,32 +10,35 @@ in {
   # flake output). Declare it so this module contributes a known output rather
   # than triggering "unknown flake output".
   options.flake.homeManagerModules = lib.mkOption {
-    type = lib.types.lazyAttrsOf lib.types.unspecified;
     default = {};
+    type = lib.types.lazyAttrsOf lib.types.unspecified;
   };
 
   config.flake.homeManagerModules.nvim-config = {
     config,
-    pkgs,
     lib,
+    pkgs,
     ...
   }: let
     cfg = config.programs.nvim-config;
     overlayedPkgs = mkOverlayedPkgs pkgs.stdenv.hostPlatform.system;
     package =
       (mkNvim {
-        pkgs = overlayedPkgs;
         moduleConfig = cfg;
+        pkgs = overlayedPkgs;
       })
       .neovim;
   in {
     imports = [(integrationOptions {pkgs = overlayedPkgs;})];
 
     config = lib.mkIf cfg.enable {
-      home.packages = [package];
-      home.sessionVariables = lib.mkIf cfg.neovim.defaultEditor {
-        EDITOR = "${package}/bin/nvim";
-        VISUAL = "${package}/bin/nvim";
+      home = {
+        packages = [package];
+
+        sessionVariables = lib.mkIf cfg.neovim.defaultEditor {
+          EDITOR = "${package}/bin/nvim";
+          VISUAL = "${package}/bin/nvim";
+        };
       };
 
       assertions = [

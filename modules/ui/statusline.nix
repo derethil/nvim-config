@@ -1,23 +1,24 @@
-{...}: {
+{
   flake.modules.nvf.ui-statusline = {lib, ...}: {
     vim.statusline.lualine = {
       enable = true;
-      setupOpts = {
-        options = {
-          component_separators = {
-            left = "|";
-            right = "";
-          };
-          disabled_filetypes = [
-            # Git
-            "gitcommit"
-            "gitrebase"
-            # Neogit
-            "NeogitStatus"
-            "NeogitLogView"
-          ];
+
+      setupOpts.options = {
+        component_separators = {
+          left = "|";
+          right = "";
         };
+
+        disabled_filetypes = [
+          # Git
+          "gitcommit"
+          "gitrebase"
+          # Neogit
+          "NeogitStatus"
+          "NeogitLogView"
+        ];
       };
+
       activeSection = {
         a = [
           ''
@@ -27,7 +28,9 @@
             },
           ''
         ];
+
         b = [];
+
         c = [
           /*
           lua
@@ -103,6 +106,7 @@
             }
           ''
         ];
+
         x = [
           ''
             {
@@ -142,6 +146,7 @@
             }
           ''
         ];
+
         y = [
           ''
             {
@@ -168,6 +173,7 @@
             }
           ''
         ];
+
         z = [
           ''
             {

@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nvf.languages-qml = {pkgs, ...}: {
+{
+  flake.modules.nvf.languages-qml = {
     vim.languages.qml = {
       enable = true;
       format.enable = true;

@@ -1,110 +1,110 @@
-{...}: {
+{
   flake.modules.nvf.languages-python = {
-    pkgs,
     lib,
+    pkgs,
     ...
   }: {
-    # Basic configuration
-
-    vim.languages.python = {
-      enable = true;
-      dap.enable = false;
-      lsp.enable = false;
-      treesitter.enable = true;
-      format = {
+    vim = {
+      # Basic configuration
+      languages.python = {
         enable = true;
-        type = ["ruff"];
+        dap.enable = false;
+
+        format = {
+          enable = true;
+          type = ["ruff"];
+        };
+
+        lsp.enable = false;
+        treesitter.enable = true;
       };
-    };
 
-    vim.extraPackages = [
-      pkgs.basedpyright
-      pkgs.ruff
-      pkgs.prettier
-    ];
+      # Textual CSS (TCSS) support
+      lazy.plugins.nvim-tcss = {
+        package = pkgs.internal.nvim-tcss;
+        lazy = true;
+        setupModule = "tcss";
+        event = ["BufReadPre *.tcss" "BufNewFile *.tcss"];
+      };
 
-    # Configure LSPs
+      # Fix conflict between BasedPyright and Ruff LSP servers for hover information
+      autocmds = [
+        (lib.util.mkLspAttachCallback [
+          {
+            clientName = "ruff";
 
-    vim.lsp.servers = {
-      "basedpyright" = {
-        cmd = ["basedpyright-langserver" "--stdio"];
-        root_markers = [
-          ".git"
-          "Pipfile"
-          "pyproject.toml"
-          "pyrightconfig.json"
-          "requirements.txt"
-          "setup.cfg"
-          "setup.py"
-        ];
-        filetypes = ["python"];
-        single_file_support = true;
-        settings = {
-          basedpyright = {
-            analysis = {
+            code = lib.generators.mkLuaInline ''
+              client.server_capabilities.hoverProvider = false
+            '';
+
+            desc = "Disable Ruff hoverProvider";
+          }
+        ])
+      ];
+
+      extraPackages = [
+        pkgs.basedpyright
+        pkgs.ruff
+        pkgs.prettier
+      ];
+
+      formatter.conform-nvim.setupOpts = {
+        formatters.prettier_tcss = {
+          args = ["--stdin-filepath" "$FILENAME" "--parser" "css"];
+          command = "prettier";
+          stdin = true;
+        };
+
+        formatters_by_ft.tcss = ["prettier_tcss"];
+      };
+
+      # Configure LSPs
+      lsp.servers = {
+        "basedpyright" = {
+          cmd = ["basedpyright-langserver" "--stdio"];
+          filetypes = ["python"];
+
+          root_markers = [
+            ".git"
+            "Pipfile"
+            "pyproject.toml"
+            "pyrightconfig.json"
+            "requirements.txt"
+            "setup.cfg"
+            "setup.py"
+          ];
+
+          settings = {
+            basedpyright.analysis = {
               autoSearchPaths = true;
-              disableOrganizeImports = true; # Use Ruff's import organiser
               diagnosticMode = "openFilesOnly";
+              disableOrganizeImports = true; # Use Ruff's import organiser
               useLibraryCodeForTypes = false; # disable library type analysis
             };
-          };
-          python = {
-            analysis = {
+
+            python.analysis = {
               ignore = ["*"]; # Ignore all files for analysis to exclusively use Ruff for linting
             };
           };
+
+          single_file_support = true;
         };
-      };
-      "ruff" = {
-        cmd = ["ruff" "server"];
-        filetypes = ["python"];
-        root_markers = [
-          ".git"
-          "pyproject.toml"
-          "ruff.toml"
-          "setup.py"
-          "setup.cfg"
-          "requirements.txt"
-        ];
-        single_file_support = true;
-        init_options = {
-          settings = {
-            logLevel = "info";
-          };
-        };
-      };
-    };
 
-    # Fix conflict between BasedPyright and Ruff LSP servers for hover information
+        "ruff" = {
+          cmd = ["ruff" "server"];
+          filetypes = ["python"];
+          init_options.settings.logLevel = "info";
 
-    vim.autocmds = [
-      (lib.util.mkLspAttachCallback [
-        {
-          clientName = "ruff";
-          desc = "Disable Ruff hoverProvider";
-          code = lib.generators.mkLuaInline ''
-            client.server_capabilities.hoverProvider = false
-          '';
-        }
-      ])
-    ];
+          root_markers = [
+            ".git"
+            "pyproject.toml"
+            "ruff.toml"
+            "setup.py"
+            "setup.cfg"
+            "requirements.txt"
+          ];
 
-    # Textual CSS (TCSS) support
-
-    vim.lazy.plugins.nvim-tcss = {
-      package = pkgs.internal.nvim-tcss;
-      setupModule = "tcss";
-      lazy = true;
-      event = ["BufReadPre *.tcss" "BufNewFile *.tcss"];
-    };
-
-    vim.formatter.conform-nvim = {
-      setupOpts = {
-        formatters_by_ft.tcss = ["prettier_tcss"];
-        formatters.prettier_tcss = {
-          command = "prettier";
-          args = ["--stdin-filepath" "$FILENAME" "--parser" "css"];
-          stdin = true;
+          single_file_support = true;
         };
       };
     };

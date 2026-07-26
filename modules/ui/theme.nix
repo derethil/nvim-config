@@ -1,21 +1,9 @@
-{...}: {
+{
   flake.modules.nvf.ui-theme = {pkgs, ...}: {
-    vim.theme.enable = false;
-
-    vim.globals = {
-      gruvbox_material_transparent_background = 2;
-      gruvbox_material_foreground = "material";
-      gruvbox_material_background = "medium";
-      gruvbox_material_enable_italic = 1;
-      gruvbox_material_enable_bold = 1;
-      gruvbox_material_ui_contrast = "high";
-      gruvbox_material_diagnostic_virtual_text = "colored";
-      gruvbox_material_current_word = "underline";
-    };
-
-    vim.extraPlugins = {
-      gruvbox-material = {
+    vim = {
+      extraPlugins.gruvbox-material = {
         package = pkgs.vimPlugins.gruvbox-material;
+
         setup =
           /*
           lua
@@ -57,6 +45,19 @@
             vim.cmd.colorscheme("gruvbox-material")
           '';
       };
+
+      globals = {
+        gruvbox_material_background = "medium";
+        gruvbox_material_current_word = "underline";
+        gruvbox_material_diagnostic_virtual_text = "colored";
+        gruvbox_material_enable_bold = 1;
+        gruvbox_material_enable_italic = 1;
+        gruvbox_material_foreground = "material";
+        gruvbox_material_transparent_background = 2;
+        gruvbox_material_ui_contrast = "high";
+      };
+
+      theme.enable = false;
     };
   };
 }

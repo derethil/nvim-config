@@ -1,4 +1,4 @@
-{...}: {
+{
   flake.modules.nvf.languages-json = {
     vim.languages.json = {
       enable = true;

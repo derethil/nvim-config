@@ -1,19 +1,11 @@
-{...}: {
+{
   flake.modules.nvf.tools-diffview = {lib, ...}: {
     vim.utility.diffview-nvim = {
       enable = true;
+
       setupOpts = {
-        view = {
-          layout = "diff2_horizontal";
-          winbar_info = true;
-        };
-        merge_tool = {
-          layout = "diff3_mixed";
-          winbar_info = true;
-        };
-        file_panel = {
-          win_config.position = "right";
-        };
+        file_panel.win_config.position = "right";
+
         keymaps = let
           mkDiffviewKeymap = mode: key: action: desc: [
             mode
@@ -25,11 +17,15 @@
             )
             {
               inherit desc;
-              silent = true;
               buffer = true;
+              silent = true;
             }
           ];
         in {
+          file_panel = [
+            (mkDiffviewKeymap "n" "q" "<CMD>DiffviewClose<CR>" "Diffview: Quit")
+          ];
+
           view = [
             (mkDiffviewKeymap "n" "q" "<CMD>DiffviewClose<CR>" "Diffview: Quit")
 
@@ -53,9 +49,16 @@
             (mkDiffviewKeymap "n" "<leader>mA" ''require("diffview.actions").conflict_choose_all("all")'' "Choose ALL (whole file)")
             (mkDiffviewKeymap "n" "<leader>mX" ''require("diffview.actions").conflict_choose_all("none")'' "Delete conflict region (whole file)")
           ];
-          file_panel = [
-            (mkDiffviewKeymap "n" "q" "<CMD>DiffviewClose<CR>" "Diffview: Quit")
-          ];
+        };
+
+        merge_tool = {
+          layout = "diff3_mixed";
+          winbar_info = true;
+        };
+
+        view = {
+          layout = "diff2_horizontal";
+          winbar_info = true;
         };
       };
     };

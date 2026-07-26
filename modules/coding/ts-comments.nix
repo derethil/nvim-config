@@ -1,17 +1,15 @@
-{...}: {
+{
   flake.modules.nvf.coding-ts-comments = {
-    pkgs,
     lib,
+    pkgs,
     ...
   }: {
-    vim.lazy.plugins = {
-      "ts-comments.nvim" = {
-        package = pkgs.vimPlugins.ts-comments-nvim;
-        setupModule = "ts-comments";
-        setupOpts = {};
-        lazy = true;
-        event = [lib.events.VeryLazy];
-      };
+    vim.lazy.plugins."ts-comments.nvim" = {
+      package = pkgs.vimPlugins.ts-comments-nvim;
+      lazy = true;
+      setupModule = "ts-comments";
+      setupOpts = {};
+      event = [lib.events.VeryLazy];
     };
   };
 }

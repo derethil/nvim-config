@@ -1,32 +1,31 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{config, ...}: let
   inherit (config.flake.lib) mkOverlayedPkgs mkNvim integrationOptions;
 in {
   flake.nixosModules.nvim-config = {
     config,
-    pkgs,
     lib,
+    pkgs,
     ...
   }: let
     cfg = config.programs.nvim-config;
     overlayedPkgs = mkOverlayedPkgs pkgs.stdenv.hostPlatform.system;
     package =
       (mkNvim {
-        pkgs = overlayedPkgs;
         moduleConfig = cfg;
+        pkgs = overlayedPkgs;
       })
       .neovim;
   in {
     imports = [(integrationOptions {pkgs = overlayedPkgs;})];
 
     config = lib.mkIf cfg.enable {
-      environment.systemPackages = [package];
-      environment.variables = lib.mkIf cfg.neovim.defaultEditor {
-        EDITOR = "${package}/bin/nvim";
-        VISUAL = "${package}/bin/nvim";
+      environment = {
+        systemPackages = [package];
+
+        variables = lib.mkIf cfg.neovim.defaultEditor {
+          EDITOR = "${package}/bin/nvim";
+          VISUAL = "${package}/bin/nvim";
+        };
       };
 
       assertions = [

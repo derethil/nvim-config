@@ -1,8 +1,7 @@
-{...}: {
+{
   flake.modules.nvf.usercmds = {lib, ...}: {
     vim.usercmds = [
       {
-        name = "CopyCodeBlock";
         command =
           lib.generators.mkLuaInline
           /*
@@ -45,8 +44,10 @@
               end, 150)
             end
           '';
-        desc = "Copy selected lines as a code block with syntax highlighting";
+
+        name = "CopyCodeBlock";
         range = true;
+        desc = "Copy selected lines as a code block with syntax highlighting";
       }
     ];
   };

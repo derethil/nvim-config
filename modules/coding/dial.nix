@@ -1,54 +1,9 @@
-{...}: {
+{
   flake.modules.nvf.coding-dial = {pkgs, ...}: {
     vim.lazy.plugins."dial.nvim" = {
       package = pkgs.vimPlugins.dial-nvim;
       lazy = true;
-      keys = [
-        {
-          key = "<C-a>";
-          mode = ["n" "v"];
-          action = ''
-            function()
-              return require("dial.map").manipulate("increment", "normal")
-            end
-          '';
-          lua = true;
-          desc = "Increment";
-        }
-        {
-          key = "<C-x>";
-          mode = ["n" "v"];
-          action = ''
-            function()
-              return require("dial.map").manipulate("decrement", "normal")
-            end
-          '';
-          lua = true;
-          desc = "Decrement";
-        }
-        {
-          key = "g<C-a>";
-          mode = ["n" "v"];
-          action = ''
-            function()
-              return require("dial.map").manipulate("increment", "gnormal")
-            end
-          '';
-          lua = true;
-          desc = "Increment";
-        }
-        {
-          key = "g<C-x>";
-          mode = ["n" "v"];
-          action = ''
-            function()
-              return require("dial.map").manipulate("decrement", "gnormal")
-            end
-          '';
-          lua = true;
-          desc = "Decrement";
-        }
-      ];
+
       after = ''
         local augend = require("dial.augend")
 
@@ -195,6 +150,61 @@
           python = "python",
         }
       '';
+
+      keys = [
+        {
+          key = "<C-a>";
+
+          action = ''
+            function()
+              return require("dial.map").manipulate("increment", "normal")
+            end
+          '';
+
+          lua = true;
+          mode = ["n" "v"];
+          desc = "Increment";
+        }
+        {
+          key = "<C-x>";
+
+          action = ''
+            function()
+              return require("dial.map").manipulate("decrement", "normal")
+            end
+          '';
+
+          lua = true;
+          mode = ["n" "v"];
+          desc = "Decrement";
+        }
+        {
+          key = "g<C-a>";
+
+          action = ''
+            function()
+              return require("dial.map").manipulate("increment", "gnormal")
+            end
+          '';
+
+          lua = true;
+          mode = ["n" "v"];
+          desc = "Increment";
+        }
+        {
+          key = "g<C-x>";
+
+          action = ''
+            function()
+              return require("dial.map").manipulate("decrement", "gnormal")
+            end
+          '';
+
+          lua = true;
+          mode = ["n" "v"];
+          desc = "Decrement";
+        }
+      ];
     };
   };
 }

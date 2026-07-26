@@ -1,4 +1,4 @@
-{...}: {
+{
   # Declares the `vim.usercmds` option consumed by ./usercmds.nix. Lives in
   # its own flake-parts module (and uses an underscore-prefixed name to sort
   # before consumers in nvf module merge order, though merge order shouldn't
@@ -25,15 +25,29 @@
             description = "Whether to enable this user command.";
           };
 
-        name = mkOption {
-          type = str;
-          example = "FormatBuffer";
-          description = "The name of the user command.";
+        addr = mkOption {
+          default = null;
+          description = ''Address type for range. Can be "lines", "arguments", "buffers", etc.'';
+          example = "lines";
+          type = nullOr str;
+        };
+
+        bang = mkOption {
+          default = false;
+          description = "Whether the command can be called with a bang (!).";
+          type = bool;
+        };
+
+        bar = mkOption {
+          default = false;
+          description = "Whether the command can be followed by another command using |.";
+          type = bool;
         };
 
         command = mkOption {
-          type = nullOr (either str luaInline);
           default = null;
+          description = "Command to be executed when the user command is invoked.";
+
           example = literalExpression ''
             mkLuaInline '''
               function(opts)
@@ -41,20 +55,45 @@
               end
             ''''
           '';
-          description = "Command to be executed when the user command is invoked.";
+
+          type = nullOr (either str luaInline);
         };
 
-        desc = mkOption {
-          type = nullOr str;
+        complete = mkOption {
           default = null;
-          example = "Format the current buffer using LSP";
-          description = "A description for the user command.";
+
+          description = ''
+            Command completion. Can be:
+            - Built-in completion types: "file", "buffer", "command", "function", etc.
+            - Lua function for custom completion
+          '';
+
+          example = "file";
+          type = nullOr (either str luaInline);
+        };
+
+        count = mkOption {
+          default = null;
+          description = "Default count for the command.";
+          example = 1;
+          type = nullOr int;
+        };
+
+        force = mkOption {
+          default = false;
+          description = "Whether to replace an existing command with the same name.";
+          type = bool;
+        };
+
+        name = mkOption {
+          description = "The name of the user command.";
+          example = "FormatBuffer";
+          type = str;
         };
 
         nargs = mkOption {
-          type = nullOr str;
           default = null;
-          example = "*";
+
           description = ''
             Number of arguments the command accepts:
             - "0": no arguments (default)
@@ -63,113 +102,80 @@
             - "?": 0 or 1 arguments
             - "+": 1 or more arguments
           '';
+
+          example = "*";
+          type = nullOr str;
+        };
+
+        preview = mkOption {
+          default = null;
+          description = "Lua function for command preview functionality.";
+          type = nullOr luaInline;
         };
 
         range = mkOption {
-          type = nullOr (oneOf [bool str int]);
           default = null;
-          example = true;
+
           description = ''
             Range specification:
             - true: range allowed, default is current line
             - "%": range allowed, default is whole file
             - number: range allowed, default is that count
           '';
+
+          example = true;
+          type = nullOr (oneOf [bool str int]);
         };
 
-        count = mkOption {
-          type = nullOr int;
+        desc = mkOption {
           default = null;
-          example = 1;
-          description = "Default count for the command.";
-        };
-
-        addr = mkOption {
+          description = "A description for the user command.";
+          example = "Format the current buffer using LSP";
           type = nullOr str;
-          default = null;
-          example = "lines";
-          description = ''Address type for range. Can be "lines", "arguments", "buffers", etc.'';
-        };
-
-        bang = mkOption {
-          type = bool;
-          default = false;
-          description = "Whether the command can be called with a bang (!).";
-        };
-
-        bar = mkOption {
-          type = bool;
-          default = false;
-          description = "Whether the command can be followed by another command using |.";
-        };
-
-        complete = mkOption {
-          type = nullOr (either str luaInline);
-          default = null;
-          example = "file";
-          description = ''
-            Command completion. Can be:
-            - Built-in completion types: "file", "buffer", "command", "function", etc.
-            - Lua function for custom completion
-          '';
-        };
-
-        preview = mkOption {
-          type = nullOr luaInline;
-          default = null;
-          description = "Lua function for command preview functionality.";
-        };
-
-        force = mkOption {
-          type = bool;
-          default = false;
-          description = "Whether to replace an existing command with the same name.";
         };
       };
     };
 
     cfg = config.vim;
   in {
-    options.vim = {
-      usercmds = mkOption {
-        type = listOf usercommandType;
-        default = [];
-        description = ''
-          A list of Neovim user commands to be registered.
+    options.vim.usercmds = mkOption {
+      default = [];
 
-          Each entry defines a user command, specifying the command name, a callback or Vim
-          command, description, argument handling, and other command attributes.
-        '';
-      };
+      description = ''
+        A list of Neovim user commands to be registered.
+
+        Each entry defines a user command, specifying the command name, a callback or Vim
+        command, description, argument handling, and other command attributes.
+      '';
+
+      type = listOf usercommandType;
     };
 
     config = {
       vim = let
         enabledUsercommands = filter (cmd: cmd.enable) cfg.usercmds;
       in {
-        luaConfigRC = {
-          usercmds = entryAfter ["pluginConfigs"] (optionalString (enabledUsercommands != []) ''
-            local nvf_usercommands = ${toLuaObject enabledUsercommands}
-            for _, usercmd in ipairs(nvf_usercommands) do
-              vim.api.nvim_create_user_command(
-                usercmd.name,
-                usercmd.command,
-                {
-                  desc      = usercmd.desc,
-                  nargs     = usercmd.nargs,
-                  range     = usercmd.range,
-                  count     = usercmd.count,
-                  addr      = usercmd.addr,
-                  bang      = usercmd.bang,
-                  bar       = usercmd.bar,
-                  complete  = usercmd.complete,
-                  preview   = usercmd.preview,
-                  force     = usercmd.force
-                }
-              )
-            end
-          '');
-        };
+        luaConfigRC.usercmds = entryAfter ["pluginConfigs"] (optionalString (enabledUsercommands != []) ''
+          local nvf_usercommands = ${toLuaObject enabledUsercommands}
+          for _, usercmd in ipairs(nvf_usercommands) do
+            vim.api.nvim_create_user_command(
+              usercmd.name,
+              usercmd.command,
+              {
+                desc      = usercmd.desc,
+                nargs     = usercmd.nargs,
+                range     = usercmd.range,
+                count     = usercmd.count,
+                addr      = usercmd.addr,
+                bang      = usercmd.bang,
+                bar       = usercmd.bar,
+                complete  = usercmd.complete,
+                preview   = usercmd.preview,
+                force     = usercmd.force
+              }
+            )
+          end
+        '');
       };
 
       assertions = [

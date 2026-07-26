@@ -2,9 +2,47 @@
   # LSP helpers that build `vim.autocmds`-shaped entries. Kept under
   # `flake.lib.util.*` to match the existing call sites in modules/nvf.
   flake.lib.util = {
+    mkLspAttachCallback = callbacks: {
+      event = ["LspAttach"];
+
+      callback = lib.generators.mkLuaInline ''
+        function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client == nil then
+            return
+          end
+
+          local bufnr = args.buf
+
+          ${lib.concatStringsSep "\n          " (map (
+            callback: let
+              clientCheck =
+                if callback.clientName or null != null
+                then "client.name ~= '${callback.clientName}'"
+                else "false";
+              luaCode =
+                if callback.code._type or "" == "lua-inline"
+                then callback.code.expr
+                else if builtins.isString callback.code
+                then callback.code
+                else builtins.toString callback.code;
+            in ''
+              -- ${callback.desc or "LSP callback"}
+              if not (${clientCheck}) then
+                ${luaCode}
+              end
+            ''
+          )
+          callbacks)}
+        end
+      '';
+
+      desc = "LSP Attach Callbacks";
+    };
+
     mkLspCodeAction = keymaps: {
       event = ["LspAttach"];
-      desc = "LSP Code Action Keymaps";
+
       callback = lib.generators.mkLuaInline ''
         function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -37,42 +75,8 @@
           keymaps)}
         end
       '';
-    };
 
-    mkLspAttachCallback = callbacks: {
-      event = ["LspAttach"];
-      desc = "LSP Attach Callbacks";
-      callback = lib.generators.mkLuaInline ''
-        function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client == nil then
-            return
-          end
-
-          local bufnr = args.buf
-
-          ${lib.concatStringsSep "\n          " (map (
-            callback: let
-              clientCheck =
-                if callback.clientName or null != null
-                then "client.name ~= '${callback.clientName}'"
-                else "false";
-              luaCode =
-                if callback.code._type or "" == "lua-inline"
-                then callback.code.expr
-                else if builtins.isString callback.code
-                then callback.code
-                else builtins.toString callback.code;
-            in ''
-              -- ${callback.desc or "LSP callback"}
-              if not (${clientCheck}) then
-                ${luaCode}
-              end
-            ''
-          )
-          callbacks)}
-        end
-      '';
+      desc = "LSP Code Action Keymaps";
     };
   };
 }

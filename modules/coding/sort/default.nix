@@ -1,4 +1,4 @@
-{...}: {
+{
   flake.modules.nvf.coding-sort = {
     lib,
     pkgs,
@@ -8,13 +8,14 @@
   in {
     vim.lazy.plugins."sort-nvim" = {
       package = pkgs.internal.sort-nvim;
+      lazy = true;
       setupModule = "sort";
       cmd = ["Sort"];
-      lazy = true;
+
       keys = [
         (mkKeymap "v" "<leader>h" "<CMD>Sort<CR>" {
-          desc = "Sort visual selection";
           silent = true;
+          desc = "Sort visual selection";
         })
       ];
     };

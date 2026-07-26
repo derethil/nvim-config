@@ -1,81 +1,75 @@
-{...}: {
+{
   flake.modules.nvf.ui-windows = {
-    pkgs,
     lib,
+    pkgs,
     ...
   }: let
     inherit (lib.nvim.binds) mkKeymap;
   in {
-    vim.lazy.plugins = {
-      "colorful-winsep.nvim" = {
+    vim = {
+      lazy.plugins."colorful-winsep.nvim" = {
         package = pkgs.vimPlugins.colorful-winsep-nvim;
-        setupModule = "colorful-winsep";
-        setupOpts = {
-          animate = {
-            enabled = false;
-          };
-        };
         lazy = true;
+        setupModule = "colorful-winsep";
+        setupOpts.animate.enabled = false;
         event = ["WinNew"];
       };
-    };
 
-    vim.keymaps = [
-      # Window Navigation
-      (mkKeymap "n" "<C-h>" "<C-w>h" {
-        desc = "Go to Left Window";
-        silent = true;
-      })
-      (mkKeymap "n" "<C-j>" "<C-w>j" {
-        desc = "Go to Lower Window";
-        silent = true;
-      })
-      (mkKeymap "n" "<C-k>" "<C-w>k" {
-        desc = "Go to Upper Window";
-        silent = true;
-      })
-      (mkKeymap "n" "<C-l>" "<C-w>l" {
-        desc = "Go to Right Window";
-        silent = true;
-      })
+      binds.whichKey.register."<leader>w" = "+Windows";
 
-      # Window Resizing
-      (mkKeymap "n" "<C-Up>" "<CMD>resize +8<CR>" {
-        desc = "Increase Window Height";
-        silent = true;
-      })
-      (mkKeymap "n" "<C-Down>" "<CMD>resize -8<CR>" {
-        desc = "Decrease Window Height";
-        silent = true;
-      })
-      (mkKeymap "n" "<C-Left>" "<CMD>vertical resize -8<CR>" {
-        desc = "Decrease Window Width";
-        silent = true;
-      })
-      (mkKeymap "n" "<C-Right>" "<CMD>vertical resize +8<CR>" {
-        desc = "Increase Window Width";
-        silent = true;
-      })
+      keymaps = [
+        # Window Navigation
+        (mkKeymap "n" "<C-h>" "<C-w>h" {
+          silent = true;
+          desc = "Go to Left Window";
+        })
+        (mkKeymap "n" "<C-j>" "<C-w>j" {
+          silent = true;
+          desc = "Go to Lower Window";
+        })
+        (mkKeymap "n" "<C-k>" "<C-w>k" {
+          silent = true;
+          desc = "Go to Upper Window";
+        })
+        (mkKeymap "n" "<C-l>" "<C-w>l" {
+          silent = true;
+          desc = "Go to Right Window";
+        })
 
-      # Window Splitting
-      (mkKeymap "n" "<leader>-" "<C-w>s" {
-        desc = "Split Window Below";
-        silent = true;
-      })
-      (mkKeymap "n" "<leader>|" "<C-w>v" {
-        desc = "Split Window Right";
-        silent = true;
-      })
+        # Window Resizing
+        (mkKeymap "n" "<C-Up>" "<CMD>resize +8<CR>" {
+          silent = true;
+          desc = "Increase Window Height";
+        })
+        (mkKeymap "n" "<C-Down>" "<CMD>resize -8<CR>" {
+          silent = true;
+          desc = "Decrease Window Height";
+        })
+        (mkKeymap "n" "<C-Left>" "<CMD>vertical resize -8<CR>" {
+          silent = true;
+          desc = "Decrease Window Width";
+        })
+        (mkKeymap "n" "<C-Right>" "<CMD>vertical resize +8<CR>" {
+          silent = true;
+          desc = "Increase Window Width";
+        })
 
-      # Window Management
-      (mkKeymap "n" "<leader>wd" "<C-w>c" {
-        desc = "Delete Window";
-        silent = true;
-      })
-    ];
+        # Window Splitting
+        (mkKeymap "n" "<leader>-" "<C-w>s" {
+          silent = true;
+          desc = "Split Window Below";
+        })
+        (mkKeymap "n" "<leader>|" "<C-w>v" {
+          silent = true;
+          desc = "Split Window Right";
+        })
 
-    vim.binds.whichKey.register = {
-      "<leader>w" = "+Windows";
+        # Window Management
+        (mkKeymap "n" "<leader>wd" "<C-w>c" {
+          silent = true;
+          desc = "Delete Window";
+        })
+      ];
     };
   };
 }

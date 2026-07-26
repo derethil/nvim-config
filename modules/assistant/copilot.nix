@@ -1,22 +1,22 @@
-{...}: {
+{
   flake.modules.nvf.assistant-copilot = {pkgs, ...}: {
-    vim.assistant.copilot = {
-      enable = true;
-      cmp.enable = false;
-      setupOpts = {
-        panel.enabled = false;
-        suggestion.enabled = false;
-      };
-    };
+    vim = {
+      lazy.plugins."blink-cmp-copilot".package = pkgs.vimPlugins.blink-cmp-copilot;
 
-    vim.lazy.plugins = {
-      "blink-cmp-copilot" = {
-        package = pkgs.vimPlugins.blink-cmp-copilot;
-      };
-    };
+      assistant.copilot = {
+        enable = true;
 
-    vim.extraPackages = with pkgs; [
-      copilot-language-server
-    ];
+        setupOpts = {
+          panel.enabled = false;
+          suggestion.enabled = false;
+        };
+
+        cmp.enable = false;
+      };
+
+      extraPackages = with pkgs; [
+        copilot-language-server
+      ];
+    };
   };
 }

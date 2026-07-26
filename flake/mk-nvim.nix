@@ -6,9 +6,10 @@
 }: {
   flake-file.inputs = {
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     nvf = {
-      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:notashelf/nvf";
     };
   };
 
@@ -43,15 +44,17 @@
   in
     inputs.nvf.lib.neovimConfiguration {
       inherit pkgs;
-      modules = flatten [
-        (attrValues config.flake.modules.nvf)
-        packageModule
-        (optional (extraSettings != null) extraSettings)
-      ];
+
       extraSpecialArgs = {
         inherit inputs;
         lib = extendedLib;
         module.config = moduleConfig;
       };
+
+      modules = flatten [
+        (attrValues config.flake.modules.nvf)
+        packageModule
+        (optional (extraSettings != null) extraSettings)
+      ];
     };
 }

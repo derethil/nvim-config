@@ -24,14 +24,16 @@ _: {
   flake.modules.nvf.languages-golang-treesitter = {
     vim.treesitter.queries = [
       {
-        type = "injections";
         filetypes = ["go"];
+        loadtype = "extends";
         query = builtins.readFile ./injections/go.scm;
+        type = "injections";
       }
       {
-        type = "highlights";
         filetypes = ["sql"];
+        loadtype = "extends";
         query = builtins.readFile ./highlights/sql.scm;
+        type = "highlights";
       }
     ];
   };

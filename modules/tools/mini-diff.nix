@@ -1,34 +1,38 @@
-{...}: {
+{
   flake.modules.nvf.tools-mini-diff = {
-    pkgs,
     lib,
+    pkgs,
     ...
   }: {
     vim.lazy.plugins."mini.diff" = {
       package = pkgs.vimPlugins.mini-diff;
       setupModule = "mini.diff";
+
       setupOpts = {
         mappings = {
           apply = "<leader>ghs";
-          reset = "<leader>ghr";
           goto_first = "[H";
-          goto_prev = "";
-          goto_next = "";
           goto_last = "]H";
+          goto_next = "";
+          goto_prev = "";
+          reset = "<leader>ghr";
         };
+
         view = {
-          style = "sign";
           signs = with lib.icons.git.signs; {
             add = added;
             change = modified;
             delete = removed;
           };
+
+          style = "sign";
         };
       };
+
       keys = [
         {
           key = "<leader>gd";
-          mode = ["n"];
+
           action = ''
             function()
               vim.defer_fn(function()
@@ -36,7 +40,9 @@
               end, 100)
             end
           '';
+
           lua = true;
+          mode = ["n"];
           desc = "Toggle Buffer Diff";
         }
       ];

@@ -1,7 +1,7 @@
-{...}: {
+{
   flake.modules.nvf.colorscheme-highlights = {
-    lib,
     config,
+    lib,
     ...
   }: let
     inherit (lib) mkOption types mkIf mapAttrsToList concatStringsSep filterAttrs;
@@ -14,60 +14,71 @@
     in ''vim.api.nvim_set_hl(0, "${name}", ${toLuaObject props})'';
   in {
     options.vim.colorschemeHighlights = mkOption {
+      default = {};
+      description = "Highlight groups applied after the colorscheme loads via a ColorScheme autocmd.";
+
       type = types.attrsOf (types.submodule {
         options = {
-          link = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-          };
-          fg = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-          };
           bg = mkOption {
+            default = null;
             type = types.nullOr types.str;
-            default = null;
           };
+
           bold = mkOption {
-            type = types.nullOr types.bool;
             default = null;
+            type = types.nullOr types.bool;
           };
+
+          fg = mkOption {
+            default = null;
+            type = types.nullOr types.str;
+          };
+
           italic = mkOption {
-            type = types.nullOr types.bool;
             default = null;
-          };
-          underline = mkOption {
             type = types.nullOr types.bool;
-            default = null;
           };
-          undercurl = mkOption {
-            type = types.nullOr types.bool;
+
+          link = mkOption {
             default = null;
+            type = types.nullOr types.str;
           };
-          strikethrough = mkOption {
-            type = types.nullOr types.bool;
-            default = null;
-          };
+
           reverse = mkOption {
-            type = types.nullOr types.bool;
             default = null;
+            type = types.nullOr types.bool;
+          };
+
+          strikethrough = mkOption {
+            default = null;
+            type = types.nullOr types.bool;
+          };
+
+          undercurl = mkOption {
+            default = null;
+            type = types.nullOr types.bool;
+          };
+
+          underline = mkOption {
+            default = null;
+            type = types.nullOr types.bool;
           };
         };
       });
-      default = {};
-      description = "Highlight groups applied after the colorscheme loads via a ColorScheme autocmd.";
     };
 
     config = mkIf (cfg != {}) {
       vim.autocmds = [
         {
           event = ["ColorScheme"];
-          desc = "Apply colorscheme-dependent highlight overrides";
+
           callback = lib.generators.mkLuaInline ''
             function()
               ${concatStringsSep "\n              " (mapAttrsToList mkHlCall cfg)}
             end
           '';
+
+          desc = "Apply colorscheme-dependent highlight overrides";
         }
       ];
     };

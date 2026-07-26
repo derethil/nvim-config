@@ -1,10 +1,12 @@
-{...}: {
+{
   flake.modules.nvf.coding-mini-surround = {
-    vim.binds.whichKey.register = {"gs" = "+Surround";};
-    vim.mini.surround = {
-      enable = true;
-      setupOpts = {
-        mappings = {
+    vim = {
+      binds.whichKey.register."gs" = "+Surround";
+
+      mini.surround = {
+        enable = true;
+
+        setupOpts.mappings = {
           add = "gsa"; # Add surrounding in Normal and Visual modes
           delete = "gsd"; # Delete surrounding
           find = "gsf"; # Find surrounding (to the right)

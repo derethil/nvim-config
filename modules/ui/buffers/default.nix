@@ -1,4 +1,4 @@
-{...}: {
+{
   flake.modules.nvf.ui-buffers = {
     lib,
     pkgs,
@@ -6,85 +6,90 @@
   }: let
     inherit (lib.nvim.binds) mkKeymap;
   in {
-    vim.binds.whichKey.register = {
-      "<leader>b" = "+Buffers";
-    };
+    vim = {
+      lazy.plugins = {
+        close-buffers-nvim = {
+          package = pkgs.internal.close-buffers-nvim;
+          lazy = true;
+          setupModule = "close_buffers";
+          setupOpts = {};
 
-    vim.tabline.nvimBufferline = {
-      enable = true;
-      setupOpts = {
-        options = {
-          numbers = "none";
-          hover.enabled = false;
-          show_close_icon = false;
-          separator_style = ["|" "|"];
-          indicator.style = "none";
-          right_mouse_command = lib.generators.mkLuaInline "function(n) require('mini.bufremove').delete(n) end";
-          close_command = lib.generators.mkLuaInline "function(n) require('mini.bufremove').delete(n) end";
-          diagnostics = "nvim_lsp";
-          always_show_bufferline = false;
+          keys = [
+            (mkKeymap "n" "<leader>bo" "<CMD>lua require('close_buffers').delete({ type = 'hidden' })<CR>" {
+              silent = true;
+              desc = "Close Buffers (hidden)";
+            })
+            (mkKeymap "n" "<leader>bO" "<CMD>lua require('close_buffers').delete({ type = 'other' })<CR>" {
+              silent = true;
+              desc = "Close Buffers";
+            })
+          ];
+        };
+
+        "scope.nvim" = {
+          package = pkgs.vimPlugins.scope-nvim;
+          setupModule = "scope";
+          setupOpts = {};
+          event = [lib.events.VeryLazy];
         };
       };
-      mappings = {
-        closeCurrent = "<leader>bd";
-        cycleNext = "<S-l>";
-        cyclePrevious = "<S-h>";
-        pick = "<leader>bp";
-        moveNext = null;
-        movePrevious = null;
-        sortByDirectory = null;
-        sortByExtension = null;
-        sortById = null;
-      };
-    };
 
-    vim.autocmds = [
-      {
-        event = ["BufAdd" "BufDelete"];
-        desc = "Fix bufferline when adding/deleting buffers";
-        callback = lib.generators.mkLuaInline ''
-          function()
-            vim.schedule(function()
-              pcall(require, "bufferline")
-            end)
-          end
-        '';
-      }
-    ];
+      autocmds = [
+        {
+          event = ["BufAdd" "BufDelete"];
 
-    vim.keymaps = [
-      (mkKeymap "n" "<leader>br" "<CMD>BufferLineCloseRight<CR>" {
-        desc = "Delete Buffers to the Right";
-        silent = true;
-      })
-      (mkKeymap "n" "<leader>bl" "<CMD>BufferLineCloseLeft<CR>" {
-        desc = "Delete Buffers to the Left";
-        silent = true;
-      })
-    ];
+          callback = lib.generators.mkLuaInline ''
+            function()
+              vim.schedule(function()
+                pcall(require, "bufferline")
+              end)
+            end
+          '';
 
-    vim.lazy.plugins.close-buffers-nvim = {
-      package = pkgs.internal.close-buffers-nvim;
-      setupModule = "close_buffers";
-      setupOpts = {};
-      lazy = true;
-      keys = [
-        (mkKeymap "n" "<leader>bo" "<CMD>lua require('close_buffers').delete({ type = 'hidden' })<CR>" {
-          desc = "Close Buffers (hidden)";
+          desc = "Fix bufferline when adding/deleting buffers";
+        }
+      ];
+
+      binds.whichKey.register."<leader>b" = "+Buffers";
+
+      keymaps = [
+        (mkKeymap "n" "<leader>br" "<CMD>BufferLineCloseRight<CR>" {
           silent = true;
+          desc = "Delete Buffers to the Right";
         })
-        (mkKeymap "n" "<leader>bO" "<CMD>lua require('close_buffers').delete({ type = 'other' })<CR>" {
-          desc = "Close Buffers";
+        (mkKeymap "n" "<leader>bl" "<CMD>BufferLineCloseLeft<CR>" {
           silent = true;
+          desc = "Delete Buffers to the Left";
         })
       ];
-    };
 
-    vim.lazy.plugins."scope.nvim" = {
-      package = pkgs.vimPlugins.scope-nvim;
-      setupModule = "scope";
-      setupOpts = {};
-      event = [lib.events.VeryLazy];
+      tabline.nvimBufferline = {
+        enable = true;
+
+        setupOpts.options = {
+          always_show_bufferline = false;
+          close_command = lib.generators.mkLuaInline "function(n) require('mini.bufremove').delete(n) end";
+          diagnostics = "nvim_lsp";
+          hover.enabled = false;
+          indicator.style = "none";
+          numbers = "none";
+          right_mouse_command = lib.generators.mkLuaInline "function(n) require('mini.bufremove').delete(n) end";
+          separator_style = ["|" "|"];
+          show_close_icon = false;
+        };
+
+        mappings = {
+          closeCurrent = "<leader>bd";
+          cycleNext = "<S-l>";
+          cyclePrevious = "<S-h>";
+          moveNext = null;
+          movePrevious = null;
+          pick = "<leader>bp";
+          sortByDirectory = null;
+          sortByExtension = null;
+          sortById = null;
+        };
+      };
     };
   };
 }

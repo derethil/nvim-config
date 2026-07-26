@@ -1,19 +1,20 @@
 {inputs, ...}: {
   flake-file.inputs.import-nvim = {
-    url = "github:piersolenski/import.nvim";
     flake = false;
+    url = "github:piersolenski/import.nvim";
   };
 
   perSystem = {
-    pkgs,
     lib,
+    pkgs,
     ...
   }: {
     packages.import-nvim = pkgs.vimUtils.buildVimPlugin {
       name = "import.nvim";
+      nvimSkipModule = ["import.pickers.telescope"];
       pname = "import-nvim";
       src = inputs.import-nvim;
-      nvimSkipModule = ["import.pickers.telescope"];
+
       meta = with lib; {
         description = "A safe require override with niceties";
         homepage = "https://github.com/piersolenski/import.nvim";

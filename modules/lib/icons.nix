@@ -1,15 +1,17 @@
-{...}: {
+{
   flake.lib.icons = {
     diagnostics = {
       Error = " ";
-      Warn = " ";
       Hint = " ";
       Info = " ";
+      Warn = " ";
     };
+
     git = {
       added = " ";
       modified = " ";
       removed = " ";
+
       signs = {
         added = "▎";
         modified = "▎";

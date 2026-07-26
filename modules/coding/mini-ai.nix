@@ -1,10 +1,34 @@
-{...}: {
+{
   flake.modules.nvf.coding-mini-ai = {lib, ...}: {
     vim.mini.ai = {
       enable = true;
+
       setupOpts = {
-        n_lines = 500;
         custom_textobjects = {
+          # Without dot in function names
+          U = lib.generators.mkLuaInline ''
+            require("mini.ai").gen_spec.function_call({ name_pattern = "[%w_]" })
+          '';
+
+          # Classes
+          c = lib.generators.mkLuaInline ''
+            require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" })
+          '';
+
+          # Digits
+          d = ["%f[%d]%d+"];
+
+          # Word with case
+          e = [
+            ["%u[%l%d]+%f[^%l%d]" "%f[%S][%l%d]+%f[^%l%d]" "%f[%P][%l%d]+%f[^%l%d]" "^[%l%d]+%f[^%l%d]"]
+            "^().*()$"
+          ];
+
+          # Functions
+          f = lib.generators.mkLuaInline ''
+            require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" })
+          '';
+
           # Code blocks
           o = lib.generators.mkLuaInline ''
             require("mini.ai").gen_spec.treesitter({
@@ -12,34 +36,19 @@
               i = { "@block.inner", "@conditional.inner", "@loop.inner" },
             })
           '';
-          # Functions
-          f = lib.generators.mkLuaInline ''
-            require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" })
-          '';
-          # Classes
-          c = lib.generators.mkLuaInline ''
-            require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" })
-          '';
+
+          # Nix double single-quoted strings
+          q = ["''().-()''"];
           # Tags
           t = ["<([%p%w]-)%f[^<%w][^<>]->.-</%1>" "^<.->().*()</[^/]->$"];
-          # Digits
-          d = ["%f[%d]%d+"];
-          # Word with case
-          e = [
-            ["%u[%l%d]+%f[^%l%d]" "%f[%S][%l%d]+%f[^%l%d]" "%f[%P][%l%d]+%f[^%l%d]" "^[%l%d]+%f[^%l%d]"]
-            "^().*()$"
-          ];
+
           # Usage
           u = lib.generators.mkLuaInline ''
             require("mini.ai").gen_spec.function_call()
           '';
-          # Without dot in function names
-          U = lib.generators.mkLuaInline ''
-            require("mini.ai").gen_spec.function_call({ name_pattern = "[%w_]" })
-          '';
-          # Nix double single-quoted strings
-          q = ["''().-()''"];
         };
+
+        n_lines = 500;
       };
     };
   };

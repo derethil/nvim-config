@@ -1,17 +1,19 @@
-{...}: {
+{
   flake.modules.nvf.languages-css = {
-    vim.languages.css = {
-      enable = true;
-      lsp.enable = true;
-      treesitter.enable = true;
-      format = {
+    vim = {
+      languages.css = {
         enable = true;
-        type = ["biome"];
-      };
-    };
 
-    vim.lsp.presets.tailwindcss-language-server = {
-      enable = true;
+        format = {
+          enable = true;
+          type = ["biome"];
+        };
+
+        lsp.enable = true;
+        treesitter.enable = true;
+      };
+
+      lsp.presets.tailwindcss-language-server.enable = true;
     };
   };
 }

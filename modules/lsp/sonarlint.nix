@@ -1,7 +1,7 @@
-{...}: {
+{
   flake.modules.nvf.lsp-sonarlint = {
-    pkgs,
     lib,
+    pkgs,
     module ? {},
     ...
   }: let
@@ -19,71 +19,77 @@
       analyzerPaths
     ];
   in {
-    vim.extraPackages = [
-      pkgs.sonarlint-ls
-      pkgs.nodejs_24
-    ];
+    vim = {
+      lazy.plugins."sonarlint.nvim" = {
+        package = pkgs.vimPlugins.sonarlint-nvim;
+        setupModule = "sonarlint";
 
-    vim.lazy.plugins."sonarlint.nvim" = {
-      package = pkgs.vimPlugins.sonarlint-nvim;
-      before = ''
-        local lspconfig = require("lspconfig")
-      '';
-      enabled = lib.mkIf (cfg.enable or false) (lib.generators.mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function()
-            local current_dir = vim.fn.getcwd()
-            local projects = ${lib.generators.toLua {} cfg.connectedMode.projects}
-            local project = projects[current_dir]
+        setupOpts = {
+          filetypes = filetypes;
 
-            if not project then
+          server = {
+            before_init =
+              lib.generators.mkLuaInline
+              /*
+              lua
+              */
+              ''
+                function(params, config)
+                  local projects = ${lib.generators.toLua {} cfg.connectedMode.projects or {}}
+                  local project = projects[params.rootPath]
+
+                  if not project then
+                    return
+                  end
+
+                  config.settings.sonarlint.connectedMode.project = {
+                    connectionId = project.connectionId,
+                    projectKey = project.projectKey,
+                  };
+                end
+              '';
+
+            cmd = cmd;
+            settings.sonarlint.connectedMode.connections.sonarqube = cfg.connectedMode.connections.sonarqube or [];
+          };
+        };
+
+        before = ''
+          local lspconfig = require("lspconfig")
+        '';
+
+        enabled = lib.mkIf (cfg.enable or false) (lib.generators.mkLuaInline
+          /*
+          lua
+          */
+          ''
+            function()
+              local current_dir = vim.fn.getcwd()
+              local projects = ${lib.generators.toLua {} cfg.connectedMode.projects}
+              local project = projects[current_dir]
+
+              if not project then
+                return false
+              end
+
+              for project_path, _ in pairs(projects) do
+                local expanded_path = vim.fn.expand(project_path)
+                if vim.startswith(current_dir, expanded_path) then
+                  return true
+                end
+              end
+
               return false
             end
+          '');
 
-            for project_path, _ in pairs(projects) do
-              local expanded_path = vim.fn.expand(project_path)
-              if vim.startswith(current_dir, expanded_path) then
-                return true
-              end
-            end
-
-            return false
-          end
-        '');
-      ft = filetypes;
-      setupModule = "sonarlint";
-      setupOpts = {
-        filetypes = filetypes;
-        server = {
-          cmd = cmd;
-          settings.sonarlint.connectedMode.connections = {
-            sonarqube = cfg.connectedMode.connections.sonarqube or [];
-          };
-          before_init =
-            lib.generators.mkLuaInline
-            /*
-            lua
-            */
-            ''
-              function(params, config)
-                local projects = ${lib.generators.toLua {} cfg.connectedMode.projects or {}}
-                local project = projects[params.rootPath]
-
-                if not project then
-                  return
-                end
-
-                config.settings.sonarlint.connectedMode.project = {
-                  connectionId = project.connectionId,
-                  projectKey = project.projectKey,
-                };
-              end
-            '';
-        };
+        ft = filetypes;
       };
+
+      extraPackages = [
+        pkgs.sonarlint-ls
+        pkgs.nodejs_24
+      ];
     };
   };
 }

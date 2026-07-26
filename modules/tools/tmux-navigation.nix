@@ -1,7 +1,7 @@
-{...}: {
+{
   flake.modules.nvf.tools-tmux-navigation = {
-    pkgs,
     lib,
+    pkgs,
     ...
   }: let
     inherit (lib.nvim.binds) mkKeymap;
@@ -9,6 +9,7 @@
     vim.lazy.plugins.vim-tmux-navigator = {
       package = pkgs.vimPlugins.vim-tmux-navigator;
       event = ["VimEnter"];
+
       keys = [
         (mkKeymap "n" "<C-h>" "<CMD><C-U>TmuxNavigateLeft<CR>" {desc = "Focus Left";})
         (mkKeymap "n" "<C-l>" "<CMD><C-U>TmuxNavigateRight<CR>" {desc = "Focus Right";})
