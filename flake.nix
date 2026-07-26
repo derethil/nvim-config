@@ -64,8 +64,6 @@
       flake = false;
       url = "github:sQVe/sort.nvim";
     };
-
-    systems.url = "github:nix-systems/default";
   };
 
   nixConfig = {

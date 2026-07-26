@@ -11,23 +11,29 @@
   };
 
   flake.lib.mkOverlayedPkgs = system: let
+    flakeOverlays = builtins.attrValues config.flake.overlays;
+  in let
+    config = {
+      allowDeprecatedx86_64Darwin = true;
+      allowUnfree = true;
+    };
+
     pkgs-stable = import inputs.nixpkgs-stable {
-      inherit system;
-      config.allowUnfree = true;
+      inherit system config;
     };
+
     pkgs-tsgo = import inputs.nixpkgs-tsgo {
-      inherit system;
-      config.allowUnfree = true;
+      inherit system config;
     };
+
     bootstrapOverlay = _final: _prev: {
+      inherit (pkgs-tsgo) typescript-go;
       stable = pkgs-stable;
-      typescript-go = pkgs-tsgo.typescript-go;
     };
   in
     import inputs.nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      overlays = [bootstrapOverlay] ++ builtins.attrValues config.flake.overlays;
+      inherit system config;
+      overlays = [bootstrapOverlay] ++ flakeOverlays;
     };
 
   perSystem = {system, ...}: {
