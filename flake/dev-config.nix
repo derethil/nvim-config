@@ -14,6 +14,7 @@
 
   config.flake.devModuleConfig = {
     claude.enable = true;
+    gitlab.configDirPath = "~/.config/sops-nix/secrets/rendered/";
     nixpkgs.config.allowUnfree = true;
 
     sonarlint = {

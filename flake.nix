@@ -21,9 +21,19 @@
       url = "github:kazhala/close-buffers.nvim";
     };
 
+    diffview-plus = {
+      flake = false;
+      url = "github:dlyongemallo/diffview-plus.nvim";
+    };
+
     flake-parts = {
       inputs.nixpkgs-lib.follows = "nixpkgs";
       url = "github:hercules-ci/flake-parts";
+    };
+
+    gitlab-nvim = {
+      flake = false;
+      url = "github:harrisoncramer/gitlab.nvim";
     };
 
     import-nvim = {
@@ -46,7 +56,6 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-tsgo.url = "github:NixOS/nixpkgs/6368eda62c9775c38ef7f714b2555a741c20c72d";
 
     nvf = {
       inputs.nixpkgs.follows = "nixpkgs";

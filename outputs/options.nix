@@ -35,6 +35,12 @@ in {
         type = types.attrs;
       };
 
+      gitlab.configDirPath = mkOption {
+        default = null;
+        description = "Path to the directory containing the .gitlab.nvim file (auth_token=... format)";
+        type = types.nullOr types.str;
+      };
+
       neovim = {
         package = mkOption {
           default = null;

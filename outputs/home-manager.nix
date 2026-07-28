@@ -41,6 +41,7 @@ in {
         };
       };
 
+
       assertions = [
         {
           assertion = !(cfg.neovim.nightly && cfg.neovim.package != null);
