@@ -48,14 +48,32 @@
         pkgs.prettier
       ];
 
-      formatter.conform-nvim.setupOpts = {
-        formatters.prettier_tcss = {
-          args = ["--stdin-filepath" "$FILENAME" "--parser" "css"];
-          command = "prettier";
-          stdin = true;
+      formatter.conform-nvim = {
+        setupOpts = {
+          formatters.prettier_tcss = {
+            args = ["--stdin-filepath" "$FILENAME" "--parser" "css"];
+            command = "prettier";
+            stdin = true;
+          };
+
+          formatters_by_ft.tcss = ["prettier_tcss"];
         };
 
-        formatters_by_ft.tcss = ["prettier_tcss"];
+        # Override nvf's ruff preset: ruff 0.15+ moved indent-width out of [format]
+        # https://github.com/NotAShelf/nvf/issues/1762
+        setupOpts.formatters.ruff.args = lib.mkForce (lib.generators.mkLuaInline ''
+          function(self, ctx)
+            local style = vim.bo[ctx.buf].expandtab and "'space'" or "'tab'"
+            return {
+              "format",
+              "--config", "indent-width = " .. vim.bo[ctx.buf].shiftwidth,
+              "--config", "format.indent-style = " .. style,
+              "--force-exclude",
+              "--stdin-filename", "$FILENAME",
+              "-"
+            }
+          end
+        '');
       };
 
       # Configure LSPs
