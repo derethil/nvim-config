@@ -21,11 +21,22 @@
         underline = true;
         update_in_insert = true;
 
-        virtual_text.format = lib.generators.mkLuaInline ''
-          function(diagnostic)
-            return string.format("%s [%s]", diagnostic.message, diagnostic.source)
-          end
-        '';
+        virtual_text = {
+          format = lib.generators.mkLuaInline ''
+            function(diagnostic)
+              return string.format("%s [%s]", diagnostic.message, diagnostic.source)
+            end
+          '';
+
+          prefix = lib.generators.mkLuaInline ''
+            function(diagnostic, i, total)
+              if i ~= total then
+                return ""
+              end
+              return vim.diagnostic.config().signs.text[diagnostic.severity]
+            end
+          '';
+        };
       };
 
       enable = true;

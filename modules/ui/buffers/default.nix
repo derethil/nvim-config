@@ -68,14 +68,31 @@
 
         setupOpts.options = {
           always_show_bufferline = false;
+          buffer_close_icon = "";
           close_command = lib.generators.mkLuaInline "function(n) require('mini.bufremove').delete(n) end";
           diagnostics = "nvim_lsp";
+
+          diagnostics_indicator = lib.generators.mkLuaInline ''
+            function(_, level, _, _)
+              local severity = vim.diagnostic.severity[level == "warning" and "WARN" or level:upper()]
+              local icon = vim.diagnostic.config().signs.text[severity]
+              return (icon or "") .. " "
+            end
+          '';
+
           hover.enabled = false;
-          indicator.style = "none";
+
+          indicator = {
+            icon = "";
+            style = "none";
+          };
+
           numbers = "none";
           right_mouse_command = lib.generators.mkLuaInline "function(n) require('mini.bufremove').delete(n) end";
           separator_style = ["|" "|"];
+          show_buffer_close_icons = false;
           show_close_icon = false;
+          tab_size = 0;
         };
 
         mappings = {
