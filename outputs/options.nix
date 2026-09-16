@@ -8,12 +8,12 @@ in {
     options.programs.nvim-config = {
       enable = mkEnableOption "My custom Neovim configuration";
 
-      claude = {
-        enable = mkEnableOption "Enable Claude Code integration";
+      sidekick = {
+        enable = mkEnableOption "Enable Sidekick with Codex integration";
 
         package = mkOption {
-          default = pkgs.claude-code;
-          description = "Nvim plugin package for Claude Code integration";
+          default = pkgs.codex;
+          description = "Codex CLI package used by Sidekick";
           type = types.package;
         };
       };

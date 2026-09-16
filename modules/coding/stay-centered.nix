@@ -16,7 +16,7 @@
         event = [lib.events.VeryLazy];
       };
 
-      # Fixes errors on opening claude-code terminal mode from claude-fzf
+      # Avoid recentering while opening terminal-mode pickers.
       autocmds = [
         {
           event = ["TermOpen"];

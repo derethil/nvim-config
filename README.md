@@ -22,7 +22,7 @@ flake-parts, organized using the
 
 ## Features
 
-- **AI**: Claude Code integration, GitHub Copilot
+- **AI**: Codex integration through sidekick.nvim, GitHub Copilot
 - **Languages**: TypeScript, Python, Go, Nix, Lua, and more
 - **Git**: Neogit, gitsigns, conflict resolution, blame, diffview
 - **Editor**: mini.* suite, snacks.nvim, flash, blink-cmp, fzf-lua

@@ -13,7 +13,7 @@
   };
 
   config.flake.devModuleConfig = {
-    claude.enable = true;
+    sidekick.enable = true;
     gitlab.configDirPath = "~/.config/sops-nix/secrets/rendered/";
     nixpkgs.config.allowUnfree = true;
 

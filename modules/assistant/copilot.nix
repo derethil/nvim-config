@@ -8,6 +8,7 @@
 
         setupOpts = {
           panel.enabled = false;
+          server_opts_overrides.settings.nextEditSuggestions.enabled = true;
           suggestion.enabled = false;
         };
 
