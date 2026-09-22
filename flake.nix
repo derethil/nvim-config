@@ -31,6 +31,11 @@
       url = "github:hercules-ci/flake-parts";
     };
 
+    garbage-day-nvim = {
+      flake = false;
+      url = "github:Zeioth/garbage-day.nvim";
+    };
+
     gitlab-nvim = {
       flake = false;
       url = "github:harrisoncramer/gitlab.nvim";
