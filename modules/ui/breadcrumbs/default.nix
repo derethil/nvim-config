@@ -1,4 +1,4 @@
-{
+{inputs, ...}: {
   flake.modules.nvf.ui-breadcrumbs = {
     lib,
     pkgs,
@@ -28,6 +28,10 @@
           icon = "󱒖";
           desc = "Open Outline";
         });
+      };
+
+      pluginOverrides.nvim-navic = pkgs.vimPlugins.nvim-navic.overrideAttrs {
+        src = inputs.nvim-navic;
       };
 
       startPlugins = [

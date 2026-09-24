@@ -67,6 +67,11 @@
       url = "github:notashelf/nvf";
     };
 
+    nvim-navic = {
+      flake = false;
+      url = "github:chenxin-yan/nvim-navic/fix/document-symbol-buffer";
+    };
+
     nvim-tcss = {
       flake = false;
       url = "github:cachebag/nvim-tcss";

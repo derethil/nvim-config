@@ -1,7 +1,14 @@
 {inputs, ...}: {
-  flake-file.inputs.lualine-pretty-path = {
-    flake = false;
-    url = "github:bwpge/lualine-pretty-path";
+  flake-file.inputs = {
+    lualine-pretty-path = {
+      flake = false;
+      url = "github:bwpge/lualine-pretty-path";
+    };
+
+    nvim-navic = {
+      flake = false;
+      url = "github:chenxin-yan/nvim-navic/fix/document-symbol-buffer";
+    };
   };
 
   perSystem = {

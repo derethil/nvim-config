@@ -427,6 +427,23 @@
         "type": "github"
       }
     },
+    "nvim-navic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789752617,
+        "narHash": "sha256-cW1Gh/OKHLsWF9HVIfvs41cGsgMHOlSokqXROhMLkSQ=",
+        "owner": "chenxin-yan",
+        "repo": "nvim-navic",
+        "rev": "0a9926d45fb6669d6dfef60ee468b1e1a197e010",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chenxin-yan",
+        "ref": "fix/document-symbol-buffer",
+        "repo": "nvim-navic",
+        "type": "github"
+      }
+    },
     "nvim-tcss": {
       "flake": false,
       "locked": {
@@ -482,6 +499,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvf": "nvf",
+        "nvim-navic": "nvim-navic",
         "nvim-tcss": "nvim-tcss",
         "pedantix": "pedantix",
         "sort-nvim": "sort-nvim"
