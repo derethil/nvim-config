@@ -6,6 +6,11 @@
   flake-file.inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+
+    # Kept separately from `nixpkgs` (which is pinned less frequently) so
+    # packages that need to track the latest Go toolchain rebuilds, like
+    # golangci-lint, can be overlaid in without bumping every package's pin.
+    nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   flake.lib.mkOverlayedPkgs = system: let
